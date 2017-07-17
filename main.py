@@ -101,6 +101,8 @@ if __name__ == "__main__":
 	log.close()
 
 	#Mark image test
+	
+	#Need to change to csv insteal of xls
 	book = xlrd.open_workbook('sheet.xls')
 	print "Loading sheet.xls\n\n"
 	image = Image.open('abc130.JPG')
