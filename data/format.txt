@@ -1,0 +1,17 @@
+Format for data files should be (in their respective folders):
+
+Module + Hybrid (if needed) + ASIC (if needed)
+
+e.g.:
+
+  R0 module:
+  R0.obj
+  R0.jpg
+
+  R0H1 hybrid:
+  R0H1.obj
+  R0H1.jpg
+
+  R0H1 Hybrid ASICs:
+  R0H1ASIC.obj
+  R0H1ASIC.jpg
