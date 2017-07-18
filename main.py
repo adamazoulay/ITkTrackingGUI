@@ -16,23 +16,29 @@ todo:
 
 
 Author: Adam Azoulay, aazoulay@yorku.ca
-(Based on program written by Andy Blue)
 '''
 
 #imports here
 from PIL import Image, ImageDraw, ImageFont, ImageOps
+import ITkObject
 import pickle
-import hybridObject
 import numpy as np
 import xlrd
 
+
 if __name__ == "__main__":
 
-	#Get current hybrid type
-	hybridName = "Barrel130.obj"
+	#Get current hybrid type (this should be a gui selection eventually)
+	moduleName = "R0"
+	hybridName = "H1"
+	ASIC = "17" #Get ASIC ID numbers and put them on a picture
 
 	#Load in the hybrid object
-	hybridObjFile = open(hybridName, "r")
+	pathModule = "data\\" + moduleName + "\\" + moduleName
+	pathHybrid = "data\\" + moduleName + "\\" + moduleName + hybridName
+	pathPadData = "data\\" + moduleName + "\\" + moduleName + hybridName + "ASIC"
+	
+	hybridObjFile = open(pathPadData, "r")
 	hybridObj = pickle.load(hybridObjFile)
 
 	print "ATLAS Strip Wire Bonding QA"
@@ -101,8 +107,8 @@ if __name__ == "__main__":
 	log.close()
 
 	#Mark image test
+        
 	
-	#Need to change to csv insteal of xls
 	book = xlrd.open_workbook('sheet.xls')
 	print "Loading sheet.xls\n\n"
 	image = Image.open('abc130.JPG')
