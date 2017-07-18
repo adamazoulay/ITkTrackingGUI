@@ -38,7 +38,7 @@ if __name__ == "__main__":
 	pathHybrid = "data\\" + moduleName + "\\" + moduleName + hybridName
 	pathPadData = "data\\" + moduleName + "\\" + moduleName + hybridName + "ASIC"
 	
-	hybridObjFile = open(pathPadData, "r")
+	hybridObjFile = open(pathPadData + ".obj", "r")
 	hybridObj = pickle.load(hybridObjFile)
 
 	print "ATLAS Strip Wire Bonding QA"
