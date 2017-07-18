@@ -188,7 +188,8 @@ if __name__ == "__main__":
 		ypos += 25
 
 
-	image.save('abc130v.JPG')
-	print "The image has been saved as abc130v.JPG"
-	bob = Image.open('abc130v.JPG')
+	imgName = moduleName+hybridName+".jpg"
+	image.save(imgName)
+	print "The image has been saved as " + imgName
+	bob = Image.open(imgName)
 	bob.show()
