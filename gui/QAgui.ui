@@ -13,7 +13,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="qButton">
    <property name="geometry">
     <rect>
      <x>630</x>
@@ -44,12 +44,12 @@
     <string>Select the module:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox">
+  <widget class="QComboBox" name="moduleName">
    <property name="geometry">
     <rect>
      <x>210</x>
      <y>20</y>
-     <width>81</width>
+     <width>431</width>
      <height>41</height>
     </rect>
    </property>
@@ -58,6 +58,11 @@
      <pointsize>16</pointsize>
     </font>
    </property>
+   <item>
+    <property name="text">
+     <string/>
+    </property>
+   </item>
    <item>
     <property name="text">
      <string>R0</string>
@@ -115,12 +120,12 @@
     <string>Run</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="comboBox_2">
+  <widget class="QComboBox" name="hybridName">
    <property name="geometry">
     <rect>
      <x>210</x>
      <y>90</y>
-     <width>81</width>
+     <width>431</width>
      <height>41</height>
     </rect>
    </property>
@@ -150,8 +155,8 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>comboBox</tabstop>
-  <tabstop>pushButton_3</tabstop>
+  <tabstop>moduleName</tabstop>
+  <tabstop>qButton</tabstop>
  </tabstops>
  <resources/>
  <connections/>
