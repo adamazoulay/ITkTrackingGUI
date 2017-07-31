@@ -35,9 +35,33 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_Dialog):
         moduleNum = self.moduleName.currentIndex() - 1
         self.hybridName.clear()
 
-        if moduleNum >= 0:
-            self.hybridName.addItem(str(moduleNum))
-        
+        #R0 module
+        if moduleNum == 0:
+            self.hybridName.addItem("")
+            self.hybridName.addItem("H0")
+            self.hybridName.addItem("H1")
+        #R1
+        if moduleNum == 1:
+            self.hybridName.addItem("")
+            self.hybridName.addItem("H0")
+            self.hybridName.addItem("H1")
+        #R3
+        if moduleNum == 3:
+            self.hybridName.addItem("")
+            self.hybridName.addItem("H0")
+            self.hybridName.addItem("H1")
+            self.hybridName.addItem("H2")
+            self.hybridName.addItem("H3")
+        #R4
+        if moduleNum == 4:
+            self.hybridName.addItem("")
+            self.hybridName.addItem("H0")
+            self.hybridName.addItem("H1")
+        #R5
+        if moduleNum == 5:
+            self.hybridName.addItem("")
+            self.hybridName.addItem("H0")
+            self.hybridName.addItem("H1")
     
 
     
