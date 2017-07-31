@@ -13,11 +13,23 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_Dialog):
         self.setupUi(self)  # This is defined in design.py file automatically
                             # It sets up layout and widgets that are defined
 
+        #First, let's populate the list of available module (based on images)
+        self.populate_modules
+
         #If module is selected, populate hybrid selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
         #quit
         self.qButton.clicked.connect(QtCore.QCoreApplication.instance().quit)
+
+
+    #List population functions
+    def populate_modules(self):
+        self.moduleName.clear() #Clear the list
+        
+        #Get list of images files without extension
+        #  then use them to populate the module list
+        #Likewise, do this with the hybrids, asics, etc
         
     def populate_hybrids(self):
         moduleNum = self.moduleName.currentIndex() - 1
