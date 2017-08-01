@@ -1,19 +1,19 @@
 from PyQt4 import QtGui # Import the PyQt4 module we'll need
 from PyQt4 import QtCore # for quit button
-import sys # We need sys so that we can pass argv to QApplication
+import sys, os # We need sys so that we can pass argv to QApplication
 
 
 import QAgui # This file holds our MainWindow and all design related things
               # it also keeps events etc that we defined in Qt Designer
 
 
-class MainApp(QtGui.QMainWindow, QAgui.Ui_Dialog):
+class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)  # This is defined in design.py file automatically
                             # It sets up layout and widgets that are defined
 
-        #First, let's populate the list of available module (based on images)
+        #First, let's populate the list and imgs of available module (based on images)
         self.populate_modules
 
         #If module is selected, populate hybrid selection
@@ -30,6 +30,7 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_Dialog):
         #Get list of images files without extension
         #  then use them to populate the module list
         #Likewise, do this with the hybrids, asics, etc
+        getModuleList()
         
     def populate_hybrids(self):
         moduleNum = self.moduleName.currentIndex() - 1
@@ -65,6 +66,9 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_Dialog):
     
 
     
+def getModuleList():
+    folders = os.listdir("../data/")
+    print folders
 
 def displayGui():
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication

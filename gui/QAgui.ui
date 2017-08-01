@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Dialog</class>
- <widget class="QDialog" name="Dialog">
+ <class>MainWindow</class>
+ <widget class="QDialog" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>713</width>
-    <height>513</height>
+    <width>805</width>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Wirebond Recorder</string>
   </property>
   <widget class="QPushButton" name="qButton">
    <property name="geometry">
     <rect>
-     <x>630</x>
-     <y>460</y>
+     <x>720</x>
+     <y>560</y>
      <width>71</width>
      <height>41</height>
     </rect>
@@ -29,15 +29,15 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>20</y>
-     <width>221</width>
-     <height>41</height>
+     <x>10</x>
+     <y>30</y>
+     <width>181</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
    <property name="text">
@@ -47,58 +47,23 @@
   <widget class="QComboBox" name="moduleName">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>20</y>
-     <width>431</width>
-     <height>41</height>
+     <x>190</x>
+     <y>30</y>
+     <width>51</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
-   <item>
-    <property name="text">
-     <string/>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R0</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R1</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R2</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R3</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R4</string>
-    </property>
-   </item>
-   <item>
-    <property name="text">
-     <string>R5</string>
-    </property>
-   </item>
   </widget>
   <widget class="QPushButton" name="pushButton_4">
    <property name="geometry">
     <rect>
-     <x>550</x>
-     <y>460</y>
+     <x>640</x>
+     <y>560</y>
      <width>71</width>
      <height>41</height>
     </rect>
@@ -111,7 +76,7 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>460</y>
+     <y>560</y>
      <width>71</width>
      <height>41</height>
     </rect>
@@ -123,34 +88,104 @@
   <widget class="QComboBox" name="hybridName">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>90</y>
-     <width>431</width>
-     <height>41</height>
+     <x>190</x>
+     <y>80</y>
+     <width>51</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
   </widget>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>20</x>
-     <y>90</y>
-     <width>221</width>
-     <height>41</height>
+     <x>10</x>
+     <y>80</y>
+     <width>171</width>
+     <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>16</pointsize>
+     <pointsize>15</pointsize>
     </font>
    </property>
    <property name="text">
     <string>Select the hybrid:</string>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R0jpg">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R3jpg">
+   <property name="geometry">
+    <rect>
+     <x>530</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R2jpg">
+   <property name="geometry">
+    <rect>
+     <x>440</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R1jpg">
+   <property name="geometry">
+    <rect>
+     <x>350</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R4jpg">
+   <property name="geometry">
+    <rect>
+     <x>620</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="R5jpg">
+   <property name="geometry">
+    <rect>
+     <x>710</x>
+     <y>30</y>
+     <width>81</width>
+     <height>81</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGraphicsView" name="mainImg">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>150</y>
+     <width>771</width>
+     <height>391</height>
+    </rect>
    </property>
   </widget>
  </widget>
