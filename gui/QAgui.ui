@@ -118,66 +118,6 @@
     <string>Select the hybrid:</string>
    </property>
   </widget>
-  <widget class="QGraphicsView" name="R0jpg">
-   <property name="geometry">
-    <rect>
-     <x>260</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="R3jpg">
-   <property name="geometry">
-    <rect>
-     <x>530</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="R2jpg">
-   <property name="geometry">
-    <rect>
-     <x>440</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="R1jpg">
-   <property name="geometry">
-    <rect>
-     <x>350</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="R4jpg">
-   <property name="geometry">
-    <rect>
-     <x>620</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QGraphicsView" name="R5jpg">
-   <property name="geometry">
-    <rect>
-     <x>710</x>
-     <y>30</y>
-     <width>81</width>
-     <height>81</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QGraphicsView" name="mainImg">
    <property name="geometry">
     <rect>
@@ -187,6 +127,60 @@
      <height>391</height>
     </rect>
    </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>260</x>
+     <y>20</y>
+     <width>531</width>
+     <height>111</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QLabel" name="R0jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="R1jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="R2jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="R3jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="R4jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="R5jpg">
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+   </layout>
   </widget>
  </widget>
  <tabstops>

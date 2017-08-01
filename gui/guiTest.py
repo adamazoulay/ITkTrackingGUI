@@ -14,9 +14,26 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
                             # It sets up layout and widgets that are defined
 
         #First, let's populate the list and imgs of available module (based on images)
-        self.populate_modules
+        self.populate_modules()
 
-        #If module is selected, populate hybrid selection
+
+        #Load R0 into R0jpg as test
+        self.R0jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        self.R1jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        self.R2jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        self.R3jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        self.R4jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        self.R5jpg.setPixmap(QtGui.QPixmap('imgs/R0.jpg'))
+        
+        #If module is selected by picture, change the module list
+        self.R0jpg.mousePressEvent = self.modR0
+        self.R1jpg.mousePressEvent = self.modR1
+        self.R2jpg.mousePressEvent = self.modR2
+        self.R3jpg.mousePressEvent = self.modR3
+        self.R4jpg.mousePressEvent = self.modR4
+        self.R5jpg.mousePressEvent = self.modR5
+        
+        #If module is selected in list, populate hybrid selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
         #quit
@@ -25,12 +42,13 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
 
     #List population functions
     def populate_modules(self):
-        self.moduleName.clear() #Clear the list
-        
         #Get list of images files without extension
         #  then use them to populate the module list
         #Likewise, do this with the hybrids, asics, etc
-        getModuleList()
+        self.moduleName.addItem("")
+        modList = getModuleList()
+        for name in modList:
+            self.moduleName.addItem(name)
         
     def populate_hybrids(self):
         moduleNum = self.moduleName.currentIndex() - 1
@@ -63,12 +81,26 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
             self.hybridName.addItem("")
             self.hybridName.addItem("H0")
             self.hybridName.addItem("H1")
-    
 
+    def modR0(self,ev):
+        self.moduleName.setCurrentIndex(1)
+    def modR1(self,ev):
+        self.moduleName.setCurrentIndex(2)
+    def modR2(self,ev):
+        self.moduleName.setCurrentIndex(3)
+    def modR3(self,ev):
+        self.moduleName.setCurrentIndex(4)
+    def modR4(self,ev):
+        self.moduleName.setCurrentIndex(5)
+    def modR5(self,ev):
+        self.moduleName.setCurrentIndex(6)
     
 def getModuleList():
-    folders = os.listdir("../data/")
-    print folders
+    mods = []
+    for x in os.listdir("../data/"):
+        if x[0] == "R":
+            mods.append(x)
+    return mods
 
 def displayGui():
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
