@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WelcomeWindowGUI.ui'
 #
-# Created: Thu Aug 03 12:28:15 2017
+# Created: Thu Aug 03 13:35:42 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -28,6 +28,13 @@ class Ui_WelcomeWindow(object):
         WelcomeWindow.setObjectName(_fromUtf8("WelcomeWindow"))
         WelcomeWindow.setEnabled(True)
         WelcomeWindow.resize(258, 385)
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(WelcomeWindow.sizePolicy().hasHeightForWidth())
+        WelcomeWindow.setSizePolicy(sizePolicy)
+        WelcomeWindow.setMinimumSize(QtCore.QSize(258, 385))
+        WelcomeWindow.setMaximumSize(QtCore.QSize(258, 385))
         self.verticalLayoutWidget = QtGui.QWidget(WelcomeWindow)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 10, 197, 351))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
