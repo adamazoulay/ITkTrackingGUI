@@ -3,11 +3,12 @@ from PyQt4 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
 
 
-import QAgui # This file holds our MainWindow and all design related things
-              # it also keeps events etc that we defined in Qt Designer
+import WelcomeWindowGUI, WirebondRecorderGUI #import design files
 
 
-class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
+#================================================================================
+#Define the classes for the various guis
+class WirebondRecorder(QtGui.QMainWindow, WirebondRecorderGUI.Ui_WirebondRecorderGUI):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)  # This is defined in design.py file automatically
@@ -36,8 +37,8 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
         #If module is selected in list, populate hybrid selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
-        #quit
-        self.qButton.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        #quit - needs to go back to welcomewindow
+        #self.qButton.clicked.connect(QtCore.QCoreApplication.instance().quit)
 
 
     #List population functions
@@ -94,7 +95,23 @@ class MainApp(QtGui.QMainWindow, QAgui.Ui_MainWindow):
         self.moduleName.setCurrentIndex(5)
     def modR5(self,ev):
         self.moduleName.setCurrentIndex(6)
-    
+
+class WelcomeWindow(QtGui.QMainWindow, WelcomeWindowGUI.Ui_WelcomeWindowGUI):
+    def __init__(self):
+        super(self.__class__, self).__init__()
+        self.setupUi(self)
+
+        #Show the WirebondRecorder
+        #self.btnExit.clicked.connect(displayRecorder)
+
+        #Global quit
+        self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
+
+
+
+
+#================================================================================
+#All functions and main down here   
 def getModuleList():
     mods = []
     for x in os.listdir("../data/"):
@@ -104,11 +121,17 @@ def getModuleList():
 
 def displayGui():
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
-    form = MainApp()                    # We set the form to be our MainApp (design)
+    form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
     form.show()                         # Show the form
     app.exec_()                         # and execute the app
 
+def displayRecorder():
+    form = WirebondRecorder()
+    form.show()
+
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
+    #os.system("call ui2py.bat") #temp
+    #os.system("pause")
     displayGui()                              # run the main function
 

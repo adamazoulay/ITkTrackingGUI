@@ -1,2 +1,3 @@
 @echo off
-pyuic4 QAgui.ui -o QAgui.py
+call pyuic4 QAgui.ui -o WirebondRecorderGUI.py
+call pyuic4 QAToolkit.ui -o WelcomeWindowGUI.py

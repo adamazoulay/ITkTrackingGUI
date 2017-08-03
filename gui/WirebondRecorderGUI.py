@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'QAgui.ui'
 #
-# Created: Tue Aug 01 15:53:03 2017
+# Created: Thu Aug 03 10:57:07 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,44 +23,42 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(805, 616)
-        self.qButton = QtGui.QPushButton(MainWindow)
+class Ui_WirebondRecorderGUI(object):
+    def setupUi(self, WirebondRecorderGUI):
+        WirebondRecorderGUI.setObjectName(_fromUtf8("WirebondRecorderGUI"))
+        WirebondRecorderGUI.resize(805, 616)
+        WirebondRecorderGUI.setSizeGripEnabled(False)
+        self.qButton = QtGui.QPushButton(WirebondRecorderGUI)
         self.qButton.setGeometry(QtCore.QRect(720, 560, 71, 41))
         self.qButton.setObjectName(_fromUtf8("qButton"))
-        self.label = QtGui.QLabel(MainWindow)
+        self.label = QtGui.QLabel(WirebondRecorderGUI)
         self.label.setGeometry(QtCore.QRect(10, 30, 181, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
-        self.moduleName = QtGui.QComboBox(MainWindow)
+        self.moduleName = QtGui.QComboBox(WirebondRecorderGUI)
         self.moduleName.setGeometry(QtCore.QRect(190, 30, 51, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.moduleName.setFont(font)
         self.moduleName.setObjectName(_fromUtf8("moduleName"))
-        self.pushButton_4 = QtGui.QPushButton(MainWindow)
-        self.pushButton_4.setGeometry(QtCore.QRect(640, 560, 71, 41))
-        self.pushButton_4.setObjectName(_fromUtf8("pushButton_4"))
-        self.pushButton_5 = QtGui.QPushButton(MainWindow)
+        self.pushButton_5 = QtGui.QPushButton(WirebondRecorderGUI)
         self.pushButton_5.setGeometry(QtCore.QRect(10, 560, 71, 41))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
-        self.hybridName = QtGui.QComboBox(MainWindow)
+        self.hybridName = QtGui.QComboBox(WirebondRecorderGUI)
         self.hybridName.setGeometry(QtCore.QRect(190, 80, 51, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.hybridName.setFont(font)
         self.hybridName.setObjectName(_fromUtf8("hybridName"))
-        self.label_2 = QtGui.QLabel(MainWindow)
+        self.label_2 = QtGui.QLabel(WirebondRecorderGUI)
         self.label_2.setGeometry(QtCore.QRect(10, 80, 171, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
-        self.horizontalLayoutWidget = QtGui.QWidget(MainWindow)
+        self.horizontalLayoutWidget = QtGui.QWidget(WirebondRecorderGUI)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(260, 20, 531, 115))
         self.horizontalLayoutWidget.setObjectName(_fromUtf8("horizontalLayoutWidget"))
         self.horizontalLayout = QtGui.QHBoxLayout(self.horizontalLayoutWidget)
@@ -105,7 +103,7 @@ class Ui_MainWindow(object):
         self.R5jpg.setText(_fromUtf8(""))
         self.R5jpg.setObjectName(_fromUtf8("R5jpg"))
         self.horizontalLayout.addWidget(self.R5jpg)
-        self.label_3 = QtGui.QLabel(MainWindow)
+        self.label_3 = QtGui.QLabel(WirebondRecorderGUI)
         self.label_3.setGeometry(QtCore.QRect(20, 160, 761, 381))
         self.label_3.setAutoFillBackground(True)
         self.label_3.setFrameShape(QtGui.QFrame.Box)
@@ -113,15 +111,14 @@ class Ui_MainWindow(object):
         self.label_3.setText(_fromUtf8(""))
         self.label_3.setObjectName(_fromUtf8("label_3"))
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-        MainWindow.setTabOrder(self.moduleName, self.qButton)
+        self.retranslateUi(WirebondRecorderGUI)
+        QtCore.QMetaObject.connectSlotsByName(WirebondRecorderGUI)
+        WirebondRecorderGUI.setTabOrder(self.moduleName, self.qButton)
 
-    def retranslateUi(self, MainWindow):
-        MainWindow.setWindowTitle(_translate("MainWindow", "Wirebond Recorder", None))
-        self.qButton.setText(_translate("MainWindow", "Exit", None))
-        self.label.setText(_translate("MainWindow", "Select the module:", None))
-        self.pushButton_4.setText(_translate("MainWindow", "Tools", None))
-        self.pushButton_5.setText(_translate("MainWindow", "Run", None))
-        self.label_2.setText(_translate("MainWindow", "Select the hybrid:", None))
+    def retranslateUi(self, WirebondRecorderGUI):
+        WirebondRecorderGUI.setWindowTitle(_translate("WirebondRecorderGUI", "Wirebond Recorder", None))
+        self.qButton.setText(_translate("WirebondRecorderGUI", "Exit", None))
+        self.label.setText(_translate("WirebondRecorderGUI", "Select the module:", None))
+        self.pushButton_5.setText(_translate("WirebondRecorderGUI", "Run", None))
+        self.label_2.setText(_translate("WirebondRecorderGUI", "Select the hybrid:", None))
 

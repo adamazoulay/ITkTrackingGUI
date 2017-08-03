@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QDialog" name="MainWindow">
+ <class>WirebondRecorderGUI</class>
+ <widget class="QDialog" name="WirebondRecorderGUI">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -12,6 +12,9 @@
   </property>
   <property name="windowTitle">
    <string>Wirebond Recorder</string>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
   </property>
   <widget class="QPushButton" name="qButton">
    <property name="geometry">
@@ -57,19 +60,6 @@
     <font>
      <pointsize>15</pointsize>
     </font>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="pushButton_4">
-   <property name="geometry">
-    <rect>
-     <x>640</x>
-     <y>560</y>
-     <width>71</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Tools</string>
    </property>
   </widget>
   <widget class="QPushButton" name="pushButton_5">
