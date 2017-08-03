@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>WelcomeWindowGUI</class>
- <widget class="QDialog" name="WelcomeWindowGUI">
+ <class>WelcomeWindow</class>
+ <widget class="QDialog" name="WelcomeWindow">
   <property name="enabled">
    <bool>true</bool>
   </property>
@@ -9,15 +9,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>256</width>
-    <height>379</height>
+    <width>258</width>
+    <height>385</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Wirebonding QA Toolkit</string>
-  </property>
-  <property name="sizeGripEnabled">
-   <bool>false</bool>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">

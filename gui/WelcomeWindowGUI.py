@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'QAToolkit.ui'
+# Form implementation generated from reading ui file 'WelcomeWindowGUI.ui'
 #
-# Created: Thu Aug 03 10:57:07 2017
+# Created: Thu Aug 03 12:28:15 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -23,13 +23,12 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_WelcomeWindowGUI(object):
-    def setupUi(self, WelcomeWindowGUI):
-        WelcomeWindowGUI.setObjectName(_fromUtf8("WelcomeWindowGUI"))
-        WelcomeWindowGUI.setEnabled(True)
-        WelcomeWindowGUI.resize(256, 379)
-        WelcomeWindowGUI.setSizeGripEnabled(False)
-        self.verticalLayoutWidget = QtGui.QWidget(WelcomeWindowGUI)
+class Ui_WelcomeWindow(object):
+    def setupUi(self, WelcomeWindow):
+        WelcomeWindow.setObjectName(_fromUtf8("WelcomeWindow"))
+        WelcomeWindow.setEnabled(True)
+        WelcomeWindow.resize(258, 385)
+        self.verticalLayoutWidget = QtGui.QWidget(WelcomeWindow)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 10, 197, 351))
         self.verticalLayoutWidget.setObjectName(_fromUtf8("verticalLayoutWidget"))
         self.verticalLayout = QtGui.QVBoxLayout(self.verticalLayoutWidget)
@@ -72,17 +71,17 @@ class Ui_WelcomeWindowGUI(object):
         self.btnExit.setObjectName(_fromUtf8("btnExit"))
         self.verticalLayout.addWidget(self.btnExit)
 
-        self.retranslateUi(WelcomeWindowGUI)
-        QtCore.QMetaObject.connectSlotsByName(WelcomeWindowGUI)
+        self.retranslateUi(WelcomeWindow)
+        QtCore.QMetaObject.connectSlotsByName(WelcomeWindow)
 
-    def retranslateUi(self, WelcomeWindowGUI):
-        WelcomeWindowGUI.setWindowTitle(_translate("WelcomeWindowGUI", "Wirebonding QA Toolkit", None))
-        self.label.setText(_translate("WelcomeWindowGUI", "\n"
+    def retranslateUi(self, WelcomeWindow):
+        WelcomeWindow.setWindowTitle(_translate("WelcomeWindow", "Wirebonding QA Toolkit", None))
+        self.label.setText(_translate("WelcomeWindow", "\n"
 "Wirebonding\n"
 " QA Toolkit\n"
 "\n"
 "", None))
-        self.btnWirebondRecorder.setText(_translate("WelcomeWindowGUI", "Wirebond Recorder", None))
-        self.btnTools.setText(_translate("WelcomeWindowGUI", "Tools", None))
-        self.btnExit.setText(_translate("WelcomeWindowGUI", "Exit", None))
+        self.btnWirebondRecorder.setText(_translate("WelcomeWindow", "Wirebond Recorder", None))
+        self.btnTools.setText(_translate("WelcomeWindow", "Tools", None))
+        self.btnExit.setText(_translate("WelcomeWindow", "Exit", None))
 

@@ -3,12 +3,13 @@ from PyQt4 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
 
 
-import WelcomeWindowGUI, WirebondRecorderGUI #import design files
-
+from WelcomeWindowGUI import Ui_WelcomeWindow #import design files
+from WirebondRecorderGUI import Ui_WirebondRecorder
 
 #================================================================================
 #Define the classes for the various guis
-class WirebondRecorder(QtGui.QMainWindow, WirebondRecorderGUI.Ui_WirebondRecorderGUI):
+
+class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)  # This is defined in design.py file automatically
@@ -96,13 +97,13 @@ class WirebondRecorder(QtGui.QMainWindow, WirebondRecorderGUI.Ui_WirebondRecorde
     def modR5(self,ev):
         self.moduleName.setCurrentIndex(6)
 
-class WelcomeWindow(QtGui.QMainWindow, WelcomeWindowGUI.Ui_WelcomeWindowGUI):
+class WelcomeWindow(QtGui.QMainWindow, Ui_WelcomeWindow):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
 
         #Show the WirebondRecorder
-        #self.btnExit.clicked.connect(displayRecorder)
+        self.btnExit.clicked.connect(displayRecorder)
 
         #Global quit
         self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
@@ -131,7 +132,5 @@ def displayRecorder():
 
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
-    #os.system("call ui2py.bat") #temp
-    #os.system("pause")
     displayGui()                              # run the main function
 
