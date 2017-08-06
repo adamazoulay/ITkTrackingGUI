@@ -38,8 +38,8 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         #If module is selected in list, populate hybrid selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
-        #quit - needs to go back to welcomewindow
-        #self.qButton.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        #hide form
+        self.qButton.clicked.connect(self.hide)
 
 
     #List population functions
@@ -103,7 +103,7 @@ class WelcomeWindow(QtGui.QMainWindow, Ui_WelcomeWindow):
         self.setupUi(self)
 
         #Show the WirebondRecorder
-        self.btnExit.clicked.connect(displayRecorder)
+        self.btnWirebondRecorder.clicked.connect(displayRecorder)
 
         #Global quit
         self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
@@ -127,8 +127,10 @@ def displayGui():
     app.exec_()                         # and execute the app
 
 def displayRecorder():
-    form = WirebondRecorder()
-    form.show()
+    #appRec = QtGui.QApplication(sys.argv)
+    formRec = WirebondRecorder()
+    formRec.show()
+    #appRec.exec_() 
 
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
