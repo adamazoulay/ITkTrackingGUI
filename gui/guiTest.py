@@ -16,9 +16,21 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         self.setupUi(self)  # This is defined in design.py file automatically
                             # It sets up layout and widgets that are defined
 
+        #Start an array here to keep track of the level we are at
+        self.level = ['root']
+
+        #Need to store all active areas for each level
+        activeAreasRoot = [["R0", [(96,28), (263,30), (257,219), (93,223)]],\
+                           ["R1", [(0,0), (0,0), (0,0), (0,0)]],\
+                           ["R2", [(0,0), (0,0), (0,0), (0,0)]],\
+                           ["R3", [(0,0), (0,0), (0,0), (0,0)]],\
+                           ["R4", [(0,0), (0,0), (0,0), (0,0)]],\
+                           ["R5", [(0,0), (0,0), (0,0), (0,0)]]]
+
+        self.activeAreas = [activeAreasRoot,[],[]]
+        
         #First, let's populate the list and imgs of available module (based on images)
         self.populate_modules()
-
 
         #Load the initial module selection img
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/endcapModules.jpg'))
@@ -77,10 +89,25 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
             self.hybridName.addItem("H0")
             self.hybridName.addItem("H1")
 
+
     def executeSelection(self, ev):
+        #Grab click location    
         x = ev.pos().x()
         y = ev.pos().y()
-        print x, y
+
+        #Current zoom level
+        level = len(self.level) - 1
+
+        #Check if it's inside any of the active areas
+        for area in self.activeAreas[0]:                  
+            coords = area[1]
+            tempPath = mplPath.Path(np.array([coords[0], coords[1],\
+                                              coords[2], coords[3]]))
+            inside = tempPath.contains_point((x,y))
+
+            #If it is, do stuff
+            if inside:
+                print area[0]
         
         
     def modR0(self,ev):
