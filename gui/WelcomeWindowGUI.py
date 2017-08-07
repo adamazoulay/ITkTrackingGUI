@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WelcomeWindowGUI.ui'
 #
-# Created: Mon Aug 07 12:08:21 2017
+# Created: Mon Aug 07 12:43:57 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!

@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created: Mon Aug 07 12:08:21 2017
+# Created: Mon Aug 07 12:43:57 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -33,11 +33,11 @@ class Ui_WirebondRecorder(object):
         self.label = QtGui.QLabel(WirebondRecorder)
         self.label.setGeometry(QtCore.QRect(10, 30, 181, 31))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(14)
         self.label.setFont(font)
         self.label.setObjectName(_fromUtf8("label"))
         self.moduleName = QtGui.QComboBox(WirebondRecorder)
-        self.moduleName.setGeometry(QtCore.QRect(190, 30, 51, 31))
+        self.moduleName.setGeometry(QtCore.QRect(180, 30, 51, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.moduleName.setFont(font)
@@ -46,7 +46,7 @@ class Ui_WirebondRecorder(object):
         self.pushButton_5.setGeometry(QtCore.QRect(10, 790, 71, 41))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.hybridName = QtGui.QComboBox(WirebondRecorder)
-        self.hybridName.setGeometry(QtCore.QRect(190, 80, 51, 31))
+        self.hybridName.setGeometry(QtCore.QRect(180, 80, 51, 31))
         font = QtGui.QFont()
         font.setPointSize(15)
         self.hybridName.setFont(font)
@@ -54,7 +54,7 @@ class Ui_WirebondRecorder(object):
         self.label_2 = QtGui.QLabel(WirebondRecorder)
         self.label_2.setGeometry(QtCore.QRect(10, 80, 171, 31))
         font = QtGui.QFont()
-        font.setPointSize(15)
+        font.setPointSize(14)
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.imgSelect = QtGui.QLabel(WirebondRecorder)
@@ -64,6 +64,19 @@ class Ui_WirebondRecorder(object):
         self.imgSelect.setFrameShadow(QtGui.QFrame.Plain)
         self.imgSelect.setText(_fromUtf8(""))
         self.imgSelect.setObjectName(_fromUtf8("imgSelect"))
+        self.label_3 = QtGui.QLabel(WirebondRecorder)
+        self.label_3.setGeometry(QtCore.QRect(580, 50, 111, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.label_3.setFont(font)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.levelLabel = QtGui.QLabel(WirebondRecorder)
+        self.levelLabel.setGeometry(QtCore.QRect(640, 80, 51, 31))
+        font = QtGui.QFont()
+        font.setPointSize(14)
+        self.levelLabel.setFont(font)
+        self.levelLabel.setText(_fromUtf8(""))
+        self.levelLabel.setObjectName(_fromUtf8("levelLabel"))
 
         self.retranslateUi(WirebondRecorder)
         QtCore.QMetaObject.connectSlotsByName(WirebondRecorder)
@@ -75,4 +88,5 @@ class Ui_WirebondRecorder(object):
         self.label.setText(_translate("WirebondRecorder", "Select the module:", None))
         self.pushButton_5.setText(_translate("WirebondRecorder", "Run", None))
         self.label_2.setText(_translate("WirebondRecorder", "Select the hybrid:", None))
+        self.label_3.setText(_translate("WirebondRecorder", "Current level:", None))
 

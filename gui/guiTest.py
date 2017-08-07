@@ -19,6 +19,9 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         #Start an array here to keep track of the level we are at
         self.level = ['root']
 
+        #Set level label (maybe debug?)
+        self.levelLabel.setText(self.level[-1])
+
         #Need to store all active areas for each level
         activeAreasRoot = [["R0", [(96,28), (263,30), (257,219), (93,223)]],\
                            ["R1", [(0,0), (0,0), (0,0), (0,0)]],\
@@ -108,10 +111,10 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
             #If it is, do stuff
             if inside:
                 print area[0]
+                self.moduleName.setCurrentIndex(int(area[0][1])+1)
+                self.level.append(area[0])
+                self.levelLabel.setText(self.level[-1])
         
-        
-    def modR0(self,ev):
-        self.moduleName.setCurrentIndex(1)
 
 class WelcomeWindow(QtGui.QMainWindow, Ui_WelcomeWindow):
     def __init__(self):
