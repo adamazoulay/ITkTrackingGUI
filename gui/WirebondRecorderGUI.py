@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created: Mon Aug 07 11:53:08 2017
+# Created: Mon Aug 07 12:08:21 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -26,9 +26,9 @@ except AttributeError:
 class Ui_WirebondRecorder(object):
     def setupUi(self, WirebondRecorder):
         WirebondRecorder.setObjectName(_fromUtf8("WirebondRecorder"))
-        WirebondRecorder.resize(805, 616)
+        WirebondRecorder.resize(708, 853)
         self.qButton = QtGui.QPushButton(WirebondRecorder)
-        self.qButton.setGeometry(QtCore.QRect(720, 560, 71, 41))
+        self.qButton.setGeometry(QtCore.QRect(620, 790, 71, 41))
         self.qButton.setObjectName(_fromUtf8("qButton"))
         self.label = QtGui.QLabel(WirebondRecorder)
         self.label.setGeometry(QtCore.QRect(10, 30, 181, 31))
@@ -43,7 +43,7 @@ class Ui_WirebondRecorder(object):
         self.moduleName.setFont(font)
         self.moduleName.setObjectName(_fromUtf8("moduleName"))
         self.pushButton_5 = QtGui.QPushButton(WirebondRecorder)
-        self.pushButton_5.setGeometry(QtCore.QRect(10, 560, 71, 41))
+        self.pushButton_5.setGeometry(QtCore.QRect(10, 790, 71, 41))
         self.pushButton_5.setObjectName(_fromUtf8("pushButton_5"))
         self.hybridName = QtGui.QComboBox(WirebondRecorder)
         self.hybridName.setGeometry(QtCore.QRect(190, 80, 51, 31))
@@ -58,10 +58,10 @@ class Ui_WirebondRecorder(object):
         self.label_2.setFont(font)
         self.label_2.setObjectName(_fromUtf8("label_2"))
         self.imgSelect = QtGui.QLabel(WirebondRecorder)
-        self.imgSelect.setGeometry(QtCore.QRect(20, 130, 761, 411))
+        self.imgSelect.setGeometry(QtCore.QRect(10, 120, 687, 660))
         self.imgSelect.setAutoFillBackground(True)
         self.imgSelect.setFrameShape(QtGui.QFrame.Box)
-        self.imgSelect.setFrameShadow(QtGui.QFrame.Raised)
+        self.imgSelect.setFrameShadow(QtGui.QFrame.Plain)
         self.imgSelect.setText(_fromUtf8(""))
         self.imgSelect.setObjectName(_fromUtf8("imgSelect"))
 

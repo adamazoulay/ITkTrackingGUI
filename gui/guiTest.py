@@ -1,7 +1,8 @@
 from PyQt4 import QtGui # Import the PyQt4 module we'll need
 from PyQt4 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
-
+import matplotlib.path as mplPath
+import numpy as np
 
 from WelcomeWindowGUI import Ui_WelcomeWindow #import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
@@ -24,9 +25,8 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
 
         
         #If module is selected by picture, change the module list
-        #self.imgSelect
-
-        
+        self.imgSelect.mousePressEvent = self.executeSelection
+       
         #If module is selected in list, populate hybrid selection
         # note: this works from picture and list selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
@@ -77,6 +77,12 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
             self.hybridName.addItem("H0")
             self.hybridName.addItem("H1")
 
+    def executeSelection(self, ev):
+        x = ev.pos().x()
+        y = ev.pos().y()
+        print x, y
+        
+        
     def modR0(self,ev):
         self.moduleName.setCurrentIndex(1)
 
