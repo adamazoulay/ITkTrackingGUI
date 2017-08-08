@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created: Mon Aug 07 12:43:57 2017
+# Created: Tue Aug 08 12:15:19 2017
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -77,6 +77,9 @@ class Ui_WirebondRecorder(object):
         self.levelLabel.setFont(font)
         self.levelLabel.setText(_fromUtf8(""))
         self.levelLabel.setObjectName(_fromUtf8("levelLabel"))
+        self.btnBack = QtGui.QPushButton(WirebondRecorder)
+        self.btnBack.setGeometry(QtCore.QRect(490, 70, 71, 41))
+        self.btnBack.setObjectName(_fromUtf8("btnBack"))
 
         self.retranslateUi(WirebondRecorder)
         QtCore.QMetaObject.connectSlotsByName(WirebondRecorder)
@@ -89,4 +92,5 @@ class Ui_WirebondRecorder(object):
         self.pushButton_5.setText(_translate("WirebondRecorder", "Run", None))
         self.label_2.setText(_translate("WirebondRecorder", "Select the hybrid:", None))
         self.label_3.setText(_translate("WirebondRecorder", "Current level:", None))
+        self.btnBack.setText(_translate("WirebondRecorder", "Back", None))
 

@@ -36,7 +36,7 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         self.populate_modules()
 
         #Load the initial module selection img
-        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/endcapModules.jpg'))
+        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg'))
 
         
         #If module is selected by picture, change the module list
@@ -46,9 +46,23 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         # note: this works from picture and list selection
         self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
+        #Back button
+        self.btnBack.clicked.connect(self.levelUp)
+
         #hide form
         self.qButton.clicked.connect(self.hide)
 
+    #Back button functionality
+    def levelUp(self):
+        #Check we aren't at root
+        if self.level[-1] != "root":
+            self.level.pop(-1)
+            name = self.level[-1]
+            self.levelLabel.setText(self.level[-1])
+            print name
+
+            self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
+        
 
     #List population functions
     def populate_modules(self):
@@ -111,7 +125,8 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
 
             #If it is, do stuff
             if inside:
-                print name #DEBUG
+                #Make this all a function for use with the back button!!
+                #print name #DEBUG
                 self.moduleName.setCurrentIndex(int(name[-1])+1) #Set correct module index FIX THIS
                 self.level.append(name) #Add level to level array
                 self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
