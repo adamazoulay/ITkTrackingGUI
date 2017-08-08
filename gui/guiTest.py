@@ -3,6 +3,7 @@ from PyQt4 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
 import matplotlib.path as mplPath
 import numpy as np
+from os import path
 
 from WelcomeWindowGUI import Ui_WelcomeWindow #import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
@@ -139,7 +140,6 @@ def getModuleList():
 
 def displayGui():
     #Need this for jpeg, fix please
-    #QtCore.QCoreApplication.addLibraryPath("C:/Python27/Lib/site-packages/PyQt4/plugins")
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
     form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
     form.show()                         # Show the form
@@ -150,6 +150,7 @@ def displayRecorder():
     formRec.show()
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
+    QtCore.QCoreApplication.addLibraryPath(path.join(path.dirname(QtCore.__file__), "plugins"))
     displayGui()                              # run the main function
     
 
