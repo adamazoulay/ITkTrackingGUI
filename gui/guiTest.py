@@ -43,7 +43,7 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         self.populate_modules()
 
         #Load the initial module selection img
-        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg'))
+        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/ASIC.jpg'))
 
         #If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -138,6 +138,8 @@ def getModuleList():
     return mods
 
 def displayGui():
+    #Need this for jpeg, fix please
+    #QtCore.QCoreApplication.addLibraryPath("C:/Python27/Lib/site-packages/PyQt4/plugins")
     app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
     form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
     form.show()                         # Show the form
@@ -149,4 +151,5 @@ def displayRecorder():
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
     displayGui()                              # run the main function
+    
 
