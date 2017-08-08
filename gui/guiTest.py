@@ -23,14 +23,14 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         self.levelLabel.setText(self.level[-1])
 
         #Need to store all active areas for each level
-        activeAreasRoot = [["R0", [(96,28), (263,30), (257,219), (93,223)]],\
-                           ["R1", [(0,0), (0,0), (0,0), (0,0)]],\
-                           ["R2", [(0,0), (0,0), (0,0), (0,0)]],\
-                           ["R3", [(0,0), (0,0), (0,0), (0,0)]],\
-                           ["R4", [(0,0), (0,0), (0,0), (0,0)]],\
-                           ["R5", [(0,0), (0,0), (0,0), (0,0)]]]
+        activeAreasRoot = dict([["R0", [(96,28), (263,30), (257,219), (93,223)]],\
+                                ["R1", [(373,38), (591,39), (587,224), (378,222)]],\
+                                ["R2", [(0,0), (0,0), (0,0), (0,0)]],\
+                                ["R3", [(0,0), (0,0), (0,0), (0,0)]],\
+                                ["R4", [(0,0), (0,0), (0,0), (0,0)]],\
+                                ["R5", [(0,0), (0,0), (0,0), (0,0)]]])        
 
-        self.activeAreas = [activeAreasRoot,[],[]]
+        self.activeAreas = {"root" : activeAreasRoot}
         
         #First, let's populate the list and imgs of available module (based on images)
         self.populate_modules()
@@ -98,22 +98,26 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         x = ev.pos().x()
         y = ev.pos().y()
 
-        #Current zoom level
-        level = len(self.level) - 1
+        #print x,y #DEBUG
 
-        #Check if it's inside any of the active areas
-        for area in self.activeAreas[0]:                  
-            coords = area[1]
+        #Check if it's inside any of the current active areas
+        curDict = self.activeAreas[self.level[-1]]
+        for area in curDict:
+            name = area
+            coords = curDict[name]
             tempPath = mplPath.Path(np.array([coords[0], coords[1],\
                                               coords[2], coords[3]]))
             inside = tempPath.contains_point((x,y))
 
             #If it is, do stuff
             if inside:
-                print area[0]
-                self.moduleName.setCurrentIndex(int(area[0][1])+1)
-                self.level.append(area[0])
-                self.levelLabel.setText(self.level[-1])
+                print name #DEBUG
+                self.moduleName.setCurrentIndex(int(name[-1])+1) #Set correct module index FIX THIS
+                self.level.append(name) #Add level to level array
+                self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
+
+                #Need to place the new picture
+                self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
         
 
 class WelcomeWindow(QtGui.QMainWindow, Ui_WelcomeWindow):
@@ -146,11 +150,8 @@ def displayGui():
     app.exec_()                         # and execute the app
 
 def displayRecorder():
-    #appRec = QtGui.QApplication(sys.argv)
     formRec = WirebondRecorder()
     formRec.show()
-    #appRec.exec_() 
-
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
     displayGui()                              # run the main function
