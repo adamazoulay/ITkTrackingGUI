@@ -28,9 +28,16 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
                                 ["R2", [(0,0), (0,0), (0,0), (0,0)]],\
                                 ["R3", [(0,0), (0,0), (0,0), (0,0)]],\
                                 ["R4", [(0,0), (0,0), (0,0), (0,0)]],\
-                                ["R5", [(0,0), (0,0), (0,0), (0,0)]]])        
+                                ["R5", [(0,0), (0,0), (0,0), (0,0)]]])
+        activeAreasR0 = {"R0H0" : [(79,222), (594,224), (588,327), (82,319)],
+                         "R0H1" : [(88,354), (582,355), (575,460), (100,456)]}
+        activeAreasR0H0 = {"ASIC" : [(21,282), (73,278), (26,319), (76,315)]}
+        activeAreasR0H1 = {"ASIC" : [(76,221), (122,220), (80,252), (126,248)]}
+        activeAreasASIC = {"pad1" : []} #etc
 
-        self.activeAreas = {"root" : activeAreasRoot}
+        self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
+                            "R0H0" : activeAreasR0H0, "R0H1" : activeAreasR0H1,\
+                            "ASIC" : activeAreasASIC}
         
         #First, let's populate the list and imgs of available module (based on images)
         self.populate_modules()
@@ -38,7 +45,6 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         #Load the initial module selection img
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg'))
 
-        
         #If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
        
@@ -78,41 +84,13 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         moduleNum = self.moduleName.currentIndex() - 1
         self.hybridName.clear()
 
-        #R0 module
-        if moduleNum == 0:
-            self.hybridName.addItem("")
-            self.hybridName.addItem("H0")
-            self.hybridName.addItem("H1")
-        #R1
-        if moduleNum == 1:
-            self.hybridName.addItem("")
-            self.hybridName.addItem("H0")
-            self.hybridName.addItem("H1")
-        #R3
-        if moduleNum == 3:
-            self.hybridName.addItem("")
-            self.hybridName.addItem("H0")
-            self.hybridName.addItem("H1")
-            self.hybridName.addItem("H2")
-            self.hybridName.addItem("H3")
-        #R4
-        if moduleNum == 4:
-            self.hybridName.addItem("")
-            self.hybridName.addItem("H0")
-            self.hybridName.addItem("H1")
-        #R5
-        if moduleNum == 5:
-            self.hybridName.addItem("")
-            self.hybridName.addItem("H0")
-            self.hybridName.addItem("H1")
-
 
     def executeSelection(self, ev):
         #Grab click location    
         x = ev.pos().x()
         y = ev.pos().y()
 
-        #print x,y #DEBUG
+        print '(' + str(x) + ',' +  str(y) + '),' #DEBUG
 
         #Check if it's inside any of the current active areas
         curDict = self.activeAreas[self.level[-1]]
@@ -127,11 +105,12 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
             if inside:
                 #Make this all a function for use with the back button!!
                 #print name #DEBUG
-                self.moduleName.setCurrentIndex(int(name[-1])+1) #Set correct module index FIX THIS
+                #self.moduleName.setCurrentIndex(int(name[-1])+1) #Set correct module index FIX THIS
                 self.level.append(name) #Add level to level array
                 self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
 
                 #Need to place the new picture
+                print 'imgs/' + name + '.jpg' #DEBUG
                 self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
         
 
