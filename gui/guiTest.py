@@ -9,6 +9,10 @@ from WelcomeWindowGUI import Ui_WelcomeWindow #import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
 
 #================================================================================
+#TODO:
+#Make image loading a function
+
+#================================================================================
 #Define the classes for the various guis
 
 class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
@@ -44,7 +48,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.populate_modules()
 
         #Load the initial module selection img
-        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/ASIC.jpg'))
+        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg',"1")) #Why 1??
 
         #If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -68,7 +72,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.levelLabel.setText(self.level[-1])
             print(name)
 
-            self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
+            self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg',"1"))
         
 
     #List population functions
@@ -106,13 +110,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             if inside:
                 #Make this all a function for use with the back button!!
                 #print name #DEBUG
-                #self.moduleName.setCurrentIndex(int(name[-1])+1) #Set correct module index FIX THIS
                 self.level.append(name) #Add level to level array
                 self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
 
                 #Need to place the new picture
                 print('imgs/' + name + '.jpg') #DEBUG
-                self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
+                self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg','1'))
         
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
