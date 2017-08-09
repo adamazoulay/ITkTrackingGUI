@@ -1,5 +1,5 @@
-from PyQt4 import QtGui # Import the PyQt4 module we'll need
-from PyQt4 import QtCore # for quit button
+from PyQt5 import QtGui, QtWidgets # Import the PyQt4 module we'll need
+from PyQt5 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
 import matplotlib.path as mplPath
 import numpy as np
@@ -11,7 +11,7 @@ from WirebondRecorderGUI import Ui_WirebondRecorder
 #================================================================================
 #Define the classes for the various guis
 
-class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
+class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)  # This is defined in design.py file automatically
@@ -66,7 +66,7 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
             self.level.pop(-1)
             name = self.level[-1]
             self.levelLabel.setText(self.level[-1])
-            print name
+            print(name)
 
             self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
         
@@ -91,7 +91,7 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
         x = ev.pos().x()
         y = ev.pos().y()
 
-        print '(' + str(x) + ',' +  str(y) + '),' #DEBUG
+        print('(' + str(x) + ',' +  str(y) + '),') #DEBUG
 
         #Check if it's inside any of the current active areas
         curDict = self.activeAreas[self.level[-1]]
@@ -111,11 +111,11 @@ class WirebondRecorder(QtGui.QMainWindow, Ui_WirebondRecorder):
                 self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
 
                 #Need to place the new picture
-                print 'imgs/' + name + '.jpg' #DEBUG
+                print('imgs/' + name + '.jpg') #DEBUG
                 self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg'))
         
 
-class WelcomeWindow(QtGui.QMainWindow, Ui_WelcomeWindow):
+class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
@@ -140,7 +140,7 @@ def getModuleList():
 
 def displayGui():
     #Need this for jpeg, fix please
-    app = QtGui.QApplication(sys.argv)  # A new instance of QApplication
+    app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
     form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
     form.show()                         # Show the form
     app.exec_()                         # and execute the app
