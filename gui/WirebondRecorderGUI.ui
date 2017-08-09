@@ -26,39 +26,6 @@
     <string>Exit</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>30</y>
-     <width>181</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Select the module:</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="moduleName">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>30</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_5">
    <property name="geometry">
     <rect>
@@ -70,39 +37,6 @@
    </property>
    <property name="text">
     <string>Run</string>
-   </property>
-  </widget>
-  <widget class="QComboBox" name="hybridName">
-   <property name="geometry">
-    <rect>
-     <x>180</x>
-     <y>80</y>
-     <width>51</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>15</pointsize>
-    </font>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_2">
-   <property name="geometry">
-    <rect>
-     <x>10</x>
-     <y>80</y>
-     <width>171</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Select the hybrid:</string>
    </property>
   </widget>
   <widget class="QLabel" name="imgSelect">
@@ -130,8 +64,8 @@
   <widget class="QLabel" name="label_3">
    <property name="geometry">
     <rect>
-     <x>580</x>
-     <y>50</y>
+     <x>430</x>
+     <y>70</y>
      <width>111</width>
      <height>31</height>
     </rect>
@@ -148,8 +82,8 @@
   <widget class="QLabel" name="levelLabel">
    <property name="geometry">
     <rect>
-     <x>640</x>
-     <y>80</y>
+     <x>550</x>
+     <y>70</y>
      <width>51</width>
      <height>31</height>
     </rect>
@@ -166,7 +100,7 @@
   <widget class="QPushButton" name="btnBack">
    <property name="geometry">
     <rect>
-     <x>490</x>
+     <x>620</x>
      <y>70</y>
      <width>71</width>
      <height>41</height>
@@ -176,9 +110,26 @@
     <string>Back</string>
    </property>
   </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>281</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>24</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Wirebond Recorder</string>
+   </property>
+  </widget>
  </widget>
  <tabstops>
-  <tabstop>moduleName</tabstop>
   <tabstop>qButton</tabstop>
  </tabstops>
  <resources/>

@@ -1,4 +1,4 @@
-from PyQt5 import QtGui, QtWidgets # Import the PyQt4 module we'll need
+from PyQt5 import QtGui, QtWidgets # Import the PyQt5 module we'll need
 from PyQt5 import QtCore # for quit button
 import sys, os # We need sys so that we can pass argv to QApplication
 import matplotlib.path as mplPath
@@ -43,19 +43,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
                             "R0H0" : activeAreasR0H0, "R0H1" : activeAreasR0H1,\
                             "ASIC" : activeAreasASIC}
-        
-        #First, let's populate the list and imgs of available module (based on images)
-        self.populate_modules()
 
         #Load the initial module selection img
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg',"1")) #Why 1??
 
         #If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
-       
-        #If module is selected in list, populate hybrid selection
-        # note: this works from picture and list selection
-        self.moduleName.currentIndexChanged.connect(self.populate_hybrids)
 
         #Back button
         self.btnBack.clicked.connect(self.levelUp)
@@ -74,21 +67,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
             self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg',"1"))
         
-
-    #List population functions
-    def populate_modules(self):
-        #Get list of images files without extension
-        #  then use them to populate the module list
-        #Likewise, do this with the hybrids, asics, etc
-        self.moduleName.addItem("")
-        modList = getModuleList()
-        for name in modList:
-            self.moduleName.addItem(name)
-        
-    def populate_hybrids(self):
-        moduleNum = self.moduleName.currentIndex() - 1
-        self.hybridName.clear()
-
 
     def executeSelection(self, ev):
         #Grab click location    
@@ -129,20 +107,9 @@ class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
         #Global quit
         self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
 
-
-
-
 #================================================================================
 #All functions and main down here   
-def getModuleList():
-    mods = []
-    for x in os.listdir("../data/"):
-        if x[0] == "R":
-            mods.append(x)
-    return mods
-
 def displayGui():
-    #Need this for jpeg, fix please
     app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
     form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
     form.show()                         # Show the form
@@ -153,7 +120,6 @@ def displayRecorder():
     formRec.show()
 
 if __name__ == '__main__':              # if we're running file directly and not importing it
-    QtCore.QCoreApplication.addLibraryPath(path.join(path.dirname(QtCore.__file__), "plugins"))
     displayGui()                              # run the main function
     
 
