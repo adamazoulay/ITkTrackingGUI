@@ -36,6 +36,7 @@ class Ui_WelcomeWindow(object):
         font = QtGui.QFont()
         font.setPointSize(26)
         self.label.setFont(font)
+        self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
         self.btnWirebondRecorder = QtWidgets.QPushButton(self.verticalLayoutWidget)
@@ -71,7 +72,7 @@ class Ui_WelcomeWindow(object):
         WelcomeWindow.setWindowTitle(_translate("WelcomeWindow", "Wirebonding QA Toolkit"))
         self.label.setText(_translate("WelcomeWindow", "\n"
 "Wirebonding\n"
-" QA Toolkit\n"
+"QA Toolkit\n"
 "\n"
 ""))
         self.btnWirebondRecorder.setText(_translate("WelcomeWindow", "Wirebond Recorder"))

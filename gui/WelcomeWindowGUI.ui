@@ -63,9 +63,12 @@
       <property name="text">
        <string>
 Wirebonding
- QA Toolkit
+QA Toolkit
 
 </string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
       </property>
      </widget>
     </item>
