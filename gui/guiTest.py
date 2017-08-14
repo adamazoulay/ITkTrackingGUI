@@ -27,6 +27,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.browseMode = True
         self.curImg = "root"
         self.selectedPads = []
+        self.counter = -3
+        self.curDict = {}
 
         #Set level label (maybe debug?)
         self.levelLabel.setText(self.level[-1])
@@ -48,7 +50,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         #  give a rough area and assume all are square, so we
         #  can just pass a single point and build the box while
         #  we check the location of the click
-        activeSelectionAreasASIC = {"1" : (248,65)}
+        activeSelectionAreasASIC = {"1" : (246,65), "2" : (258,66), "3" : (275,64),\
+                                    "4" : (288,67), "5" : (301,65), "6" : (309,65),\
+                                    "7" : (334,64), "8" : (344,63), "9" : (353,64),\
+                                    "10" : (362,64), "11" : (371,64), "12" : (380,64),\
+                                    "13" : (391,64), "14" : (398,63), "15" : (408,64),\
+                                    "16" : (415,63), "17" : (425,63), "18" : (434,64),\
+                                    "19" : (443,63), "20" : (453,63), "21" : (462,63)}
         
 
         self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
@@ -90,25 +98,27 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         x = ev.pos().x()
         y = ev.pos().y()
 
-        #print('(' + str(x) + ',' +  str(y) + '),') #DEBUG
+        self.counter += 1
+        #print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
 
         name = self.level[-1]
 
         #Check if it's inside any of the current active areas
         if self.browseMode:
-            curDict = self.activeAreas[name]
+            self.curDict = self.activeAreas[name]
         elif self.selectionMode:
-            curDict = self.activeSelectionAreas[name]
+            self.curDict = self.activeSelectionAreas[name]
 
-        for area in curDict:
+        for area in self.curDict:
             name = area
-            coords = curDict[name]
+            coords = self.curDict[name]
 
             #Need to build pad box if in selection mode
             if self.selectionMode:
                 xVal = coords[0]
                 yVal = coords[1]
-                size = 5
+                size = 4
+                #Order: bottom left, bottom right, top right, top left
                 coordsTemp = [(xVal-size,yVal+size), (xVal+size,yVal+size),\
                               (xVal+size,yVal-size), (xVal-size,yVal-size)]
                 coords = coordsTemp
@@ -129,11 +139,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             if inside and self.selectionMode:
                 #Display box around selected pad
                 #  TODO: if already selected, unselect it
-                self.manageBoxs(name, coords)
-                print('done adding boxes')
-                
+                self.manageBoxs(name, size)
 
-    def manageBoxs(self, name, coords):
+    def manageBoxs(self, name, size):
         #First add the pad to the array
         #  TODO: check if already in list and if so, delete it
         if name in self.selectedPads:
@@ -151,8 +159,11 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         #draw all boxes
         for pad in self.selectedPads:
-            painter.drawRect(0,0,50,50)#(coords[0][0],coords[0][1],\
-                                         #coords[1][0],coords[1][1])
+            #Get top right coords of pad
+            coords = self.curDict[pad]
+            xVal = coords[0]
+            yVal = coords[1]            
+            painter.drawRect(xVal-size,yVal-size, 2*size, 2*size)
 
         painter.end()
         #self.update()
