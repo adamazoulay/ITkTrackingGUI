@@ -42,9 +42,18 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         activeAreasR0H1 = {"ASIC" : [(76,221), (122,220), (80,252), (126,248)]}
         activeAreasASIC = {"pad1" : [(0,0), (0,0), (0,0), (0,0)]} #etc
 
+        #Here we store the valid selection areas (i.e. bond pads)
+        #  give a rough area and assume all are square, so we
+        #  can just pass a single point and build the box while
+        #  we check the location of the click
+        activeSelectionAreasASIC = {"1" : (248,65)}
+        
+
         self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
                             "R0H0" : activeAreasR0H0, "R0H1" : activeAreasR0H1,\
                             "ASIC" : activeAreasASIC}
+
+        self.activeSelectionAreas = {"ASIC" : activeSelectionAreasASIC}
 
         #Load the initial module selection img
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg',"1")) #Why 1??
@@ -56,7 +65,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.btnBack.clicked.connect(self.levelUp)
 
         #Run button
-        self.btnRun.clicked.connect(self.changeModeSelect)
+        self.btnChangeMode.clicked.connect(self.changeMode)
 
         #hide form
         self.qButton.clicked.connect(self.hide)
@@ -84,37 +93,69 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         x = ev.pos().x()
         y = ev.pos().y()
 
-        print('(' + str(x) + ',' +  str(y) + '),') #DEBUG
+        #print('(' + str(x) + ',' +  str(y) + '),') #DEBUG
 
+        name = self.level[-1]
+
+        #Check if it's inside any of the current active areas
         if self.browseMode:
-            #Check if it's inside any of the current active areas
-            curDict = self.activeAreas[self.level[-1]]
-            for area in curDict:
-                name = area
-                coords = curDict[name]
-                tempPath = mplPath.Path(np.array([coords[0], coords[1],\
-                                                  coords[2], coords[3]]))
-                inside = tempPath.contains_point((x,y))
+            curDict = self.activeAreas[name]
+        elif self.selectionMode:
+            curDict = self.activeSelectionAreas[name]
 
-                #If it is, do stuff
-                if inside:
-                    #Make this all a function for use with the back button!!
-                    #print name #DEBUG
-                    self.level.append(name) #Add level to level array
-                    self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
+        for area in curDict:
+            name = area
+            coords = curDict[name]
 
-                    #Need to place the new picture
-                    print('imgs/' + name + '.jpg') #DEBUG
-                    self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg','1'))
+            #Need to build pad box if in selection mode
+            if self.selectionMode:
+                xVal = coords[0]
+                yVal = coords[1]
+                size = 5
+                coordsTemp = [(xVal-size,yVal+size), (xVal+size,yVal+size),\
+                              (xVal+size,yVal-size), (xVal-size,yVal-size)]
+                coords = coordsTemp
 
+            tempPath = mplPath.Path(np.array([coords[0], coords[1],\
+                                              coords[2], coords[3]]))
+            inside = tempPath.contains_point((x,y))
+
+            #If it is, do stuff
+            if inside and self.browseMode:                    
+                self.level.append(name) #Add level to level array
+                self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
+
+                #Need to place the new picture
+                #print('imgs/' + name + '.jpg') #DEBUG
+                self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg','1'))
+
+            if inside and self.selectionMode:
+                #Display box around selected pad
+                #  TODO: if already selected, unselect it
+                print(name)
+                self.drawBox(coords)
+                
+
+    def drawBox(self, coords):
+        print("Draw box")
+                
+
+    def changeMode(self):
+        #If we're in browse mode:
+        if self.browseMode:
+            self.browseMode = False
+            self.selectionMode = True
+            self.imgSelect.setStyleSheet("border: 2px solid red;")
+            self.btnChangeMode.setText("Browse Mode")
+            return
+
+        #If we're in selection mode:
         if self.selectionMode:
-            print("cool")
-
-
-    def changeModeSelect(self):
-        self.browseMode = False
-        self.selectionMode = True
-        self.imgSelect.setStyleSheet("border: 2px solid red;")
+            self.browseMode = True
+            self.selectionMode = False
+            self.imgSelect.setStyleSheet("border: 2px solid black;")
+            self.btnChangeMode.setText("Selection Mode")
+            return
         
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
