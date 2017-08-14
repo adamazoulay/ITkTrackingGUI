@@ -137,7 +137,16 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 
 
     def drawBox(self, coords):
-        print("Draw box")
+        painter = QtGui.QPainter()
+        painter.begin(self.imgSelect)        
+        painter.setBrush(QtGui.QColor(000,000,255))
+        print(coords)
+        
+        painter.drawRect(0,0,300,300)#(coords[0][0],coords[0][1],\
+                         #coords[1][0],coords[1][1])
+
+        painter.end()
+        #self.update()
                 
 
     def changeMode(self):
