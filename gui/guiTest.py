@@ -50,13 +50,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         #  give a rough area and assume all are square, so we
         #  can just pass a single point and build the box while
         #  we check the location of the click
-        activeSelectionAreasASIC = {"1" : (246,65), "2" : (258,66), "3" : (275,64),\
-                                    "4" : (288,67), "5" : (301,65), "6" : (309,65),\
-                                    "7" : (334,64), "8" : (344,63), "9" : (353,64),\
-                                    "10" : (362,64), "11" : (371,64), "12" : (380,64),\
-                                    "13" : (391,64), "14" : (398,63), "15" : (408,64),\
-                                    "16" : (415,63), "17" : (425,63), "18" : (434,64),\
-                                    "19" : (443,63), "20" : (453,63), "21" : (462,63)}
+        activeSelectionAreasASIC = {"1" : (246,65), "2" : (258,65), "3" : (275,65),\
+                                    "4" : (288,65), "5" : (301,65), "6" : (309,65),\
+                                    "7" : (334,65), "8" : (344,65), "9" : (353,65),\
+                                    "10" : (362,65), "11" : (371,65), "12" : (380,65),\
+                                    "13" : (391,65), "14" : (398,65), "15" : (408,65),\
+                                    "16" : (415,65), "17" : (425,65), "18" : (434,65),\
+                                    "19" : (443,65), "20" : (453,65), "21" : (462,65)}
         
 
         self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
@@ -87,7 +87,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.level.pop(-1)
             name = self.level[-1]
             self.levelLabel.setText(self.level[-1])
-            print(name)
 
             self.curImg = name
             self.loadImg()
