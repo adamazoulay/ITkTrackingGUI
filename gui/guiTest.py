@@ -25,6 +25,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.level = ['root']
         self.selectionMode = False
         self.browseMode = True
+        self.curImg = "root"
+        self.selectedPads = []
 
         #Set level label (maybe debug?)
         self.levelLabel.setText(self.level[-1])
@@ -56,7 +58,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.activeSelectionAreas = {"ASIC" : activeSelectionAreasASIC}
 
         #Load the initial module selection img
-        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/root.jpg',"1")) #Why 1??
+        self.loadImg()
 
         #If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -79,13 +81,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.levelLabel.setText(self.level[-1])
             print(name)
 
-            self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg',"1"))
-
-        #Switch back to browse mode (warning screen?)
-        if self.selectionMode:
-            self.browseMode = True
-            self.selectionMode = False
-            self.imgSelect.setStyleSheet("border: 2px solid black;")
+            self.curImg = name
+            self.loadImg()
             
 
     def executeSelection(self, ev):
@@ -126,24 +123,36 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
 
                 #Need to place the new picture
-                #print('imgs/' + name + '.jpg') #DEBUG
-                self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + name + '.jpg','1'))
+                self.curImg = name
+                self.loadImg()
 
             if inside and self.selectionMode:
                 #Display box around selected pad
                 #  TODO: if already selected, unselect it
-                print(name)
-                self.drawBox(coords)
+                self.manageBoxs(name, coords)
+                print('done adding boxes')
                 
 
-    def drawBox(self, coords):
+    def manageBoxs(self, name, coords):
+        #First add the pad to the array
+        #  TODO: check if already in list and if so, delete it
+        if name in self.selectedPads:
+            self.selectedPads.remove(name)
+        else:
+            self.selectedPads.append(name)
+
+        #Img refresh
+        self.loadImg()
+
+        #Prep painter
         painter = QtGui.QPainter()
-        painter.begin(self.imgSelect)        
-        painter.setBrush(QtGui.QColor(000,000,255))
-        print(coords)
-        
-        painter.drawRect(0,0,300,300)#(coords[0][0],coords[0][1],\
-                         #coords[1][0],coords[1][1])
+        painter.begin(self.imgSelect.pixmap())        
+        painter.setBrush(QtGui.QColor(255,0,0))        
+
+        #draw all boxes
+        for pad in self.selectedPads:
+            painter.drawRect(0,0,50,50)#(coords[0][0],coords[0][1],\
+                                         #coords[1][0],coords[1][1])
 
         painter.end()
         #self.update()
@@ -164,7 +173,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.selectionMode = False
             self.imgSelect.setStyleSheet("border: 2px solid black;")
             self.btnChangeMode.setText("Selection Mode")
+            self.selectedPads = []
             return
+
+    def loadImg(self):
+        #Load name.jpg into Qlabel imgSelect
+        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/'+ self.curImg + '.jpg',"1")) #Why 1??
         
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
