@@ -7,7 +7,7 @@ from os import path
 
 from WelcomeWindowGUI import Ui_WelcomeWindow  # import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
-
+from ConfirmWindowGUI import Ui_ConfirmWindow
 
 # ================================================================================
 # TODO:
@@ -30,6 +30,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.selectedPads = []
         self.counter = -3
         self.curDict = {}
+        self.saved = True
 
         # Set level label (maybe debug?)
         self.levelLabel.setText(self.level[-1])
@@ -85,10 +86,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     # Save any information about the selected pads
     def saveSelection(self):
-        print(self.level)
-        print(self.selectedPads)
         if len(self.selectedPads) == 0:
             print("Can't save")
+            return
+        print(self.level)
+        print(self.selectedPads)
+        self.saved = True
+
 
     # Back button functionality
     def levelUp(self):
@@ -104,6 +108,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             # If the image is clicked, run checks
 
     def executeSelection(self, ev):
+        size = 4
         # Grab click location
         x = ev.pos().x()
         y = ev.pos().y()
@@ -127,7 +132,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             if self.selectionMode:
                 xVal = coords[0]
                 yVal = coords[1]
-                size = 4
                 # Order: bottom left, bottom right, top right, top left
                 coordsTemp = [(xVal - size, yVal + size), (xVal + size, yVal + size),
                               (xVal + size, yVal - size), (xVal - size, yVal - size)]
@@ -147,8 +151,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 self.loadImg()
 
             if inside and self.selectionMode:
+                # Mark the pas list as unsaved
+                self.saved = False
                 # Display box around selected pad
-                #  TODO: if already selected, unselect it
                 self.manageBoxes(name, size)
 
     def manageBoxes(self, name, size):
@@ -189,13 +194,18 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         # If we're in selection mode:
         if self.selectionMode:
-            self.loadImg()
-            self.browseMode = True
-            self.selectionMode = False
-            self.imgSelect.setStyleSheet("border: 2px solid black;")
-            self.btnChangeMode.setText("Selection Mode")
-            self.selectedPads = []
-            return
+            if self.saved:
+                self.loadImg()
+                self.browseMode = True
+                self.selectionMode = False
+                self.imgSelect.setStyleSheet("border: 2px solid black;")
+                self.btnChangeMode.setText("Selection Mode")
+                self.selectedPads = []
+                return
+            else:
+                # Open confirm window
+                self.confirmWindow = ConfirmWindow(self)
+                self.confirmWindow.show()
 
     def loadImg(self):
         # Load name.jpg into Qlabel imgSelect
@@ -212,6 +222,33 @@ class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
 
         # Global quit
         self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
+
+class ConfirmWindow(QtWidgets.QMainWindow, Ui_ConfirmWindow):
+    def __init__(self, formDataWindow):
+        super(self.__class__, self).__init__()
+        self.setupUi(self)
+        self.formDataWindow = formDataWindow
+
+        # Save and continue
+        self.btnSecondSave.clicked.connect(self.saveAndContinue)
+
+        # Discard changes
+        self.btnContinue.clicked.connect(self.discard)
+
+        # Close window
+        self.btnCancel.clicked.connect(self.hide)
+
+    def saveAndContinue(self):
+        # Run the save command and change to browse mode
+        self.formDataWindow.saveSelection()
+        self.formDataWindow.changeMode()
+        self.hide()
+
+    def discard(self):
+        # Toss changes and go to browse mode
+        self.formDataWindow.saved = True
+        self.formDataWindow.changeMode()
+        self.hide()
 
 
 # ================================================================================
