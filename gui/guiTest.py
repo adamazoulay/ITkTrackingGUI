@@ -1,27 +1,28 @@
-from PyQt5 import QtGui, QtWidgets # Import the PyQt5 module we'll need
-from PyQt5 import QtCore # for quit button
-import sys, os # We need sys so that we can pass argv to QApplication
+from PyQt5 import QtGui, QtWidgets  # Import the PyQt5 module we'll need
+from PyQt5 import QtCore  # for quit button
+import sys, os  # We need sys so that we can pass argv to QApplication
 import matplotlib.path as mplPath
 import numpy as np
 from os import path
 
-from WelcomeWindowGUI import Ui_WelcomeWindow #import design files
+from WelcomeWindowGUI import Ui_WelcomeWindow  # import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
 
-#================================================================================
-#TODO:
-#Make image loading a function
 
-#================================================================================
+# ================================================================================
+# TODO:
+# Make image loading a function
 
-#Define the classes for the various guis
+# ================================================================================
+
+# Define the classes for the various guis
 class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)  # This is defined in design.py file automatically
-                            # It sets up layout and widgets that are defined
+        # It sets up layout and widgets that are defined
 
-        #Start global variables
+        # Start global variables
         self.level = ['root']
         self.selectionMode = False
         self.browseMode = True
@@ -30,91 +31,89 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.counter = -3
         self.curDict = {}
 
-        #Set level label (maybe debug?)
+        # Set level label (maybe debug?)
         self.levelLabel.setText(self.level[-1])
 
-        #Need to store all active areas for each level
-        activeAreasRoot = dict([["R0", [(96,28), (263,30), (257,219), (93,223)]],\
-                                ["R1", [(373,38), (591,39), (587,224), (378,222)]],\
-                                ["R2", [(0,0), (0,0), (0,0), (0,0)]],\
-                                ["R3", [(0,0), (0,0), (0,0), (0,0)]],\
-                                ["R4", [(0,0), (0,0), (0,0), (0,0)]],\
-                                ["R5", [(0,0), (0,0), (0,0), (0,0)]]])
-        activeAreasR0 = {"R0H0" : [(79,222), (594,224), (588,327), (82,319)],
-                         "R0H1" : [(88,354), (582,355), (575,460), (100,456)]}
-        activeAreasR0H0 = {"ASIC" : [(24,280), (79,274), (81,316), (24,323)]}
-        activeAreasR0H1 = {"ASIC" : [(76,221), (122,220), (80,252), (126,248)]}
-        activeAreasASIC = {"pad1" : [(0,0), (0,0), (0,0), (0,0)]} #etc
+        # Need to store all active areas for each level
+        activeAreasRoot = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
+                                ["R1", [(373, 38), (591, 39), (587, 224), (378, 222)]],
+                                ["R2", [(0, 0), (0, 0), (0, 0), (0, 0)]],
+                                ["R3", [(0, 0), (0, 0), (0, 0), (0, 0)]],
+                                ["R4", [(0, 0), (0, 0), (0, 0), (0, 0)]],
+                                ["R5", [(0, 0), (0, 0), (0, 0), (0, 0)]]])
+        activeAreasR0 = {"R0H0": [(79, 222), (594, 224), (588, 327), (82, 319)],
+                         "R0H1": [(88, 354), (582, 355), (575, 460), (100, 456)]}
+        activeAreasR0H0 = {"ASIC": [(24, 280), (79, 274), (81, 316), (24, 323)]}
+        activeAreasR0H1 = {"ASIC": [(76, 221), (122, 220), (80, 252), (126, 248)]}
+        activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc
 
-        #Here we store the valid selection areas (i.e. bond pads)
+        # Here we store the valid selection areas (i.e. bond pads)
         #  give a rough area and assume all are square, so we
         #  can just pass a single point and build the box while
         #  we check the location of the click
-        activeSelectionAreasASIC = {"1" : (247,65), "2" : (256,65), "3" : (274,65),\
-                                    "4" : (288,68), "5" : (300,65), "6" : (309,65),\
-                                    "7" : (334,65), "8" : (343,65), "9" : (352,65),\
-                                    "10" : (361,65), "11" : (370,65), "12" : (379,65),\
-                                    "13" : (388,65), "14" : (397,65), "15" : (406,65),\
-                                    "16" : (415,65), "17" : (424,65), "18" : (433,65),\
-                                    "19" : (442,65), "20" : (451,65), "21" : (460,65)}
-        
+        activeSelectionAreasASIC = {"1": (247, 65), "2": (256, 65), "3": (274, 65),
+                                    "4": (288, 68), "5": (300, 65), "6": (309, 65),
+                                    "7": (334, 65), "8": (343, 65), "9": (352, 65),
+                                    "10": (361, 65), "11": (370, 65), "12": (379, 65),
+                                    "13": (388, 65), "14": (397, 65), "15": (406, 65),
+                                    "16": (415, 65), "17": (424, 65), "18": (433, 65),
+                                    "19": (442, 65), "20": (451, 65), "21": (460, 65)}
 
-        self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
-                            "R0H0" : activeAreasR0H0, "R0H1" : activeAreasR0H1,\
-                            "ASIC" : activeAreasASIC}
+        self.activeAreas = {"root": activeAreasRoot, "R0": activeAreasR0,
+                            "R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
+                            "ASIC": activeAreasASIC}
 
-        self.activeSelectionAreas = {"ASIC" : activeSelectionAreasASIC}
+        self.activeSelectionAreas = {"ASIC": activeSelectionAreasASIC}
 
-        #Load the initial module selection img
+        # Load the initial module selection img
         self.loadImg()
 
-        #If module is selected by picture, change the module list
+        # If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
 
-        #Back button
+        # Back button
         self.btnBack.clicked.connect(self.levelUp)
 
-        #Change mode button
+        # Change mode button
         self.btnChangeMode.clicked.connect(self.changeMode)
 
-        #Save button
+        # Save button
         self.btnSave.clicked.connect(self.saveSelection)
 
-        #hide form
+        # hide form
         self.qButton.clicked.connect(self.hide)
 
-
-
-    #Save any information about the selected pads
+    # Save any information about the selected pads
     def saveSelection(self):
         print(self.level)
         print(self.selectedPads)
         if len(self.selectedPads) == 0:
-            
+            print("Can't save")
 
-    #Back button functionality
+    # Back button functionality
     def levelUp(self):
-        #Check we aren't at root and are in browse mode
+        # Check we aren't at root and are in browse mode
         if self.level[-1] != "root" and self.browseMode:
             self.level.pop(-1)
             name = self.level[-1]
             self.levelLabel.setText(self.level[-1])
 
             self.curImg = name
-            self.loadImg()            
+            self.loadImg()
 
-    #If the image is clicked, run checks
+            # If the image is clicked, run checks
+
     def executeSelection(self, ev):
-        #Grab click location    
+        # Grab click location
         x = ev.pos().x()
         y = ev.pos().y()
 
         self.counter += 1
-        #print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
+        # print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
 
         name = self.level[-1]
 
-        #Check if it's inside any of the current active areas
+        # Check if it's inside any of the current active areas
         if self.browseMode:
             self.curDict = self.activeAreas[name]
         elif self.selectionMode:
@@ -124,63 +123,62 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             name = area
             coords = self.curDict[name]
 
-            #Need to build pad box if in selection mode
+            # Need to build pad box if in selection mode
             if self.selectionMode:
                 xVal = coords[0]
                 yVal = coords[1]
                 size = 4
-                #Order: bottom left, bottom right, top right, top left
-                coordsTemp = [(xVal-size,yVal+size), (xVal+size,yVal+size),\
-                              (xVal+size,yVal-size), (xVal-size,yVal-size)]
+                # Order: bottom left, bottom right, top right, top left
+                coordsTemp = [(xVal - size, yVal + size), (xVal + size, yVal + size),
+                              (xVal + size, yVal - size), (xVal - size, yVal - size)]
                 coords = coordsTemp
 
-            tempPath = mplPath.Path(np.array([coords[0], coords[1],\
+            tempPath = mplPath.Path(np.array([coords[0], coords[1],
                                               coords[2], coords[3]]))
-            inside = tempPath.contains_point((x,y))
+            inside = tempPath.contains_point((x, y))
 
-            #If it is, do stuff
-            if inside and self.browseMode:                    
-                self.level.append(name) #Add level to level array
-                self.levelLabel.setText(self.level[-1]) #change level label DEBUG?
+            # If it is, do stuff
+            if inside and self.browseMode:
+                self.level.append(name)  # Add level to level array
+                self.levelLabel.setText(self.level[-1])  # change level label DEBUG?
 
-                #Need to place the new picture
+                # Need to place the new picture
                 self.curImg = name
                 self.loadImg()
 
             if inside and self.selectionMode:
-                #Display box around selected pad
+                # Display box around selected pad
                 #  TODO: if already selected, unselect it
-                self.manageBoxs(name, size)
+                self.manageBoxes(name, size)
 
-    def manageBoxs(self, name, size):
-        #First add the pad to the array
+    def manageBoxes(self, name, size):
+        # First add the pad to the array
         #  TODO: check if already in list and if so, delete it
         if name in self.selectedPads:
             self.selectedPads.remove(name)
         else:
             self.selectedPads.append(name)
 
-        #Img refresh
+        # Img refresh
         self.loadImg()
 
-        #Prep painter
+        # Prep painter
         painter = QtGui.QPainter()
-        painter.begin(self.imgSelect.pixmap())        
-        painter.setBrush(QtGui.QColor(255,0,0))        
+        painter.begin(self.imgSelect.pixmap())
+        painter.setBrush(QtGui.QColor(255, 0, 0))
 
-        #draw all boxes
+        # draw all boxes
         for pad in self.selectedPads:
-            #Get top right coords of pad
+            # Get top right coords of pad
             coords = self.curDict[pad]
             xVal = coords[0]
-            yVal = coords[1]            
-            painter.drawRect(xVal-size,yVal-size, 2*size, 2*size)
+            yVal = coords[1]
+            painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
 
         painter.end()
-                
 
     def changeMode(self):
-        #If we're in browse mode:
+        # If we're in browse mode:
         if self.browseMode:
             self.loadImg()
             self.browseMode = False
@@ -189,7 +187,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.btnChangeMode.setText("Browse Mode")
             return
 
-        #If we're in selection mode:
+        # If we're in selection mode:
         if self.selectionMode:
             self.loadImg()
             self.browseMode = True
@@ -200,34 +198,35 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             return
 
     def loadImg(self):
-        #Load name.jpg into Qlabel imgSelect
-        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/'+ self.curImg + '.jpg',"1")) #Why 1??
-        
+        # Load name.jpg into Qlabel imgSelect
+        self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + self.curImg + '.jpg', "1"))  # Why 1??
+
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
     def __init__(self):
         super(self.__class__, self).__init__()
         self.setupUi(self)
 
-        #Show the WirebondRecorder
+        # Show the WirebondRecorder
         self.btnWirebondRecorder.clicked.connect(displayRecorder)
 
-        #Global quit
+        # Global quit
         self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
 
-#================================================================================
-#All functions and main down here   
+
+# ================================================================================
+# All functions and main down here
 def displayGui():
     app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
-    form = WelcomeWindow()              # We set the form to be our WelcomeWindow (design)
-    form.show()                         # Show the form
-    app.exec_()                         # and execute the app
+    form = WelcomeWindow()  # We set the form to be our WelcomeWindow (design)
+    form.show()  # Show the form
+    app.exec_()  # and execute the app
+
 
 def displayRecorder():
     formRec = WirebondRecorder()
     formRec.show()
 
-if __name__ == '__main__':              # if we're running file directly and not importing it
-    displayGui()                              # run the main function
-    
 
+if __name__ == '__main__':  # if we're running file directly and not importing it
+    displayGui()  # run the main function
