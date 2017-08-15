@@ -42,7 +42,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                                 ["R5", [(0,0), (0,0), (0,0), (0,0)]]])
         activeAreasR0 = {"R0H0" : [(79,222), (594,224), (588,327), (82,319)],
                          "R0H1" : [(88,354), (582,355), (575,460), (100,456)]}
-        activeAreasR0H0 = {"ASIC" : [(21,282), (73,278), (26,319), (76,315)]}
+        activeAreasR0H0 = {"ASIC" : [(24,280), (79,274), (81,316), (24,323)]}
         activeAreasR0H1 = {"ASIC" : [(76,221), (122,220), (80,252), (126,248)]}
         activeAreasASIC = {"pad1" : [(0,0), (0,0), (0,0), (0,0)]} #etc
 
@@ -50,13 +50,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         #  give a rough area and assume all are square, so we
         #  can just pass a single point and build the box while
         #  we check the location of the click
-        activeSelectionAreasASIC = {"1" : (246,65), "2" : (258,65), "3" : (275,65),\
-                                    "4" : (288,65), "5" : (301,65), "6" : (309,65),\
-                                    "7" : (334,65), "8" : (344,65), "9" : (353,65),\
-                                    "10" : (362,65), "11" : (371,65), "12" : (380,65),\
-                                    "13" : (391,65), "14" : (398,65), "15" : (408,65),\
-                                    "16" : (415,65), "17" : (425,65), "18" : (434,65),\
-                                    "19" : (443,65), "20" : (453,65), "21" : (462,65)}
+        activeSelectionAreasASIC = {"1" : (247,65), "2" : (256,65), "3" : (274,65),\
+                                    "4" : (288,68), "5" : (300,65), "6" : (309,65),\
+                                    "7" : (334,65), "8" : (343,65), "9" : (352,65),\
+                                    "10" : (361,65), "11" : (370,65), "12" : (379,65),\
+                                    "13" : (388,65), "14" : (397,65), "15" : (406,65),\
+                                    "16" : (415,65), "17" : (424,65), "18" : (433,65),\
+                                    "19" : (442,65), "20" : (451,65), "21" : (460,65)}
         
 
         self.activeAreas = {"root" : activeAreasRoot, "R0" : activeAreasR0,\
@@ -74,11 +74,23 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         #Back button
         self.btnBack.clicked.connect(self.levelUp)
 
-        #Run button
+        #Change mode button
         self.btnChangeMode.clicked.connect(self.changeMode)
+
+        #Save button
+        self.btnSave.clicked.connect(self.saveSelection)
 
         #hide form
         self.qButton.clicked.connect(self.hide)
+
+
+
+    #Save any information about the selected pads
+    def saveSelection(self):
+        print(self.level)
+        print(self.selectedPads)
+        if len(self.selectedPads) == 0:
+            
 
     #Back button functionality
     def levelUp(self):
@@ -89,9 +101,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.levelLabel.setText(self.level[-1])
 
             self.curImg = name
-            self.loadImg()
-            
+            self.loadImg()            
 
+    #If the image is clicked, run checks
     def executeSelection(self, ev):
         #Grab click location    
         x = ev.pos().x()
@@ -165,12 +177,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             painter.drawRect(xVal-size,yVal-size, 2*size, 2*size)
 
         painter.end()
-        #self.update()
                 
 
     def changeMode(self):
         #If we're in browse mode:
         if self.browseMode:
+            self.loadImg()
             self.browseMode = False
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
@@ -179,6 +191,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         #If we're in selection mode:
         if self.selectionMode:
+            self.loadImg()
             self.browseMode = True
             self.selectionMode = False
             self.imgSelect.setStyleSheet("border: 2px solid black;")
