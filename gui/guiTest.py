@@ -31,6 +31,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.counter = -3
         self.curDict = {}
         self.saved = True
+        #Pad size scale (need to adjust for zooming stuff)
+        self.size = 4
 
         # Set level label (maybe debug?)
         self.levelLabel.setText(self.level[-1])
@@ -108,14 +110,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     # If the image is clicked, run checks
     def executeSelection(self, ev):
-        size = 4
         # Grab click location
         x = ev.pos().x()
         y = ev.pos().y()
 
         self.counter += 1
         # print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
-        print('(' + str(x) + ',' +  str(y) + ')')
+        #print('(' + str(x) + ',' +  str(y) + ')')
 
         name = self.level[-1]
 
@@ -134,6 +135,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 xVal = coords[0]
                 yVal = coords[1]
                 # Order: bottom left, bottom right, top right, top left
+                size = self.size
                 coordsTemp = [(xVal - size, yVal + size), (xVal + size, yVal + size),
                               (xVal + size, yVal - size), (xVal - size, yVal - size)]
                 coords = coordsTemp
@@ -157,31 +159,43 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 # Display box around selected pad
                 self.manageBoxes(name, size)
 
-    def manageBoxes(self, name, size):
-        # First add the pad to the array
-        #  TODO: check if already in list and if so, delete it
-        if name in self.selectedPads:
-            self.selectedPads.remove(name)
-        else:
-            self.selectedPads.append(name)
-
+    def drawBoxes(self):
+        size = self.size
         # Img refresh
         self.loadImg()
 
         # Prep painter
         painter = QtGui.QPainter()
         painter.begin(self.imgSelect.pixmap())
-        painter.setBrush(QtGui.QColor(255, 0, 0))
+        painter.setPen(QtGui.QColor(255, 0, 0))
 
         # draw all boxes
-        for pad in self.selectedPads:
+        for area in self.curDict:
+            # Draw hollow rect
             # Get top right coords of pad
-            coords = self.curDict[pad]
+            coords = self.curDict[area]
             xVal = coords[0]
-            yVal = coords[1]
+            yVal = coords[1]            
+            
+            # if selected, fill in rect
+            if area in self.selectedPads:
+                painter.setBrush(QtGui.QColor(255, 0, 0))
+            else:
+                # Just set alpha to 0 (probably a better way to do this)
+                painter.setBrush(QtGui.QColor(255, 0, 0, 0))
+
             painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
 
         painter.end()
+
+    def manageBoxes(self, name, size):
+        # First add the pad to the array
+        if name in self.selectedPads:
+            self.selectedPads.remove(name)
+        else:
+            self.selectedPads.append(name)
+
+        self.drawBoxes()
 
     def changeMode(self):
         # If we're in browse mode and a have pads to select:
@@ -191,7 +205,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
             self.btnChangeMode.setText("Browse Mode")
-            self.markPads()
+            self.curDict = self.activeSelectionAreas[self.curImg]
+            self.drawBoxes()
             return
 
         # If we're in selection mode:
@@ -212,13 +227,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
     def loadImg(self):
         # Load name.jpg into Qlabel imgSelect
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + self.curImg + '.jpg', "1"))  # Why 1??
-
-    # This function puts a red hollow rectangle around all selectable areas
-    # on the image.
-    def markPads(self):
-
-        for area in self.curDict:
-            print(self.curDict[area])
 
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
