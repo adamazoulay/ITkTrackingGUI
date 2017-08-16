@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -55,11 +55,13 @@ class Ui_WirebondRecorder(object):
         self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.btnChangeMode = QtWidgets.QPushButton(self.horizontalLayoutWidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.btnChangeMode.sizePolicy().hasHeightForWidth())
         self.btnChangeMode.setSizePolicy(sizePolicy)
+        self.btnChangeMode.setMinimumSize(QtCore.QSize(80, 39))
+        self.btnChangeMode.setMaximumSize(QtCore.QSize(80, 39))
         self.btnChangeMode.setIconSize(QtCore.QSize(16, 16))
         self.btnChangeMode.setObjectName("btnChangeMode")
         self.horizontalLayout.addWidget(self.btnChangeMode)

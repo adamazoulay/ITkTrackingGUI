@@ -42,11 +42,11 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                                 ["R3", [(0, 0), (0, 0), (0, 0), (0, 0)]],
                                 ["R4", [(0, 0), (0, 0), (0, 0), (0, 0)]],
                                 ["R5", [(0, 0), (0, 0), (0, 0), (0, 0)]]])
-        activeAreasR0 = {"R0H0": [(79, 222), (594, 224), (588, 327), (82, 319)],
-                         "R0H1": [(88, 354), (582, 355), (575, 460), (100, 456)]}
-        activeAreasR0H0 = {"ASIC": [(24, 280), (79, 274), (81, 316), (24, 323)]}
-        activeAreasR0H1 = {"ASIC": [(76, 221), (122, 220), (80, 252), (126, 248)]}
-        activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc
+        activeAreasR0 = {"R0H0": [(82,365), (616,364), (606,485), (93,492)],
+                         "R0H1": [(63,199), (631,189), (623,305), (81,321)]}
+        activeAreasR0H0 = {"ASIC": [(0, 0), (0, 0), (0, 0), (0, 0)]}
+        activeAreasR0H1 = {"ASIC": [(29,284), (90,282), (90,328), (36,334)]}
+        activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc?
 
         # Here we store the valid selection areas (i.e. bond pads)
         #  give a rough area and assume all are square, so we
@@ -66,7 +66,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         self.activeSelectionAreas = {"ASIC": activeSelectionAreasASIC}
 
-        # Load the initial module selection img
+        # Load the initial module selection img and selection areas
         self.loadImg()
 
         # If module is selected by picture, change the module list
@@ -105,8 +105,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.curImg = name
             self.loadImg()
 
-            # If the image is clicked, run checks
 
+    # If the image is clicked, run checks
     def executeSelection(self, ev):
         size = 4
         # Grab click location
@@ -115,6 +115,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         self.counter += 1
         # print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
+        print('(' + str(x) + ',' +  str(y) + ')')
 
         name = self.level[-1]
 
@@ -183,13 +184,14 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         painter.end()
 
     def changeMode(self):
-        # If we're in browse mode:
-        if self.browseMode:
+        # If we're in browse mode and a have pads to select:
+        if self.browseMode and self.level[-1] == "ASIC":
             self.loadImg()
             self.browseMode = False
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
             self.btnChangeMode.setText("Browse Mode")
+            self.markPads()
             return
 
         # If we're in selection mode:
@@ -210,6 +212,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
     def loadImg(self):
         # Load name.jpg into Qlabel imgSelect
         self.imgSelect.setPixmap(QtGui.QPixmap('imgs/' + self.curImg + '.jpg', "1"))  # Why 1??
+
+    # This function puts a red hollow rectangle around all selectable areas
+    # on the image.
+    def markPads(self):
+
+        for area in self.curDict:
+            print(self.curDict[area])
 
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
