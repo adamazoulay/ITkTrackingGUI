@@ -11,8 +11,7 @@ from ConfirmWindowGUI import Ui_ConfirmWindow
 
 # ================================================================================
 # TODO:
-# Make image loading a function
-
+#  Figure out pad selection saving.
 # ================================================================================
 
 # Define the classes for the various guis
