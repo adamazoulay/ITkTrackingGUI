@@ -180,8 +180,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             if area in self.selectedPads:
                 painter.setBrush(QtGui.QColor(255, 0, 0))
             else:
-                # Just set alpha to 0 (probably a better way to do this)
-                painter.setBrush(QtGui.QColor(255, 0, 0, 0))
+                # Just set alpha to 0 (probably a better way to do this. there was!)
+                painter.setBrush(QtCore.Qt.NoBrush)
 
             painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
 
