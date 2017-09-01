@@ -12,9 +12,9 @@ class Ui_ConfirmWindow(object):
     def setupUi(self, ConfirmWindow):
         ConfirmWindow.setObjectName("ConfirmWindow")
         ConfirmWindow.setWindowModality(QtCore.Qt.ApplicationModal)
-        ConfirmWindow.resize(272, 144)
+        ConfirmWindow.resize(346, 146)
         self.verticalLayoutWidget = QtWidgets.QWidget(ConfirmWindow)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 241, 121))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(10, 10, 321, 121))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)

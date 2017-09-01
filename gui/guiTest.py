@@ -21,6 +21,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.setupUi(self)  # This is defined in design.py file automatically
         # It sets up layout and widgets that are defined
 
+        #set as central widget
+        
+
         # Start global variables
         self.level = ['root']
         self.selectionMode = False
@@ -32,9 +35,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.saved = True
         #Pad size scale (need to adjust for zooming stuff)
         self.size = 4
-
-        # Set level label (maybe debug?)
-        self.levelLabel.setText(self.level[-1])
 
         # Need to store all active areas for each level
         activeAreasRoot = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
@@ -101,7 +101,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         if self.level[-1] != "root" and self.browseMode:
             self.level.pop(-1)
             name = self.level[-1]
-            self.levelLabel.setText(self.level[-1])
 
             self.curImg = name
             self.loadImg()
@@ -146,7 +145,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             # If it is, do stuff
             if inside and self.browseMode:
                 self.level.append(name)  # Add level to level array
-                self.levelLabel.setText(self.level[-1])  # change level label DEBUG?
 
                 # Need to place the new picture
                 self.curImg = name
@@ -273,7 +271,7 @@ def displayGui():
     app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
     form = WelcomeWindow()  # We set the form to be our WelcomeWindow (design)
     form.show()  # Show the form
-    app.exec_()  # and execute the app
+    sys.exit(app.exec_())  # and execute the app
 
 
 def displayRecorder():
