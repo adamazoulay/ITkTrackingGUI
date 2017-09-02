@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_WirebondRecorder(object):
     def setupUi(self, WirebondRecorder):
         WirebondRecorder.setObjectName("WirebondRecorder")
-        WirebondRecorder.resize(854, 796)
+        WirebondRecorder.resize(854, 798)
         self.centralwidget = QtWidgets.QWidget(WirebondRecorder)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
