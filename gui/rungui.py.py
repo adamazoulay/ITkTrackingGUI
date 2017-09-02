@@ -39,7 +39,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         # Scale and offset values, for resize and adjust (need to change on every resize and zoom)
         self.zoomScale = 1
-        self.xyOffset = (0,0)
+        self.xyOffset = (0,0) # (x, y)
+
+        # Pixmap dims
+        self.pixmapDims = (0,0) # (width, height)
 
         # Pad size scale (need to adjust for zooming stuff)
         self.size = 4
@@ -56,7 +59,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                          "R0H1": [(63, 199), (631, 189), (623, 305), (81, 321)]}
         activeAreasR0H0 = {"ASIC": [(0, 0), (0, 0), (0, 0), (0, 0)]}
         activeAreasR0H1 = {
-            "ASIC": [(29, 284), (90, 282), (90, 328), (36, 334)]}
+            "ASIC": [(27, 38), (88, 33), (94, 79), (33, 82)]}
         activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc?
 
         # Here we store the valid selection areas (i.e. bond pads)
@@ -77,10 +80,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         self.activeSelectionAreas = {"ASIC": activeSelectionAreasASIC}
 
+
+		# Start maximized
+        self.showMaximized()
+
         # Load the initial module selection img and selection areas
         self.curDict = self.activeAreas[self.curImg]
-        self.loadImg()
-        self.drawBoxes()
+        self.loadImg()      
 
         # If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -96,6 +102,25 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         # hide form
         self.qButton.clicked.connect(self.hide)
+
+    # Get the scaling and offset values
+    def findScaleAndOffset(self):
+    	# Determine new self.zoomScale and self.xyOffset
+    	# First get size of the imgSelect box
+    	imgSelectWidth = self.imgSelect.width()
+    	imgSelectHeight = self.imgSelect.height()
+
+    	pixMapWidth = self.pixmapDims[0]
+    	pixMapHeight = self.pixmapDims[1]
+
+
+    	# Find the xy offset
+    	xOff = (imgSelectWidth - pixMapWidth)/2
+    	yOff = (imgSelectHeight - pixMapHeight)/2
+
+    	self.xyOffset = (xOff, yOff)
+
+
 
     # Save any information about the selected pads
     def saveSelection(self):
@@ -115,7 +140,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
             self.curImg = name
             self.loadImg()
-            self.drawBoxes()
 
     # If the image is clicked, run checks
     def executeSelection(self, ev):
@@ -134,6 +158,14 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
             self.curDict = self.activeAreas[name]
         elif self.selectionMode:
             self.curDict = self.activeSelectionAreas[name]
+
+        # Refresh the scale and offset to correct the coordinates
+        self.findScaleAndOffset()
+
+        xOff = self.xyOffset[0]
+        yOff = self.xyOffset[1]
+        x -= xOff
+        y -= yOff
 
         for area in self.curDict:
             name = area
@@ -160,7 +192,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 # Need to place the new picture
                 self.curImg = name
                 self.loadImg()
-                self.drawBoxes()
 
             if inside and self.selectionMode:
                 # Mark the pas list as unsaved
@@ -171,7 +202,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
     def drawBoxes(self):
         size = self.size
         # Img refresh
-        self.loadImg()
+        # self.loadImg()
 
         # Load correct currentDict
         if self.browseMode:
@@ -215,7 +246,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 width = abs(xValBot-xValTop)
                 height = abs(yValBot-yValTop)
 
-                print(xValTop,yValTop,height,width)
+                print(xValTop, yValTop)
 
                 # Set brush to empty
                 painter.setBrush(QtCore.Qt.NoBrush)
@@ -223,6 +254,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 painter.drawRect(xValTop, yValTop, width, height)
 
         painter.end()
+        print("")
 
     def manageBoxes(self, name, size):
         # First add the pad to the array
@@ -231,29 +263,28 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         else:
             self.selectedPads.append(name)
 
-        self.drawBoxes()
+        self.loadImg()
 
     def changeMode(self):
         # If we're in browse mode and a have pads to select:
-        if self.browseMode and self.level[-1] == "ASIC":
-            self.loadImg()
+        if self.browseMode and self.level[-1] == "ASIC":            
             self.browseMode = False
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
             self.btnChangeMode.setText("Browse Mode")
             self.curDict = self.activeSelectionAreas[self.curImg]
-            self.drawBoxes()
+            self.loadImg()
             return
 
         # If we're in selection mode:
         if self.selectionMode:
             if self.saved:
-                self.loadImg()
                 self.browseMode = True
                 self.selectionMode = False
                 self.imgSelect.setStyleSheet("border: 2px solid black;")
                 self.btnChangeMode.setText("Selection Mode")
                 self.selectedPads = []
+                self.loadImg()
                 return
             else:
                 # Open confirm window
@@ -262,8 +293,17 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     def loadImg(self):
         # Load name.jpg into Qlabel imgSelect
-        self.imgSelect.setPixmap(QtGui.QPixmap(
-            'imgs/' + self.curImg + '.jpg', "1"))  # Why 1??
+        imgPixmap = QtGui.QPixmap('imgs/' + self.curImg + '.jpg', "1") # Why 1??
+
+        # Get dims of pixmap
+        w = imgPixmap.width()
+        h = imgPixmap.height()
+        self.pixmapDims = (w, h)
+
+        self.imgSelect.setPixmap(imgPixmap)  
+        self.imgSelect.setAlignment(QtCore.Qt.AlignCenter)
+
+        self.drawBoxes() 
 
 
 class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
