@@ -111,7 +111,7 @@ class Ui_WirebondRecorder(object):
 
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
-        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "MainWindow"))
+        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "WBR Selection"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Selection Mode"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
         self.qButton.setText(_translate("WirebondRecorder", "Exit"))

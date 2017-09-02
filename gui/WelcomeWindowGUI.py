@@ -75,7 +75,7 @@ class Ui_WelcomeWindow(object):
 
     def retranslateUi(self, WelcomeWindow):
         _translate = QtCore.QCoreApplication.translate
-        WelcomeWindow.setWindowTitle(_translate("WelcomeWindow", "Form"))
+        WelcomeWindow.setWindowTitle(_translate("WelcomeWindow", "WBR"))
         self.label.setText(_translate("WelcomeWindow", "\n"
 "Wirebonding\n"
 "QA Toolkit\n"

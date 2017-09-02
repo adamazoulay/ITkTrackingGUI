@@ -68,7 +68,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.activeSelectionAreas = {"ASIC": activeSelectionAreasASIC}
 
         # Load the initial module selection img and selection areas
+        self.curDict = activeAreasRoot
         self.loadImg()
+        self.drawBoxes()
 
         # If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -104,6 +106,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
             self.curImg = name
             self.loadImg()
+            self.drawBoxes()
 
 
     # If the image is clicked, run checks
@@ -149,6 +152,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 # Need to place the new picture
                 self.curImg = name
                 self.loadImg()
+                self.drawBoxes()
 
             if inside and self.selectionMode:
                 # Mark the pas list as unsaved
@@ -161,27 +165,55 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         # Img refresh
         self.loadImg()
 
+        # Load correct currentDict
+        if self.browseMode:
+        	tempDict = self.activeAreas[self.level[-1]]
+        else:
+        	tempDict = self.curDict
+
         # Prep painter
         painter = QtGui.QPainter()
         painter.begin(self.imgSelect.pixmap())
         painter.setPen(QtGui.QColor(255, 0, 0))
 
-        # draw all boxes
-        for area in self.curDict:
-            # Draw hollow rect
-            # Get top right coords of pad
-            coords = self.curDict[area]
-            xVal = coords[0]
-            yVal = coords[1]            
-            
-            # if selected, fill in rect
-            if area in self.selectedPads:
-                painter.setBrush(QtGui.QColor(255, 0, 0))
-            else:
-                # Just set alpha to 0 (probably a better way to do this. there was!)
-                painter.setBrush(QtCore.Qt.NoBrush)
+        for area in tempDict:
+	        # draw all boxes in selection mode
+	        if self.selectionMode:		        
+	            # Draw hollow rect
+	            # Get top right coords of pad
+	            coords = self.curDict[area]
+	            xVal = coords[0]
+	            yVal = coords[1]            
+	            
+	            # if selected, fill in rect
+	            if area in self.selectedPads:
+	                painter.setBrush(QtGui.QColor(255, 0, 0))
+	            else:
+	                # Just set alpha to 0 (probably a better way to do this. there was!)
+	                painter.setBrush(QtCore.Qt.NoBrush)
 
-            painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
+	            painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
+
+	        if self.browseMode:
+		    	# Draw hollow rect
+	            # Get top right and bottom left coords of area
+	            coords = self.curDict[area]
+	            xValTop = coords[0][0]
+	            yValTop = coords[0][1]
+	            xValBot = coords[2][0]
+	            yValBot = coords[2][1]
+
+	            width = abs(xValBot-xValTop)
+	            height = abs(yValBot-yValTop)
+
+		        # if selected, fill in rect
+	            if area in self.selectedPads:
+	                painter.setBrush(QtGui.QColor(255, 0, 0))
+	            else:
+	                # Just set alpha to 0 (probably a better way to do this. there was!)
+	                painter.setBrush(QtCore.Qt.NoBrush)
+
+	            painter.drawRect(xValTop, yValTop, width, height)
 
         painter.end()
 
