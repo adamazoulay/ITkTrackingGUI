@@ -6,7 +6,6 @@ import matplotlib.path as mplPath
 import numpy as np
 from os import path
 
-from WelcomeWindowGUI import Ui_WelcomeWindow  # import design files
 from WirebondRecorderGUI import Ui_WirebondRecorder
 from ConfirmWindowGUI import Ui_ConfirmWindow
 
@@ -33,20 +32,25 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.browseMode = True
         self.curImg = "root"
         self.selectedPads = []
-        self.counter = -3
+        self.counter = 0
         self.curDict = {}
         self.saved = True
 
-        # Scale and offset values, for resize and adjust (need to change on every resize and zoom)
+        # Scale and offset values, for resize and adjust (need to change on
+        # every resize and zoom)
         self.zoomScale = 1
-        self.xyOffset = (0,0) # (x, y)
+        self.zoomOffset = (0, 0)
+        self.xyOffset = (0, 0)  # (x, y)
 
         # Pixmap dims
-        self.pixmapDims = (0,0) # (width, height)
+        self.pixmapDims = (0, 0)  # (width, height)
 
         # Pad size scale (need to adjust for zooming stuff)
         self.size = 4
 
+        # Start maximized and resized        
+        self.showMaximized()       
+        
         # Need to store all active areas for each level
         activeAreasRoot = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
                                 ["R1", [(373, 38), (591, 39),
@@ -79,15 +83,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                             "R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
                             "ASIC": activeAreasASIC}
 
-        self.activeSelectionAreas = {"R0H1": activeSelectionAreasR0H1, "ASIC": activeSelectionAreasASIC}
-
-
-		# Start maximized
-        self.showMaximized()
-
-        # Load the initial module selection img and selection areas
-        self.curDict = self.activeAreas[self.curImg]
-        self.loadImg()      
+        self.activeSelectionAreas = {
+            "R0H1": activeSelectionAreasR0H1, "ASIC": activeSelectionAreasASIC}
 
         # If module is selected by picture, change the module list
         self.imgSelect.mousePressEvent = self.executeSelection
@@ -101,27 +98,30 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         # Save button
         self.btnSave.clicked.connect(self.saveSelection)
 
-        # hide form
-        self.qButton.clicked.connect(self.hide)
+        # Load the initial module selection img and selection areas
+        self.curDict = self.activeAreas[self.curImg]
+        self.imgSelect.setAlignment(QtCore.Qt.AlignCenter)
+        self.loadImg()
 
     # Get the scaling and offset values
     def findScaleAndOffset(self):
-    	# Determine new self.zoomScale and self.xyOffset
-    	# First get size of the imgSelect box
-    	imgSelectWidth = self.imgSelect.width()
-    	imgSelectHeight = self.imgSelect.height()
+        # Determine new self.zoomScale and self.xyOffset
+        # First get size of the imgSelect box
+        imgSelectWidth = self.imgSelect.width()
+        imgSelectHeight = self.imgSelect.height()
 
-    	pixMapWidth = self.pixmapDims[0]
-    	pixMapHeight = self.pixmapDims[1]
+        pixMapWidth = self.pixmapDims[0]
+        pixMapHeight = self.pixmapDims[1]
 
+        # Find the xy offset
+        xOff = (imgSelectWidth - pixMapWidth)/2
+        yOff = (imgSelectHeight - pixMapHeight)/2
 
-    	# Find the xy offset
-    	xOff = (imgSelectWidth - pixMapWidth)/2
-    	yOff = (imgSelectHeight - pixMapHeight)/2
+        # Add zoom offet
+        xZoom = self.zoomOffset[0]
+        yZoom = self.zoomOffset[1]
 
-    	self.xyOffset = (xOff, yOff)
-
-
+        self.xyOffset = (xOff, yOff)
 
     # Save any information about the selected pads
     def saveSelection(self):
@@ -149,8 +149,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         y = ev.pos().y()
 
         self.counter += 1
-        # print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) + '),') #DEBUG
-        print('(' + str(x) + ',' +  str(y) + ')')
+        # print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' +  str(y) +
+        # '),') #DEBUG
+        print('(' + str(x) + ',' + str(y) + ')')
 
         name = self.level[-1]
 
@@ -202,19 +203,15 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     def drawBoxes(self):
         size = self.size
-        # Img refresh
-        # self.loadImg()
+
+        #Set pen colour
+        Qred = QtGui.QColor(255, 0, 0)
 
         # Load correct currentDict
         if self.browseMode:
             tempDict = self.activeAreas[self.curImg]
         else:
             tempDict = self.curDict
-
-        # Prep painter
-        painter = QtGui.QPainter()
-        painter.begin(self.imgSelect.pixmap())
-        painter.setPen(QtGui.QColor(255, 0, 0))
 
         for area in tempDict:
             # draw all boxes in selection mode
@@ -225,15 +222,15 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 xVal = coords[0]
                 yVal = coords[1]
 
+                rect = QtCore.QRectF(xVal-size, yVal-size, 2*size, 2*size)
+
                 # if selected, fill in rect
                 if area in self.selectedPads:
-                    painter.setBrush(QtGui.QColor(255, 0, 0))
+                    self.scene.addRect(rect, Qred, Qred)
                 else:
                     # Just set alpha to 0 (probably a better way to do this.
                     # there was!)
-                    painter.setBrush(QtCore.Qt.NoBrush)
-
-                painter.drawRect(xVal - size, yVal - size, 2 * size, 2 * size)
+                    self.scene.addRect(rect, Qred, QtGui.QColor(0, 0, 0, 0))
 
             if self.browseMode:
                 # Draw hollow rect
@@ -247,12 +244,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 width = abs(xValBot-xValTop)
                 height = abs(yValBot-yValTop)
 
-                # Set brush to empty
-                painter.setBrush(QtCore.Qt.NoBrush)
+                rect = QtCore.QRectF(xValTop, yValTop, width, height)
 
-                painter.drawRect(xValTop, yValTop, width, height)
-
-        painter.end()
+                self.scene.addRect(rect, Qred, QtGui.QColor(0, 0, 0, 0))
 
     def manageBoxes(self, name, size):
         # First add the pad to the array
@@ -265,7 +259,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     def changeMode(self):
         # If we're in browse mode and a have pads to select:
-        if self.browseMode and (self.level[-1] in self.activeSelectionAreas):            
+        if self.browseMode and (self.level[-1] in self.activeSelectionAreas):
             self.browseMode = False
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
@@ -290,31 +284,32 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 self.confirmWindow.show()
 
     def loadImg(self):
-        # Load name.jpg into Qlabel imgSelect
-        imgPixmap = QtGui.QPixmap('imgs/' + self.curImg + '.jpg', "1") # Why 1??
+        # Load name.jpg into QGraphicsView imgSelect
+        imgPixmap = QtGui.QPixmap(
+            'imgs/' + self.curImg + '.jpg', "1")  # Why 1??
 
         # Get dims of pixmap
         w = imgPixmap.width()
         h = imgPixmap.height()
         self.pixmapDims = (w, h)
 
-        self.imgSelect.setPixmap(imgPixmap)  
-        self.imgSelect.setAlignment(QtCore.Qt.AlignCenter)
+        # Scale the image by the zoom
+        zoom = self.zoomScale
+        imgPixmap = imgPixmap.scaled(w*zoom, h*zoom)
 
-        self.drawBoxes() 
+        # Get dims of the qLabel
+        imgSelectWidth = self.imgSelect.width()
+        imgSelectHeight = self.imgSelect.height()
 
+        #Build a scene for the graphics view
+        self.scene = QtWidgets.QGraphicsScene(self)
+        self.scene.addPixmap(imgPixmap)
+        self.imgSelect.setScene(self.scene)
 
-class WelcomeWindow(QtWidgets.QMainWindow, Ui_WelcomeWindow):
+        self.findScaleAndOffset()
 
-    def __init__(self):
-        super(self.__class__, self).__init__()
-        self.setupUi(self)
-
-        # Show the WirebondRecorder
-        self.btnWirebondRecorder.clicked.connect(displayRecorder)
-
-        # Global quit
-        self.btnExit.clicked.connect(QtCore.QCoreApplication.instance().quit)
+        self.drawBoxes()
+        print(self.imgSelect.width(), self.imgSelect.height())
 
 
 class ConfirmWindow(QtWidgets.QMainWindow, Ui_ConfirmWindow):
@@ -350,15 +345,9 @@ class ConfirmWindow(QtWidgets.QMainWindow, Ui_ConfirmWindow):
 # All functions and main down here
 def displayGui():
     app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
-    form = WelcomeWindow()  # We set the form to be our WelcomeWindow
+    form = WirebondRecorder()  # We set the form to be our WelcomeWindow
     form.show()  # Show the form
     sys.exit(app.exec_())  # and execute the app
-
-
-def displayRecorder():
-    formRec = WirebondRecorder()
-    formRec.show()
-
 
 if __name__ == '__main__':  # if we're running file directly and not importing it
     displayGui()  # run the main function
