@@ -59,7 +59,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                          "R0H1": [(63, 199), (631, 189), (623, 305), (81, 321)]}
         activeAreasR0H0 = {"ASIC": [(0, 0), (0, 0), (0, 0), (0, 0)]}
         activeAreasR0H1 = {
-            "ASIC": [(27, 38), (88, 33), (94, 79), (33, 82)]}
+            "ASIC": [(27, 38), (88, 33), (88, 79), (33, 82)]}
         activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc?
 
         # Here we store the valid selection areas (i.e. bond pads)
@@ -73,12 +73,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                                     "13": (388, 65), "14": (397, 65), "15": (406, 65),
                                     "16": (415, 65), "17": (424, 65), "18": (433, 65),
                                     "19": (442, 65), "20": (451, 65), "21": (460, 65)}
+        activeSelectionAreasR0H1 = {"PWR": (10, 65)}
 
         self.activeAreas = {"root": activeAreasRoot, "R0": activeAreasR0,
                             "R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
                             "ASIC": activeAreasASIC}
 
-        self.activeSelectionAreas = {"ASIC": activeSelectionAreasASIC}
+        self.activeSelectionAreas = {"R0H1": activeSelectionAreasR0H1, "ASIC": activeSelectionAreasASIC}
 
 
 		# Start maximized
@@ -246,15 +247,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
                 width = abs(xValBot-xValTop)
                 height = abs(yValBot-yValTop)
 
-                print(xValTop, yValTop)
-
                 # Set brush to empty
                 painter.setBrush(QtCore.Qt.NoBrush)
 
                 painter.drawRect(xValTop, yValTop, width, height)
 
         painter.end()
-        print("")
 
     def manageBoxes(self, name, size):
         # First add the pad to the array
@@ -267,7 +265,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
     def changeMode(self):
         # If we're in browse mode and a have pads to select:
-        if self.browseMode and self.level[-1] == "ASIC":            
+        if self.browseMode and (self.level[-1] in self.activeSelectionAreas):            
             self.browseMode = False
             self.selectionMode = True
             self.imgSelect.setStyleSheet("border: 2px solid red;")
