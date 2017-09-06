@@ -102,6 +102,11 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.imgSelect.setAlignment(QtCore.Qt.AlignCenter)
 		self.loadImg()
 
+		# Exit menu item
+		self.actionExit.triggered.connect(self.close)
+		#shortcutExit = QtWidgets.QShortcut(QtGui.QKeySequence(self.tr("Ctrl+E", "File|Exit")), self.parent)
+		
+
 	# If zoom is changed let's update the image
 	def changeZoom(self, value):
 		self.zoomScale = value
