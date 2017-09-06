@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -16,6 +16,31 @@ class Ui_WirebondRecorder(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout_2.setObjectName("gridLayout_2")
+        self.verticalLayout = QtWidgets.QVBoxLayout()
+        self.verticalLayout.setContentsMargins(-1, -1, 0, -1)
+        self.verticalLayout.setObjectName("verticalLayout")
+        spacerItem = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        self.verticalLayout.addItem(spacerItem)
+        self.sldrZoom = QtWidgets.QSlider(self.centralwidget)
+        self.sldrZoom.setMinimum(1)
+        self.sldrZoom.setMaximum(4)
+        self.sldrZoom.setPageStep(1)
+        self.sldrZoom.setTickPosition(QtWidgets.QSlider.NoTicks)
+        self.sldrZoom.setObjectName("sldrZoom")
+        self.verticalLayout.addWidget(self.sldrZoom)
+        self.lblZoom = QtWidgets.QLabel(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.lblZoom.sizePolicy().hasHeightForWidth())
+        self.lblZoom.setSizePolicy(sizePolicy)
+        self.lblZoom.setMinimumSize(QtCore.QSize(20, 0))
+        self.lblZoom.setMaximumSize(QtCore.QSize(20, 16777215))
+        self.lblZoom.setObjectName("lblZoom")
+        self.verticalLayout.addWidget(self.lblZoom, 0, QtCore.Qt.AlignHCenter)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout.addItem(spacerItem1)
+        self.gridLayout_2.addLayout(self.verticalLayout, 0, 4, 1, 1)
         self.gridLayout = QtWidgets.QGridLayout()
         self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetNoConstraint)
         self.gridLayout.setObjectName("gridLayout")
@@ -32,8 +57,8 @@ class Ui_WirebondRecorder(object):
         self.btnChangeMode.setIconSize(QtCore.QSize(16, 16))
         self.btnChangeMode.setObjectName("btnChangeMode")
         self.horizontalLayout.addWidget(self.btnChangeMode)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout.addItem(spacerItem)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
         self.btnSave = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -60,8 +85,8 @@ class Ui_WirebondRecorder(object):
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem3)
         self.btnBack = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -114,6 +139,7 @@ class Ui_WirebondRecorder(object):
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
         WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "WBR Selection"))
+        self.lblZoom.setText(_translate("WirebondRecorder", "1x"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Selection Mode"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
         self.label.setText(_translate("WirebondRecorder", "Wirebond Recorder"))

@@ -39,10 +39,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# Scale and offset values, for resize and adjust (need to change on
 		# every resize and zoom)
 		self.zoomScale = 1
-		self.zoomOffset = (0, 0)
-
-		# Pixmap dims
-		self.pixmapDims = (0, 0)  # (width, height)
 
 		# Pad size scale (need to adjust for zooming stuff)
 		self.size = 4
@@ -98,16 +94,20 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# Save button
 		self.btnSave.clicked.connect(self.saveSelection)
 
+		# Zoom slider change
+		self.sldrZoom.valueChanged.connect(self.changeZoom)
+
 		# Load the initial module selection img and selection areas
 		self.curDict = self.activeAreas[self.curImg]
 		self.imgSelect.setAlignment(QtCore.Qt.AlignCenter)
 		self.loadImg()
 
-	# Get the scaling and offset values
-	def findScaleAndOffset(self):
-		# Add zoom offet
-		xZoom = self.zoomOffset[0]
-		yZoom = self.zoomOffset[1]
+	# If zoom is changed let's update the image
+	def changeZoom(self, value):
+		self.zoomScale = value
+		self.lblZoom.setText(str(value) + 'x')
+
+		self.loadImg()
 
 	# Save any information about the selected pads
 	def saveSelection(self):
@@ -269,24 +269,25 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				self.confirmWindow.show()
 
 	def loadImg(self):
+		# We need to store the view poisiton before resetting
+		# TODO
+
+		# Now reset the view
+		self.imgSelect.setTransform(QtGui.QTransform())
+
 		# Load name.jpg into QGraphicsView imgSelect
 		imgPixmap = QtGui.QPixmap(
 			'imgs/' + self.curImg + '.jpg', "1")  # Why 1??
 
-		# Get dims of pixmap
-		w = imgPixmap.width()
-		h = imgPixmap.height()
-		self.pixmapDims = (w, h)
-
 		# Scale the image by the zoom
 		zoom = self.zoomScale
 
-		#Build a scene for the graphics view
+		# Build a scene for the graphics view
 		self.scene = QtWidgets.QGraphicsScene(self)
 		self.scene.addPixmap(imgPixmap)
 		self.imgSelect.setScene(self.scene)
 
-		#Scale scene if needed
+		# Scale scene if needed
 		self.imgSelect.scale(zoom, zoom)
 
 		self.drawBoxes()
