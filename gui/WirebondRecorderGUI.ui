@@ -47,12 +47,15 @@
         <property name="pageStep">
          <number>1</number>
         </property>
+        <property name="sliderPosition">
+         <number>2</number>
+        </property>
         <property name="tickPosition">
          <enum>QSlider::TicksBelow</enum>
         </property>
        </widget>
       </item>
-      <item alignment="Qt::AlignHCenter">
+      <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
        <widget class="QLabel" name="lblZoom">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
@@ -62,18 +65,18 @@
         </property>
         <property name="minimumSize">
          <size>
-          <width>20</width>
+          <width>30</width>
           <height>0</height>
          </size>
         </property>
         <property name="maximumSize">
          <size>
-          <width>20</width>
+          <width>30</width>
           <height>16777215</height>
          </size>
         </property>
         <property name="text">
-         <string>1x</string>
+         <string>1.0x</string>
         </property>
        </widget>
       </item>
