@@ -36,6 +36,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.curDict = {}
         self.saved = True
         self.sceneRect = QtCore.QRectF(0,0,0,0)
+        self.zoomSet = True
 
         # Scale and offset values, for resize and adjust (need to change on
         # every resize and zoom)
@@ -131,6 +132,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
         # Reset image pos and reload image
         self.sceneTopLeft = QtCore.QPoint(0,0)
+
+        # Set zoom flag for img loading
+        self.zoomSet = False
         self.loadImg()
 
     # Save any information about the selected pads
@@ -310,7 +314,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
         self.imgSelect.setScene(self.scene)
 
         # Scale scene if needed
-        self.imgSelect.scale(zoom, zoom)
+        if not self.zoomSet:
+        	self.imgSelect.scale(zoom, zoom)
+        	self.zoomSet = True
+
         self.drawBoxes()
 
         # Now finally move view back to old position
