@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ConfirmWindowGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -62,7 +62,7 @@ class Ui_ConfirmWindow(object):
 
     def retranslateUi(self, ConfirmWindow):
         _translate = QtCore.QCoreApplication.translate
-        ConfirmWindow.setWindowTitle(_translate("ConfirmWindow", "Wirebond Recorder Changes"))
+        ConfirmWindow.setWindowTitle(_translate("ConfirmWindow", "Unsaved Changes"))
         self.label.setText(_translate("ConfirmWindow", "There are unsaved pads selected.\n"
 "Continue?\n"
 ""))

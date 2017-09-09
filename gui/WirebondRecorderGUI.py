@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -22,10 +22,11 @@ class Ui_WirebondRecorder(object):
         spacerItem = QtWidgets.QSpacerItem(20, 50, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem)
         self.sldrZoom = QtWidgets.QSlider(self.centralwidget)
-        self.sldrZoom.setMinimum(1)
-        self.sldrZoom.setMaximum(4)
+        self.sldrZoom.setMinimum(0)
+        self.sldrZoom.setMaximum(10)
         self.sldrZoom.setPageStep(1)
-        self.sldrZoom.setSliderPosition(2)
+        self.sldrZoom.setProperty("value", 1)
+        self.sldrZoom.setSliderPosition(1)
         self.sldrZoom.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.sldrZoom.setObjectName("sldrZoom")
         self.verticalLayout.addWidget(self.sldrZoom)
@@ -105,7 +106,7 @@ class Ui_WirebondRecorder(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         WirebondRecorder.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(WirebondRecorder)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 826, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 826, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")

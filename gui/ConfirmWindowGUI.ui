@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Wirebond Recorder Changes</string>
+   <string>Unsaved Changes</string>
   </property>
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
