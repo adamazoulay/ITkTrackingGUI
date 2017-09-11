@@ -131,7 +131,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		elif value > 1:
 			zoom = 1 + (value-1)/5.
 		else:
-			self.imgSelect.fitInView(self.imgSelect.sceneRect())
+			self.imgSelect.fitInView(self.imgSelect.sceneRect(), QtCore.Qt.KeepAspectRatio)
 			self.lblZoom.setText("Fit")
 			self.loadImg()
 			return
