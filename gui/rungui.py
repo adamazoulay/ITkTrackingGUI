@@ -36,6 +36,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.curDict = {}
 		self.saved = True
 		self.sceneRect = QtCore.QRectF(0,0,0,0)
+		self.componentSerial = ''
 
 		# Scale and offset values, for resize and adjust (need to change on
 		# every resize and zoom)
@@ -56,8 +57,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 								["R3", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R4", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R5", [(0, 0), (0, 0), (0, 0), (0, 0)]]])
-		activeAreasR0 = {"R0H0": [(82, 365), (616, 364), (606, 485), (93, 492)],
-						 "R0H1": [(63, 199), (631, 189), (623, 305), (81, 321)]}
+		activeAreasR0 = {"R0H1": [(59.0,168.0), (443.0,167.0), (446.0,246.0), (65.0,251.0)],
+						 "R0H0": [(70.0,290.0), (436.0,296.0), (431.0,372.0), (77.0,373.0)]}
 		activeAreasR0H0 = {"ASIC": [(0, 0), (0, 0), (0, 0), (0, 0)]}
 		activeAreasR0H1 = {
 			"ASIC": [(27, 38), (88, 33), (88, 79), (33, 82)]}
@@ -174,7 +175,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.counter += 1
 		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),')  # DEBUG
-		#print('(' + str(x) + ',' + str(y) + ')')
+		print('(' + str(x) + ',' + str(y) + ')')
 
 		# Store scene rect
 		topLeftPt = -1.*self.imgSelect.mapFromScene(0,0)
@@ -287,6 +288,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			self.btnChangeMode.setText("Browse Mode")
 			self.curDict = self.activeSelectionAreas[self.curImg]
 			self.loadImg()
+
+			# Now we need to get the serial number for the part we are marking.
+			# The serial number should be the primary key in the DB we will upload
+			# results to
+			self.serial = self.getSerialFromUser()
+			self.lblmainTitle.setText(self.serial)
 			return
 
 		# If we're in selection mode:
@@ -303,6 +310,27 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				# Open confirm window
 				self.confirmWindow = ConfirmWindow(self)
 				self.confirmWindow.show()
+
+	def getSerialFromUser(self):
+		# Eventually, have list of valid keys and check to make sure
+		#  it's valid
+		validSerials = ['1234','1111']
+
+		serial, ok = QtWidgets.QInputDialog.getText(self, 'Serial number',
+					'Please enter the serial number of the component:')
+		
+		if not ok:
+			return
+
+		while serial not in validSerials:
+			print(serial)
+			serial, ok = QtWidgets.QInputDialog.getText(self, 'Serial number',
+						'Invalid serial. Please enter a valid serial number:')
+			if not ok:
+				return
+
+		return serial
+
 
 	def loadImg(self):
 		# Load name.jpg into QGraphicsView imgSelect
