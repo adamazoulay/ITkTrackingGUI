@@ -11,12 +11,10 @@ from ConfirmWindowGUI import Ui_ConfirmWindow
 
 # ================================================================================
 # TODO:
-#  Figure out pad selection saving.
+#  Figure out pad selection saving. - note: change serial back to title after save
 # ================================================================================
 
 # Define the classes for the various guis
-
-
 class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 	def __init__(self):
@@ -134,15 +132,16 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		else:
 			self.imgSelect.fitInView(self.imgSelect.sceneRect(), QtCore.Qt.KeepAspectRatio)
 			self.lblZoom.setText("Fit")
-			self.loadImg()
-			return
+			self.zoomScale = 0
+			self.loadImg()			
+			return		
 
-		self.zoomScale = zoom
+		self.zoomScale = value
 		self.lblZoom.setText(str(zoom) + 'x')
 
 		# Reset zoom and rescale
 		self.imgSelect.setTransform(QtGui.QTransform())
-		self.imgSelect.scale(self.zoomScale, self.zoomScale)
+		self.imgSelect.scale(zoom, zoom)
 		self.loadImg()
 
 	# Save any information about the selected pads
@@ -161,8 +160,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			self.level.pop(-1)
 			name = self.level[-1]
 
-			self.curImg = name
+			self.curImg = name			
 			self.loadImg()
+			self.changeZoom(self.zoomScale)
 
 	# If the image is clicked, run checks
 	def executeSelection(self, ev):
@@ -214,6 +214,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				# Need to place the new picture
 				self.curImg = name
 				self.loadImg()
+				self.changeZoom(self.zoomScale)
 
 			if inside and self.selectionMode:
 				# Mark the pas list as unsaved
