@@ -1,4 +1,4 @@
-# Wirebond QA Tool
+# ITk Tracking GUI
 
 This is a work-in-progress tool for tracking the physical defects that occur during ITk module production. It allows users to visually select the area of interest and make comments, as well as *eventually* upload the results directly to the production database for later use.
 
