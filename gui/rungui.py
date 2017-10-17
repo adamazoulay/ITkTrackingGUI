@@ -151,6 +151,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			return
 		print(self.level)
 		print(self.selectedPads)
+
+		# Save as a .txt file here
+		txtFile = open("savedLocations.txt",'w')
+		txtFile.write(str(self.level))
+		txtFile.write(str(self.selectedPads))
+		txtFile.close()
+
 		self.saved = True
 
 	# Back button functionality
@@ -319,6 +326,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		serial, ok = QtWidgets.QInputDialog.getText(self, 'Serial number',
 					'Please enter the serial number of the component:')
+
+		# Debugging
+		validSerials.append(serial)
 		
 		if not ok:
 			return
