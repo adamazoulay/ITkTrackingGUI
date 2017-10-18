@@ -1,10 +1,8 @@
-from PyQt5 import QtGui, QtWidgets  # Import the PyQt5 module we'll need
-from PyQt5 import QtCore  # for quit button
+from PyQt5 import QtGui, QtWidgets, QtCore  # Import the PyQt5 module we'll need
 import sys
 import os  # We need sys so that we can pass argv to QApplication
 import matplotlib.path as mplPath
 import numpy as np
-from os import path
 
 from WirebondRecorderGUI import Ui_WirebondRecorder
 from ConfirmWindowGUI import Ui_ConfirmWindow
@@ -34,7 +32,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.curDict = {}
 		self.saved = True
 		self.sceneRect = QtCore.QRectF(0,0,0,0)
-		self.componentSerial = ''
+		self.serial = ''
 
 		# Scale and offset values, for resize and adjust (need to change on
 		# every resize and zoom)
@@ -153,7 +151,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		print(self.selectedPads)
 
 		# Save as a .txt file here
-		txtFile = open("savedLocations.txt",'w')
+		txtFile = open(self.serial + ".txt",'w')
 		txtFile.write(str(self.level))
 		txtFile.write(str(self.selectedPads))
 		txtFile.close()
@@ -182,7 +180,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.counter += 1
 		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),')  # DEBUG
-		print('(' + str(x) + ',' + str(y) + ')')
+		#print('(' + str(x) + ',' + str(y) + ')')
 
 		# Store scene rect
 		topLeftPt = -1.*self.imgSelect.mapFromScene(0,0)
@@ -300,8 +298,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			# Now we need to get the serial number for the part we are marking.
 			# The serial number should be the primary key in the DB we will upload
 			# results to
-			self.serial = self.getSerialFromUser()
-			self.lblmainTitle.setText(self.serial)
+			if self.serial == '':
+				self.serial = self.getSerialFromUser()
+				self.lblmainTitle.setText(self.serial)
 			return
 
 		# If we're in selection mode:
@@ -346,7 +345,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 	def loadImg(self):
 		# Load name.jpg into QGraphicsView imgSelect
 		imgPixmap = QtGui.QPixmap(
-			'imgs/' + self.curImg + '.jpg', "1")  # Why 1??
+			'ITkTrackingGUI/imgs/' + self.curImg + '.jpg', "1")  # Why 1??
 
 		# Scale the image by the zoom
 		zoom = self.zoomScale
