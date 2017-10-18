@@ -8,7 +8,7 @@ Currently the GUI has only been tested thoroughly on Windows 10 x64, but since Q
 
 ### Installation
 
-1. Download and install (Python 3.6.1)[https://www.python.org/downloads/release/python-361/] and make sure it has been added to your PATH (by typing `python` and `pip` in the terminal).
+1. Download and install [Python 3.6.1](https://www.python.org/downloads/release/python-361/) and make sure it has been added to your PATH (by typing `python` and `pip` in the terminal).
 
 2. Install additional dependencies by running `pip install -r requirements.txt` from inside the root folder.
 
