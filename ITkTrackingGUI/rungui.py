@@ -34,6 +34,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.sceneRect = QtCore.QRectF(0,0,0,0)
 		self.serial = ''
 
+		# Now we need to get the serial number for the part we are marking.
+		# The serial number should be the primary key in the DB we will upload
+		# results to
+		self.serial = self.getSerialFromUser()
+		self.lblmainTitle.setText(self.serial)
+
 		# Scale and offset values, for resize and adjust (need to change on
 		# every resize and zoom)
 		self.zoomScale = 1
@@ -55,45 +61,98 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 								["R5", [(0, 0), (0, 0), (0, 0), (0, 0)]]])
 		activeAreasR0 = {"R0H1": [(59.0,168.0), (443.0,167.0), (446.0,246.0), (65.0,251.0)],
 						 "R0H0": [(70.0,290.0), (436.0,296.0), (431.0,372.0), (77.0,373.0)]}
-		activeAreasR0H0 = {"ASIC": [(0, 0), (0, 0), (0, 0), (0, 0)]}
-		activeAreasR0H1 = {
-			"ASIC": [(27, 38), (88, 33), (88, 79), (33, 82)]}
+		activeAreasR0H0 = {"ASICd": [(0, 0), (0, 0), (0, 0), (0, 0)]}
+		activeAreasR0H1 = {"ASICu": [(27, 38), (88, 33), (88, 79), (33, 82)]}
 		activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc?
 
 		# Here we store the valid selection areas (i.e. bond pads)
 		#  give a rough area and assume all are square, so we
 		#  can just pass a single point and build the box while
 		#  we check the location of the click
-		activeSelectionAreasASIC = {"1": (694.0, 294.0),
-									"2": (715.0, 294.0),
-									"3": (755.0, 290.0),
-									"4": (783.0, 296.0),
-									"5": (814.0, 289.0),
-									"6": (837.0, 286.0),
-									"7": (894.0, 288.0),
-									"8": (915.0, 288.0),
-									"9": (934.0, 288.0),
-									"10": (956.0, 287.0),
-									"11": (979.0, 289.0),
-									"12": (997.0, 288.0),
-									"13": (1020.0, 288.0),
-									"14": (1039.0, 286.0),
-									"15": (1056.0, 288.0),
-									"16": (1078.0, 286.0),
-									"17": (1103.0, 286.0),
-									"18": (1123.0, 287.0),
-									"19": (1144.0, 286.0),
-									"20": (1162.0, 285.0),
-									"21": (1183.0, 286.0)}
+		#  TODO: THINK OF BETTER WAY TO STORE THESE. SEPERATE FILE?
+		activeSelectionAreasASICu = {"1" : (1698.0,1382.0),
+										"2" : (1662.0,1380.0),
+										"3" : (1640.0,1382.0),
+										"4" : (1618.0,1379.0),
+										"5" : (1580.0,1382.0),
+										"6" : (1562.0,1381.0),
+										"7" : (1481.0,1383.0),
+										"8" : (1402.0,1383.0),
+										"9" : (1385.0,1382.0),
+										"10" : (1362.0,1380.0),
+										"11" : (1341.0,1384.0),
+										"12" : (1320.0,1382.0),
+										"13" : (1298.0,1382.0),
+										"14" : (1278.0,1382.0),
+										"15" : (1256.0,1384.0),
+										"16" : (1239.0,1386.0),
+										"17" : (1213.0,1384.0),
+										"18" : (1197.0,1384.0),
+										"19" : (1175.0,1385.0),
+										"20" : (1153.0,1386.0),
+										"21" : (1131.0,1385.0),
+										"22" : (1111.0,1384.0),
+										"23" : (1089.0,1385.0),
+										"24" : (1071.0,1386.0),
+										"25" : (1048.0,1387.0),
+										"26" : (1028.0,1383.0),
+										"27" : (1005.0,1386.0),
+										"28" : (983.0,1389.0),
+										"29" : (965.0,1385.0),
+										"30" : (943.0,1387.0),
+										"31" : (925.0,1387.0),
+										"32" : (902.0,1388.0),
+										"33" : (881.0,1388.0),
+										"34" : (858.0,1390.0),
+										"35" : (831.0,1386.0),
+										"36" : (810.0,1387.0),
+										"37" : (787.0,1388.0),
+										"38" : (769.0,1385.0),
+										"39" : (748.0,1386.0),
+										"40" : (733.0,1386.0),
+										"41" : (707.0,1386.0),
+										"42" : (686.0,1387.0),
+										"43" : (668.0,1385.0),
+										"44" : (644.0,1386.0),
+										"45" : (620.0,1387.0),
+										"46" : (601.0,1388.0),
+										"47" : (583.0,1387.0),
+										"48" : (564.0,1387.0),
+										"49" : (523.0,1383.0),
+										"50" : (499.0,1385.0),
+										"51" : (487.0,1387.0),
+										"52" : (446.0,1387.0),
+										"53" : (423.0,1387.0),
+										"54" : (402.0,1388.0),
+										"55" : (362.0,1388.0),
+										"56" : (318.0,1319.0),
+										"57" : (318.0,1283.0),
+										"58" : (321.0,1244.0),
+										"59" : (319.0,1206.0),
+										"60" : (318.0,1158.0),
+										"61" : (315.0,1124.0),
+										"62" : (316.0,1074.0),
+										"63" : (315.0,1028.0),
+										"64" : (314.0,988.0),
+										"65" : (318.0,945.0),
+										"66" : (317.0,899.0),
+										"67" : (314.0,864.0),
+										"68" : (317.0,811.0),
+										"69" : (324.0,790.0),
+										"70" : (318.0,767.0),
+										"71" : (316.0,729.0)}
+
+		activeSelectionAreasASICd = {"1": (694.0, 294.0)}
 
 		activeSelectionAreasR0H1 = {"PWR": (10, 65)}
 
 		self.activeAreas = {"root": activeAreasRoot, "R0": activeAreasR0,
 							"R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
-							"ASIC": activeAreasASIC}
+							"ASICu": activeAreasASIC, "ASICd": activeAreasASIC}
 
 		self.activeSelectionAreas = {
-			"R0H1": activeSelectionAreasR0H1, "ASIC": activeSelectionAreasASIC}
+			"R0H1": activeSelectionAreasR0H1, "ASICu": activeSelectionAreasASICu,
+			"ASICd": activeSelectionAreasASICd}
 
 		# If module is selected by picture, change the module list
 		self.imgSelect.mousePressEvent = self.executeSelection
@@ -286,7 +345,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.loadImg()
 
 	def changeMode(self):
-		# If we're in browse mode and a have pads to select:
+		# If we're in browse mode and have pads to select:
 		if self.browseMode and (self.level[-1] in self.activeSelectionAreas):
 			self.browseMode = False
 			self.selectionMode = True
@@ -294,17 +353,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			self.btnChangeMode.setText("Browse Mode")
 			self.curDict = self.activeSelectionAreas[self.curImg]
 			self.loadImg()
-
-			# Now we need to get the serial number for the part we are marking.
-			# The serial number should be the primary key in the DB we will upload
-			# results to
-			if self.serial == '':
-				self.serial = self.getSerialFromUser()
-				self.lblmainTitle.setText(self.serial)
 			return
+
 
 		# If we're in selection mode:
 		if self.selectionMode:
+			print("okay")
 			if self.saved:
 				self.browseMode = True
 				self.selectionMode = False
@@ -344,8 +398,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 	def loadImg(self):
 		# Load name.jpg into QGraphicsView imgSelect
+		absPath = os.path.abspath('imgs')
 		imgPixmap = QtGui.QPixmap(
-			'ITkTrackingGUI/imgs/' + self.curImg + '.jpg', "1")  # Why 1??
+			absPath + '/' + self.curImg + '.jpg', "1")  # Why 1??
 
 		# Scale the image by the zoom
 		zoom = self.zoomScale
