@@ -398,9 +398,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 	def loadImg(self):
 		# Load name.jpg into QGraphicsView imgSelect
-		absPath = os.path.abspath('imgs')
-		imgPixmap = QtGui.QPixmap(
-			absPath + '/' + self.curImg + '.jpg', "1")  # Why 1??
+		curDir = os.path.dirname(os.path.abspath(__file__))
+		imgPath = os.path.join(curDir, 'imgs', (self.curImg + '.jpg'))
+		imgPixmap = QtGui.QPixmap(imgPath, "1")  # Why 1??
 
 		# Scale the image by the zoom
 		zoom = self.zoomScale
