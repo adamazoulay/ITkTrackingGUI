@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_WirebondRecorder(object):
     def setupUi(self, WirebondRecorder):
         WirebondRecorder.setObjectName("WirebondRecorder")
-        WirebondRecorder.resize(826, 685)
+        WirebondRecorder.resize(1060, 788)
         self.centralwidget = QtWidgets.QWidget(WirebondRecorder)
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.centralwidget)
@@ -61,6 +61,16 @@ class Ui_WirebondRecorder(object):
         self.horizontalLayout.addWidget(self.btnChangeMode)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
+        self.logText = QtWidgets.QTextBrowser(self.centralwidget)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.logText.sizePolicy().hasHeightForWidth())
+        self.logText.setSizePolicy(sizePolicy)
+        self.logText.setMinimumSize(QtCore.QSize(200, 75))
+        self.logText.setMaximumSize(QtCore.QSize(200, 75))
+        self.logText.setObjectName("logText")
+        self.horizontalLayout.addWidget(self.logText)
         self.btnSave = QtWidgets.QPushButton(self.centralwidget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -106,7 +116,7 @@ class Ui_WirebondRecorder(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         WirebondRecorder.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(WirebondRecorder)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 826, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1060, 26))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -130,6 +140,8 @@ class Ui_WirebondRecorder(object):
         self.actionOne_day.setObjectName("actionOne_day")
         self.actionUploader_etc = QtWidgets.QAction(WirebondRecorder)
         self.actionUploader_etc.setObjectName("actionUploader_etc")
+        self.actionAbout = QtWidgets.QAction(WirebondRecorder)
+        self.actionAbout.setObjectName("actionAbout")
         self.menuFile.addAction(self.actionOpen_Ctrl_o)
         self.menuFile.addAction(self.actionSave_Ctrl_S)
         self.menuFile.addAction(self.actionSave_As_Ctrl_a)
@@ -137,6 +149,8 @@ class Ui_WirebondRecorder(object):
         self.menuFile.addAction(self.actionExit)
         self.menuTools.addAction(self.actionUploader_etc)
         self.menuHelp.addAction(self.actionOne_day)
+        self.menuHelp.addSeparator()
+        self.menuHelp.addAction(self.actionAbout)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuTools.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
@@ -146,7 +160,7 @@ class Ui_WirebondRecorder(object):
 
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
-        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "WBR Selection"))
+        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Tracking GUI"))
         self.lblZoom.setText(_translate("WirebondRecorder", "1.0x"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Selection Mode"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
@@ -161,6 +175,7 @@ class Ui_WirebondRecorder(object):
         self.actionSave_As_Ctrl_a.setText(_translate("WirebondRecorder", "Save As (Ctrl-A)"))
         self.actionOne_day.setText(_translate("WirebondRecorder", "One day.."))
         self.actionUploader_etc.setText(_translate("WirebondRecorder", "Uploader, etc"))
+        self.actionAbout.setText(_translate("WirebondRecorder", "About"))
 
 
 if __name__ == "__main__":

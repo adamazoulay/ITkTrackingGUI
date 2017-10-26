@@ -210,23 +210,27 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		print(self.selectedPads)
 
 		# Save as a .txt file here
-		txtFile = open(self.serial + ".txt",'w')
+		fileName = self.serial + ".txt"
+		txtFile = open(fileName,'w')
 		txtFile.write(str(self.level))
 		txtFile.write(str(self.selectedPads))
 		txtFile.close()
 
 		self.saved = True
 
+		self.logText.append("Saved to " + fileName)
+
 	# Back button functionality
 	def levelUp(self):
 		# Check we aren't at root and are in browse mode
 		if self.level[-1] != "root" and self.browseMode:
 			self.level.pop(-1)
-			name = self.level[-1]
-
-			self.curImg = name			
+			self.curImg = self.level[-1]		
 			self.loadImg()
 			self.changeZoom(self.zoomScale)
+
+			#Record to log
+			self.logText.append("Changed to " + self.curImg)
 
 	# If the image is clicked, run checks
 	def executeSelection(self, ev):
@@ -279,6 +283,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				self.curImg = name
 				self.loadImg()
 				self.changeZoom(self.zoomScale)
+
+				self.logText.append("Changed to " + self.curImg)
 
 			if inside and self.selectionMode:
 				# Mark the pas list as unsaved
@@ -337,8 +343,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# First add the pad to the array
 		if name in self.selectedPads:
 			self.selectedPads.remove(name)
+			self.logText.append("Removed pad " + name)
 		else:
 			self.selectedPads.append(name)
+			self.logText.append("Added pad " + name)
 
 		# Make sure we save the top left pos before loading
 		self.sceneTopLeft = self.imgSelect.mapFromScene(0,0)
@@ -358,7 +366,6 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		# If we're in selection mode:
 		if self.selectionMode:
-			print("okay")
 			if self.saved:
 				self.browseMode = True
 				self.selectionMode = False
