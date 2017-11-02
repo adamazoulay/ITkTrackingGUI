@@ -38,7 +38,14 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# The serial number should be the primary key in the DB we will upload
 		# results to
 		self.serial = self.getSerialFromUser()
-		self.lblmainTitle.setText(self.serial)
+		#self.lblmainTitle.setText(self.serial)
+
+		#Create empty file (Change this later)
+		if not(os.path.isfile(self.serial + ".areas")):
+			file = open(self.serial + ".areas", 'w')
+			file.write("{}")
+			file.close()
+
 
 		# Scale and offset values, for resize and adjust (need to change on
 		# every resize and zoom)
@@ -209,16 +216,46 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		print(self.level)
 		print(self.selectedPads)
 
-		# Save as a .txt file here
-		fileName = self.serial + ".txt"
-		txtFile = open(fileName,'w')
-		txtFile.write(str(self.level))
-		txtFile.write(str(self.selectedPads))
-		txtFile.close()
+		# Append the currently selected pads to the specific serial number file
+		fileName = self.serial + ".areas"
+
+		self.updateAreas(fileName)
 
 		self.saved = True
 
 		self.logText.append("Saved to " + fileName)
+
+	# Function for adding the currently selected areas to the .areas save file
+	def updateAreas(self, fileName):
+
+		# Open the file (Should be in program directory for now)
+		areasFile = open(fileName,'r+')
+		# Read in the dict form the file
+		curFile = eval(areasFile.read())
+
+		#Wipe the file now that we've read it
+		areasFile.seek(0,0)
+		areasFile.truncate()
+
+		# Now check if we already have the level marked previously
+		if len(curFile) == 0:
+			curFile[tuple(self.level)] = self.selectedPads
+			areasFile.write(str(curFile))
+
+		# If data already exists in the file, append new ares
+		else:
+			for levels in  curFile:
+				if levels[-1] == self.level[-1]:
+					curList = curFile[tuple(self.level)]
+					curList += self.selectedPads
+					curFile[tuple(self.level)] = curList
+
+				else:
+					curFile[tuple(self.level)] = self.selectedPads
+
+			areasFile.write(str(curFile))
+
+		areasFile.close()
 
 	# Back button functionality
 	def levelUp(self):
