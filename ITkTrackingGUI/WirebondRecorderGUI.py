@@ -162,7 +162,7 @@ class Ui_WirebondRecorder(object):
         _translate = QtCore.QCoreApplication.translate
         WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Tracking GUI"))
         self.lblZoom.setText(_translate("WirebondRecorder", "1.0x"))
-        self.btnChangeMode.setText(_translate("WirebondRecorder", "Selection Mode"))
+        self.btnChangeMode.setText(_translate("WirebondRecorder", "Edit"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
         self.lblmainTitle.setText(_translate("WirebondRecorder", "Wirebond Recorder"))
         self.btnBack.setText(_translate("WirebondRecorder", "Back"))

@@ -9,12 +9,10 @@ from ConfirmWindowGUI import Ui_ConfirmWindow
 
 # ================================================================================
 # TODO:
-#  Figure out pad selection saving. - note: change serial back to title after save
+#  Just lots of things
 # ================================================================================
 
-# Define the classes for the various guis
-
-
+# Define the classes for the main gui
 class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 	def __init__(self):
@@ -48,7 +46,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.imgSelect.setStyleSheet("border: 2px solid black;")
 
 		# Need to store all active areas for each level
-		activeAreasRoot = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
+		activeAreasRoot = {"endcap": [(0.0,-13.0), (707.0,-16.0), (680.0,442.0), (0.0,429.0)], "barrel": [(0, 0), (0, 0), (0, 0), (0, 0)]}
+		activeAreasEndcap = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
 								["R1", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R2", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R3", [(0, 0), (0, 0), (0, 0), (0, 0)]],
@@ -71,7 +70,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		activeSelectionAreasR0H1 = {"PWR": (10, 65)}
 
-		self.activeAreas = {"root": activeAreasRoot, "R0": activeAreasR0,
+		self.activeAreas = {"root": activeAreasRoot, "endcap": activeAreasEndcap ,"R0": activeAreasR0,
 							"R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
 							"ASICu1": activeAreasASIC, "ASICu2": activeAreasASIC, "ASICu3": activeAreasASIC, "ASICu4": activeAreasASIC, "ASICu5": activeAreasASIC, "ASICu6": activeAreasASIC, "ASICu7": activeAreasASIC, "ASICu8": activeAreasASIC, "ASICu9": activeAreasASIC, "ASICd": activeAreasASIC}
 
@@ -291,7 +290,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			self.browseMode = False
 			self.selectionMode = True
 			self.imgSelect.setStyleSheet("border: 2px solid red;")
-			self.btnChangeMode.setText("Browse Mode")
+			self.btnChangeMode.setText("Browse")
 			self.curDict = self.activeSelectionAreas[self.curImg]
 
 			# Make/open save
@@ -306,7 +305,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				self.browseMode = True
 				self.selectionMode = False
 				self.imgSelect.setStyleSheet("border: 2px solid black;")
-				self.btnChangeMode.setText("Selection Mode")
+				self.btnChangeMode.setText("Edit")
 				self.selectedPads = []
 				self.loadImg()
 				return
