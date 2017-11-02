@@ -211,13 +211,13 @@
           <property name="minimumSize">
            <size>
             <width>340</width>
-            <height>40</height>
+            <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
             <width>340</width>
-            <height>40</height>
+            <height>50</height>
            </size>
           </property>
           <property name="font">
@@ -226,7 +226,7 @@
            </font>
           </property>
           <property name="text">
-           <string>Wirebond Recorder</string>
+           <string>ITk Tracking GUI</string>
           </property>
          </widget>
         </item>
