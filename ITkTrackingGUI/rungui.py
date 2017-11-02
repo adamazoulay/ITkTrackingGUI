@@ -176,7 +176,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.counter += 1
 		# print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),')  # DEBUG
-		print('(' + str(x) + ',' + str(y) + ')')
+		# print('(' + str(x) + ',' + str(y) + ')')
 
 		# Store scene rect
 		topLeftPt = -1.*self.imgSelect.mapFromScene(0, 0)
