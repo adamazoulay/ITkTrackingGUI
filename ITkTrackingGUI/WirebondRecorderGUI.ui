@@ -159,13 +159,13 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>200</width>
+            <width>350</width>
             <height>75</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>200</width>
+            <width>350</width>
             <height>75</height>
            </size>
           </property>
@@ -283,7 +283,7 @@
      <x>0</x>
      <y>0</y>
      <width>1060</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

@@ -49,8 +49,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		# Need to store all active areas for each level
 		activeAreasRoot = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
-								["R1", [(373, 38), (591, 39),
-										(587, 224), (378, 222)]],
+								["R1", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R2", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R3", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R4", [(0, 0), (0, 0), (0, 0), (0, 0)]],
@@ -135,7 +134,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.updateAreas(fileName)
 		self.saved = True
-		self.logText.append("Saved to " + fileName)
+		self.logText.append("Saved to '" + fileName + "'")
 
 	# Function for adding the currently selected areas to the .areas save file
 	def updateAreas(self, fileName):
@@ -375,6 +374,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			file = open(self.serial + ".areas", 'w')
 			file.write("{}")
 			file.close()
+			self.logText.append("Created selection file at '" + self.serial + ".areas'")
 		# If it's in the path, load the pads if the exist
 		else:
 			 # Open the file (Should be in program directory for now)
@@ -385,7 +385,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 			for levels in curFile:
 				if levels[-1] == self.level[-1]:
 					self.selectedPads = curFile[tuple(levels)]
-					self.logText.append("Loaded selection from file")
+					self.logText.append("Loaded selection from file '" + self.serial + ".areas'")
 
 			areasFile.close()
 

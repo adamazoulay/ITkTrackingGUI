@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.9
+# Created by: PyQt5 UI code generator 5.8.1
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -67,8 +67,8 @@ class Ui_WirebondRecorder(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.logText.sizePolicy().hasHeightForWidth())
         self.logText.setSizePolicy(sizePolicy)
-        self.logText.setMinimumSize(QtCore.QSize(200, 75))
-        self.logText.setMaximumSize(QtCore.QSize(200, 75))
+        self.logText.setMinimumSize(QtCore.QSize(350, 75))
+        self.logText.setMaximumSize(QtCore.QSize(350, 75))
         self.logText.setObjectName("logText")
         self.horizontalLayout.addWidget(self.logText)
         self.btnSave = QtWidgets.QPushButton(self.centralwidget)
@@ -116,7 +116,7 @@ class Ui_WirebondRecorder(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         WirebondRecorder.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(WirebondRecorder)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1060, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1060, 25))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
