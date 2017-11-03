@@ -40,7 +40,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		# Pad size scale (need to adjust for zooming stuff)
 		self.size = 10
-
+ 
 		# Start maximized and resized
 		self.showMaximized()
 		self.imgSelect.setStyleSheet("border: 2px solid black;")
