@@ -160,7 +160,7 @@ class Ui_WirebondRecorder(object):
 
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
-        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Issue Tracking GUI"))
+        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Issue Tracking GUI (Beta)"))
         self.lblZoom.setText(_translate("WirebondRecorder", "1.0x"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Edit"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
