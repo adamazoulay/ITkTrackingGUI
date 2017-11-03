@@ -46,7 +46,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.imgSelect.setStyleSheet("border: 2px solid black;")
 
 		# Need to store all active areas for each level
-		activeAreasRoot = {"endcap": [(0.0,-13.0), (707.0,-16.0), (680.0,442.0), (0.0,429.0)], "barrel": [(0, 0), (0, 0), (0, 0), (0, 0)]}
+		activeAreasRoot = {"endcap": [(0.0,-13.0), (600,-16.0), (600,442.0), (0.0,429.0)], "barrel": [(0, 0), (0, 0), (0, 0), (0, 0)]}
 		activeAreasEndcap = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
 								["R1", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R2", [(0, 0), (0, 0), (0, 0), (0, 0)]],

@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>ITk Tracking GUI</string>
+   <string>ITk Issue Tracking GUI</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
@@ -210,13 +210,13 @@
           </property>
           <property name="minimumSize">
            <size>
-            <width>340</width>
+            <width>500</width>
             <height>50</height>
            </size>
           </property>
           <property name="maximumSize">
            <size>
-            <width>340</width>
+            <width>500</width>
             <height>50</height>
            </size>
           </property>
@@ -226,7 +226,7 @@
            </font>
           </property>
           <property name="text">
-           <string>ITk Tracking GUI</string>
+           <string>ITk Issue Tracking GUI</string>
           </property>
          </widget>
         </item>
@@ -288,7 +288,7 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>File (Not working yet)</string>
     </property>
     <addaction name="actionOpen_Ctrl_o"/>
     <addaction name="actionSave_Ctrl_S"/>

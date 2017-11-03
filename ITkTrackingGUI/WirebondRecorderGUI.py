@@ -90,8 +90,8 @@ class Ui_WirebondRecorder(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.lblmainTitle.sizePolicy().hasHeightForWidth())
         self.lblmainTitle.setSizePolicy(sizePolicy)
-        self.lblmainTitle.setMinimumSize(QtCore.QSize(340, 50))
-        self.lblmainTitle.setMaximumSize(QtCore.QSize(340, 50))
+        self.lblmainTitle.setMinimumSize(QtCore.QSize(500, 50))
+        self.lblmainTitle.setMaximumSize(QtCore.QSize(500, 50))
         font = QtGui.QFont()
         font.setPointSize(24)
         self.lblmainTitle.setFont(font)
@@ -160,13 +160,13 @@ class Ui_WirebondRecorder(object):
 
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
-        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Tracking GUI"))
+        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Issue Tracking GUI"))
         self.lblZoom.setText(_translate("WirebondRecorder", "1.0x"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Edit"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
-        self.lblmainTitle.setText(_translate("WirebondRecorder", "ITk Tracking GUI"))
+        self.lblmainTitle.setText(_translate("WirebondRecorder", "ITk Issue Tracking GUI"))
         self.btnBack.setText(_translate("WirebondRecorder", "Back"))
-        self.menuFile.setTitle(_translate("WirebondRecorder", "File"))
+        self.menuFile.setTitle(_translate("WirebondRecorder", "File (Not working yet)"))
         self.menuTools.setTitle(_translate("WirebondRecorder", "Tools"))
         self.menuHelp.setTitle(_translate("WirebondRecorder", "Help"))
         self.actionSave_Ctrl_S.setText(_translate("WirebondRecorder", "Save (Ctrl-S)"))
