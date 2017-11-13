@@ -62,15 +62,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		activeAreasR0 = {"R0H1": [(59.0,168.0), (443.0,167.0), (446.0,246.0), (65.0,251.0)],
 						 "R0H0": [(70.0,290.0), (436.0,296.0), (431.0,372.0), (77.0,373.0)]}
 		activeAreasR0H0 = {"ASICd": [(0, 0), (0, 0), (0, 0), (0, 0)]}
-		activeAreasR0H1 = {"ASICu1": [(27, 38), (88, 33), (88, 79), (33, 82)],
-							"ASICu2": [(98.0,37.0), (151.0,35.0), (152.0,71.0), (102.0,73.0)],
-							"ASICu3": [(166.0,33.0), (222.0,32.0), (222.0,69.0), (173.0,70.0)],
-							"ASICu4": [(234.0,25.0), (289.0,25.0), (290.0,65.0), (238.0,64.0)],
-							"ASICu5": [(303.0,25.0), (354.0,28.0), (355.0,62.0), (303.0,67.0)],
-							"ASICu6": [(369.0,26.0), (417.0,28.0), (420.0,67.0), (366.0,67.0)],
-							"ASICu7": [(437.0,27.0), (487.0,34.0), (489.0,69.0), (435.0,69.0)],
-							"ASICu8": [(504.0,32.0), (555.0,34.0), (552.0,76.0), (502.0,71.0)],
-							"ASICu9": [(570.0,32.0), (624.0,40.0), (622.0,76.0), (573.0,70.0)]}
+		activeAreasR0H1 = {"ASICu": [(27, 38), (88, 33), (88, 79), (33, 82)]}
 		activeAreasASIC = {"pad1": [(0, 0), (0, 0), (0, 0), (0, 0)]}  # etc?
 
 		# Here we store the valid selection areas (i.e. bond pads)
@@ -159,11 +151,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 							"ASICu": activeAreasASIC, "ASICd": activeAreasASIC}
 
 		self.activeSelectionAreas = {
-			"R0H1": activeSelectionAreasR0H1, "ASICu1": activeSelectionAreasASICu,
-			"ASICu2": activeSelectionAreasASICu,"ASICu3": activeSelectionAreasASICu,
-			"ASICu4": activeSelectionAreasASICu,"ASICu5": activeSelectionAreasASICu,
-			"ASICu6": activeSelectionAreasASICu,"ASICu7": activeSelectionAreasASICu,
-			"ASICu8": activeSelectionAreasASICu,"ASICu9": activeSelectionAreasASICu,
+			"R0H1": activeSelectionAreasR0H1, "ASICu": activeSelectionAreasASICu,
 			"ASICd": activeSelectionAreasASICd}
 
 		# If module is selected by picture, change the module list
@@ -251,7 +239,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.counter += 1
 		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),')  # DEBUG
-		print('(' + str(x) + ',' + str(y) + ')')
+		#print('(' + str(x) + ',' + str(y) + ')')
 
 		# Store scene rect
 		topLeftPt = -1.*self.imgSelect.mapFromScene(0,0)
@@ -370,6 +358,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		# If we're in selection mode:
 		if self.selectionMode:
+			print("okay")
 			if self.saved:
 				self.browseMode = True
 				self.selectionMode = False
