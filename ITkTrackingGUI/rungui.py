@@ -184,7 +184,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		y = scenePt.y()
 
 		self.counter += 1
-		print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),', end='', flush=True)  # DEBUG
+		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),', end='', flush=True)  # DEBUG
 		#print('(' + str(x) + ',' + str(y) + '), ', end='', flush=True)
 
 		# Store scene rect
