@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'WirebondRecorderGUI.ui'
 #
-# Created by: PyQt5 UI code generator 5.8.1
+# Created by: PyQt5 UI code generator 5.9
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -25,8 +25,8 @@ class Ui_WirebondRecorder(object):
         self.sldrZoom.setMinimum(0)
         self.sldrZoom.setMaximum(10)
         self.sldrZoom.setPageStep(1)
-        self.sldrZoom.setProperty("value", 1)
-        self.sldrZoom.setSliderPosition(1)
+        self.sldrZoom.setProperty("value", 0)
+        self.sldrZoom.setSliderPosition(0)
         self.sldrZoom.setTickPosition(QtWidgets.QSlider.TicksBelow)
         self.sldrZoom.setObjectName("sldrZoom")
         self.verticalLayout.addWidget(self.sldrZoom)
@@ -38,6 +38,7 @@ class Ui_WirebondRecorder(object):
         self.lblZoom.setSizePolicy(sizePolicy)
         self.lblZoom.setMinimumSize(QtCore.QSize(30, 0))
         self.lblZoom.setMaximumSize(QtCore.QSize(30, 16777215))
+        self.lblZoom.setAlignment(QtCore.Qt.AlignCenter)
         self.lblZoom.setObjectName("lblZoom")
         self.verticalLayout.addWidget(self.lblZoom, 0, QtCore.Qt.AlignHCenter|QtCore.Qt.AlignVCenter)
         spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -116,7 +117,7 @@ class Ui_WirebondRecorder(object):
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
         WirebondRecorder.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(WirebondRecorder)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1060, 25))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1060, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -160,8 +161,8 @@ class Ui_WirebondRecorder(object):
 
     def retranslateUi(self, WirebondRecorder):
         _translate = QtCore.QCoreApplication.translate
-        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Issue Tracking GUI (Beta)"))
-        self.lblZoom.setText(_translate("WirebondRecorder", "1.0x"))
+        WirebondRecorder.setWindowTitle(_translate("WirebondRecorder", "ITk Issue Tracking GUI"))
+        self.lblZoom.setText(_translate("WirebondRecorder", "Fit"))
         self.btnChangeMode.setText(_translate("WirebondRecorder", "Edit"))
         self.btnSave.setText(_translate("WirebondRecorder", "Save"))
         self.lblmainTitle.setText(_translate("WirebondRecorder", "ITk Issue Tracking GUI"))
