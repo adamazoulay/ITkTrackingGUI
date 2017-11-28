@@ -170,8 +170,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		areasFile.truncate()
 
 		# Set the entry in the save file as the currently selected pads
-		curFile[tuple(self.level)] = self.markedPads
-		
+		curFile[tuple(self.level)] = (self.markedPads, self.comments)		
 
 		areasFile.write(str(curFile))
 		areasFile.close()
@@ -248,6 +247,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				# Display box around selected pad
 				self.manageBoxes(name, size)
 
+				#Update comment box
+				if name in self.markedPads:
+					self.commentBox.setText(self.comments[name])
+				else:
+					self.commentBox.setText("")
+
 	def drawBoxes(self):
 		size = self.size
 		# Set pen colour
@@ -276,13 +281,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				# if selected, fill in rect
 				if (area in self.markedPads) and (area in self.selectedPads):
 					self.scene.addRect(rect, Qred, Qblue)
-					self.commentBox.setText(self.comments[area])
 				elif area in self.markedPads:
 					self.scene.addRect(rect, Qblue, Qblue)
-					self.commentBox.setText(self.comments[area])
 				elif area in self.selectedPads:
 					self.scene.addRect(rect, Qblue, Qabitred)
-					self.commentBox.setText("")
 				else:
 					self.scene.addRect(rect, Qred, Qabitred) #Last arg gives the fill colour
 
@@ -315,6 +317,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.loadImg()
 
 	def changeMode(self):
+		self.commentBox.setText("")
 		# If we're in browse mode and have pads to select:
 		if self.browseMode and (self.level[-1] in self.activeSelectionAreas):
 			self.browseMode = False
@@ -403,7 +406,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# Create empty file (Change this later)
 		if not(os.path.isfile(self.serial + ".areas")):
 			file = open(self.serial + ".areas", 'w')
-			file.write("{}")
+			file.write("")
 			file.close()
 			self.logText.append("Created selection file at '" + self.serial + ".areas'")
 		# If it's in the path, load the pads if the exist
@@ -415,7 +418,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 			for levels in curFile:
 				if levels[-1] == self.level[-1]:
-					self.markedPads = curFile[tuple(levels)]
+					self.markedPads = curFile[tuple(levels)][0]
+					self.comments = curFile[tuple(levels)][1]
 					self.logText.append("Loaded selection from file '" + self.serial + ".areas'")
 
 
