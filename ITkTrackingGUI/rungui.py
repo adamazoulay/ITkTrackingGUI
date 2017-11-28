@@ -27,6 +27,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.curImg = "root"
 		self.selectedPads = []
 		self.markedPads = []
+		self.comments = {}
 		self.counter = -4
 		self.curDict = {}
 		self.saved = True
@@ -151,9 +152,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		for pad in self.selectedPads:
 			if pad not in self.markedPads:
 				self.markedPads.append(pad)
+				self.comments[pad] = self.commentBox.toPlainText()
 			else:
 				self.markedPads.remove(pad)
-			
+				self.comments[pad] = ""
+
+		self.commentBox.setText("")
 		self.selectedPads = []
 
 		# Open the file (Should be in program directory for now)
@@ -161,7 +165,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# Read in the dict form the file
 		curFile = eval(areasFile.read())
 
-		# Wipe the file now that we've read it
+		# Wipe the file now that we've read itself.commentBox.text
 		areasFile.seek(0, 0)
 		areasFile.truncate()
 
@@ -272,10 +276,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				# if selected, fill in rect
 				if (area in self.markedPads) and (area in self.selectedPads):
 					self.scene.addRect(rect, Qred, Qblue)
+					self.commentBox.setText(self.comments[area])
 				elif area in self.markedPads:
 					self.scene.addRect(rect, Qblue, Qblue)
+					self.commentBox.setText(self.comments[area])
 				elif area in self.selectedPads:
 					self.scene.addRect(rect, Qblue, Qabitred)
+					self.commentBox.setText("")
 				else:
 					self.scene.addRect(rect, Qred, Qabitred) #Last arg gives the fill colour
 
