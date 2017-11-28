@@ -143,8 +143,18 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.saved = True
 		self.logText.append("Saved to '" + fileName + "'")
 
+		self.loadImg()
+
 	# Function for adding the currently selected areas to the .areas save file
 	def updateAreas(self, fileName):
+		#Transfer pads to marked list
+		for pad in self.selectedPads:
+			if pad not in self.markedPads:
+				self.markedPads.append(pad)
+			else:
+				self.markedPads.remove(pad)
+			
+		self.selectedPads = []
 
 		# Open the file (Should be in program directory for now)
 		areasFile = open(fileName, 'r+')
@@ -156,7 +166,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		areasFile.truncate()
 
 		# Set the entry in the save file as the currently selected pads
-		curFile[tuple(self.level)] = self.selectedPads
+		curFile[tuple(self.level)] = self.markedPads
+		
 
 		areasFile.write(str(curFile))
 		areasFile.close()
@@ -259,10 +270,12 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				rect = QtCore.QRectF(xVal-size, yVal-size, 2*size, 2*size)
 
 				# if selected, fill in rect
-				if area in self.selectedPads:
-					self.scene.addRect(rect, Qblue, Qabitred)
+				if (area in self.markedPads) and (area in self.selectedPads):
+					self.scene.addRect(rect, Qred, Qblue)
 				elif area in self.markedPads:
 					self.scene.addRect(rect, Qblue, Qblue)
+				elif area in self.selectedPads:
+					self.scene.addRect(rect, Qblue, Qabitred)
 				else:
 					self.scene.addRect(rect, Qred, Qabitred) #Last arg gives the fill colour
 
@@ -285,10 +298,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# First add the pad to the array
 		if name in self.selectedPads:
 			self.selectedPads.remove(name)
-			self.logText.append("Removed pad " + name)
+			self.logText.append("Deselected pad " + name)
 		else:
 			self.selectedPads.append(name)
-			self.logText.append("Added pad " + name)
+			self.logText.append("Selected pad " + name)
 
 		# Make sure we save the top left pos before loading
 		self.sceneTopLeft = self.imgSelect.mapFromScene(0, 0)
@@ -395,8 +408,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 			for levels in curFile:
 				if levels[-1] == self.level[-1]:
-					self.selectedPads = curFile[tuple(levels)]
+					self.markedPads = curFile[tuple(levels)]
 					self.logText.append("Loaded selection from file '" + self.serial + ".areas'")
+
 
 			areasFile.close()
 
