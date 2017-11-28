@@ -20,14 +20,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.setupUi(self)  # This is defined in design.py file automatically
 		# It sets up layout and widgets that are defined
 
-		# set as central widget
-
 		# Start global variables
 		self.level = ['root']
 		self.selectionMode = False
 		self.browseMode = True
 		self.curImg = "root"
 		self.selectedPads = []
+		self.markedPads = []
 		self.counter = -4
 		self.curDict = {}
 		self.saved = True
@@ -184,7 +183,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		y = scenePt.y()
 
 		self.counter += 1
-		print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),', end='', flush=True)  # DEBUG
+		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),', end='', flush=True)  # DEBUG
 		#print('(' + str(x) + ',' + str(y) + '), ', end='', flush=True)
 
 		# Store scene rect
@@ -229,7 +228,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				self.logText.append("Changed to " + self.curImg)
 
 			if inside and self.selectionMode:
-				# Mark the pas list as unsaved
+				# Mark the pad list as unsaved
 				self.saved = False
 				# Display box around selected pad
 				self.manageBoxes(name, size)
@@ -238,6 +237,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		size = self.size
 		# Set pen colour
 		Qred = QtGui.QColor(255, 0, 0)
+		Qblue = QtGui.QColor(0, 0, 255)
 		Qabitred = QtGui.QColor(255, 0, 0, 50)
 		QEmpty = QtGui.QColor(0, 0, 0, 0)
 
@@ -260,10 +260,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 				# if selected, fill in rect
 				if area in self.selectedPads:
-					self.scene.addRect(rect, Qred, Qred)
+					self.scene.addRect(rect, Qblue, Qabitred)
+				elif area in self.markedPads:
+					self.scene.addRect(rect, Qblue, Qblue)
 				else:
-					# Just set alpha to 0 (probably a better way to do this.
-					# there was!)
 					self.scene.addRect(rect, Qred, Qabitred) #Last arg gives the fill colour
 
 			if self.browseMode:
