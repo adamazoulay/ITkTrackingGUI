@@ -406,7 +406,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# Create empty file (Change this later)
 		if not(os.path.isfile(self.serial + ".areas")):
 			file = open(self.serial + ".areas", 'w')
-			file.write("")
+			file.write("{}")
 			file.close()
 			self.logText.append("Created selection file at '" + self.serial + ".areas'")
 		# If it's in the path, load the pads if the exist
