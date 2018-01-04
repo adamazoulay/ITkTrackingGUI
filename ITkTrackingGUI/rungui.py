@@ -31,6 +31,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.selectedPads = []
 		self.markedPads = []
 		self.comments = {}
+		self.pass = True
 		self.counter = -4
 		self.curDict = {}
 		self.saved = True

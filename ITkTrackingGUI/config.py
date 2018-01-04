@@ -1,2 +1,4 @@
-userName = ''
-institutionID = ''
+institutionID = 'YorkU'
+dbuserName = 'aazoulay'
+dbPassword = ''
+dbAPIKey = ''
