@@ -7,6 +7,9 @@ import numpy as np
 from WirebondRecorderGUI import Ui_WirebondRecorder
 from ConfirmWindowGUI import Ui_ConfirmWindow
 
+# Import the config file
+import config
+
 # ================================================================================
 # TODO:
 #  Just lots of things
