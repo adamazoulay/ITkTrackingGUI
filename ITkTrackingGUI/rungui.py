@@ -12,7 +12,9 @@ import config
 
 # ================================================================================
 # TODO:
-#  Just lots of things
+#  - Add database uploading
+#  - Seperate mark locations to different file
+#  - Finish config file and header information for save file
 # ================================================================================
 
 # Define the classes for the main gui
@@ -31,7 +33,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.selectedPads = []
 		self.markedPads = []
 		self.comments = {}
-		self.pass = True
+		self.compPass = True
 		self.counter = -4
 		self.curDict = {}
 		self.saved = True
