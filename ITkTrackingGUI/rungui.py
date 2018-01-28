@@ -52,7 +52,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.imgSelect.setStyleSheet("border: 2px solid black;")
 
 		# Need to store all active areas for each level
-		activeAreasRoot = {"endcap": [(0.0,-13.0), (600,-16.0), (600,442.0), (0.0,429.0)], "barrel": [(0, 0), (0, 0), (0, 0), (0, 0)]}
+		activeAreasRoot = {"endcap": [(0.0,-13.0), (600,-16.0), (600,442.0), (0.0,429.0)], "barrel": [(1.0,481.0), (592.0,480.0), (592.0,923.0), (0.0,923.0)]}
 		activeAreasEndcap = dict([["R0", [(96, 28), (263, 30), (257, 219), (93, 223)]],
 								["R1", [(0, 0), (0, 0), (0, 0), (0, 0)]],
 								["R2", [(0, 0), (0, 0), (0, 0), (0, 0)]],
@@ -63,6 +63,9 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 						 "R0H0": [(152.0,978.0), (1399.0,1033.0), (1382.0,1273.0), (185.0,1263.0)]}
 		activeAreasR0H0 = {"HCC" : [(272.0,138.0), (418.0,126.0), (422.0,213.0), (282.0,224.0)], "ASICd1": [(104.0,419.0), (340.0,402.0), (356.0,612.0), (119.0,630.0)], "ASICd2": [(404.0,397.0), (638.0,387.0), (653.0,600.0), (414.0,613.0)], "ASICd3": [(704.0,383.0), (940.0,377.0), (947.0,592.0), (711.0,597.0)], "ASICd4": [(1007.0,378.0), (1240.0,379.0), (1244.0,589.0), (1008.0,592.0)], "ASICd5": [(1308.0,378.0), (1540.0,387.0), (1535.0,587.0), (1302.0,585.0)], "ASICd6": [(1606.0,384.0), (1846.0,391.0), (1831.0,604.0), (1596.0,596.0)], "ASICd7": [(1907.0,397.0), (2138.0,413.0), (2127.0,627.0), (1891.0,612.0)], "ASICd8": [(2201.0,416.0), (2438.0,441.0), (2418.0,643.0), (2185.0,625.0)]}
 		activeAreasR0H1 = {"HCC" : [(304.0,496.0), (452.0,488.0), (459.0,576.0), (321.0,587.0)], "ASICu1": [(79.0,132.0), (332.0,102.0), (336.0,325.0), (97.0,333.0)], "ASICu2": [(370.0,104.0), (609.0,87.0), (624.0,308.0), (384.0,314.0)], "ASICu3": [(659.0,91.0), (904.0,79.0), (910.0,288.0), (672.0,295.0)], "ASICu4": [(955.0,77.0), (1194.0,70.0), (1198.0,280.0), (960.0,284.0)], "ASICu5": [(1245.0,74.0), (1487.0,79.0), (1486.0,282.0), (1247.0,281.0)], "ASICu6": [(1540.0,73.0), (1778.0,79.0), (1776.0,289.0), (1536.0,282.0)], "ASICu7": [(1834.0,84.0), (2075.0,96.0), (2064.0,303.0), (1826.0,291.0)], "ASICu8": [(2126.0,95.0), (2368.0,116.0), (2352.0,323.0), (2116.0,309.0)], "ASICu9": [(2416.0,117.0), (2655.0,143.0), (2638.0,351.0), (2403.0,327.0)]}
+		activeAreasBarrel = {"LH" : [(178.6,508.9), (1657.8,512.9), (1659.2,741.6), (177.3,744.3)], "RH" : [(182.7,923.0), (1657.8,913.5), (1660.5,1127.3), (189.5,1131.4)]}
+		activeAreasLH = {"HCC" : [(228.2,495.6), (372.0,496.8), (369.6,575.3), (230.6,574.1)], "ASICu1" : [(29.7,159.3), (276.9,164.0), (279.3,332.8), (28.5,331.6)], "ASICu2": [(318.5,161.6), (566.9,158.1), (570.5,334.0), (324.5,332.8)], "ASICu3": [(609.7,156.9), (856.9,161.6), (856.9,334.0), (615.7,329.2)], "ASICu4" : [(899.7,158.1), (1147.0,158.1), (1150.5,334.0), (902.1,325.7)], "ASICu5" : [(1193.3,153.3), (1440.5,156.9), (1439.3,337.5), (1196.9,329.2)], "ASICu6" : [(1484.5,159.3), (1728.2,156.9), (1727.0,329.2), (1482.1,335.2)], "ASICu7" : [(1778.1,155.7), (2017.0,156.9), (2013.4,335.2), (1780.4,334.0)], "ASICu8" : [(2066.9,160.5), (2307.0,158.1), (2311.7,337.5), (2074.0,330.4)], "ASICu9" : [(2360.5,154.5), (2595.8,155.7), (2600.5,332.8), (2360.5,324.5)]}
+		activeAreasRH = {}
 		activeAreasASIC = {}
 		activeAreasHCC = {}
 
@@ -86,7 +89,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.activeAreas = {"root": activeAreasRoot, "endcap": activeAreasEndcap ,"R0": activeAreasR0, "R0H0": activeAreasR0H0, "R0H1": activeAreasR0H1,
 							"ASICu1": activeAreasASIC, "ASICu2": activeAreasASIC, "ASICu3": activeAreasASIC, "ASICu4": activeAreasASIC, "ASICu5": activeAreasASIC, "ASICu6": activeAreasASIC, "ASICu7": activeAreasASIC, "ASICu8": activeAreasASIC, "ASICu9": activeAreasASIC,
 							"ASICd1": activeAreasASIC, "ASICd2": activeAreasASIC, "ASICd3": activeAreasASIC, "ASICd4": activeAreasASIC, "ASICd5": activeAreasASIC, "ASICd6": activeAreasASIC, "ASICd7": activeAreasASIC, "ASICd8": activeAreasASIC,
-							"HCC": activeAreasHCC}
+							"HCC": activeAreasHCC, "barrel": activeAreasBarrel, "LH": activeAreasLH, "RH": activeAreasRH}
 
 		self.activeSelectionAreas = {
 			"R0H1": activeSelectionAreasR0H1, "HCC" : activeSelectionAreasHCC,
@@ -204,7 +207,7 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 		self.counter += 1
 		#print('"' + str(self.counter)+'"' + ' : (' + str(x) + ',' + str(y) +'),', end='', flush=True)  # DEBUG
-		#print('(' + str(x) + ',' + str(y) + '), ', end='', flush=True)
+		print('({:.1f},{:.1f}), '.format(x, y), end='', flush=True)
 
 		# Store scene rect
 		topLeftPt = -1.*self.imgSelect.mapFromScene(0, 0)
