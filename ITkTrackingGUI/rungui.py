@@ -161,7 +161,8 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		for pad in self.selectedPads:
 			if pad not in self.markedPads:
 				self.markedPads.append(pad)
-				self.comments[pad] = self.commentBox.toPlainText()
+				# Here we combine the comment from the error category box to the written comment
+				self.comments[pad] = str(self.errorCategory.currentText()) + " : " + self.commentBox.toPlainText()
 			else:
 				self.markedPads.remove(pad)
 				self.comments[pad] = ""
