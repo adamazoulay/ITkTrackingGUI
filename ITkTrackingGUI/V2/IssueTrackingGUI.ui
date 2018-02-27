@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1143</width>
+    <height>792</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Issue Tracking GUI</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QTreeWidget" name="selectionTree">
+      <property name="maximumSize">
+       <size>
+        <width>110</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="tabKeyNavigation">
+       <bool>true</bool>
+      </property>
+      <attribute name="headerVisible">
+       <bool>false</bool>
+      </attribute>
+      <column>
+       <property name="text">
+        <string>Component</string>
+       </property>
+      </column>
+      <item>
+       <property name="text">
+        <string>R0</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>H0</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>ASIC1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>H1</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>ASIC1</string>
+         </property>
+        </item>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>R1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Barrel</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>LH</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>ASIC1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>RH</string>
+        </property>
+       </item>
+      </item>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QGraphicsView" name="selectionView">
+      <property name="focusPolicy">
+       <enum>Qt::StrongFocus</enum>
+      </property>
+      <property name="verticalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1143</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <addaction name="menuFile"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
