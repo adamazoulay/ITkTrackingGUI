@@ -6,12 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1143</width>
-    <height>792</height>
+    <width>936</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Issue Tracking GUI</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../imgs/form.png</normaloff>../imgs/form.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -129,7 +133,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1143</width>
+     <width>936</width>
      <height>21</height>
     </rect>
    </property>
@@ -138,6 +142,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionEdit"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -171,6 +176,11 @@
   <action name="actionAbout">
    <property name="text">
     <string>About</string>
+   </property>
+  </action>
+  <action name="actionEdit">
+   <property name="text">
+    <string>Edit</string>
    </property>
   </action>
  </widget>

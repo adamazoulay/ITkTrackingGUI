@@ -1,14 +1,15 @@
+# System imports
 import os  # We need sys so that we can pass argv to QApplication
 # import matplotlib.path as mplPath
 # import numpy as np
-import sys
-
 from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll need
 
+# Local imports
+from .selection_edit_widget import SelectionEditWidget
 
 # ================================================================================
 # TODO:
-#  -
+#  - Save files
 # ================================================================================
 
 
@@ -17,15 +18,20 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
     def __init__(self):
         super(self.__class__, self).__init__()
-        uic.loadUi('IssueTrackingGUI.ui', self)
+        uic.loadUi('lib/IssueTrackingGUI.ui', self)
 
         # Class variables
-        self.cur_location = ''
-        self.zoom_factor = 0
+        self.cur_location = ''  # Track current image location
+        self.zoom_factor = 0  # Track the current zoom level
+        self.edit_mode = False  # Flag to set edit mode on image
+        self.edit_widget = None  # Store the editing window here when needed
 
         # Define action of the menu items
         self.actionExit.setShortcut("Ctrl+Q")
         self.actionExit.triggered.connect(self.close)
+
+        self.actionEdit.setShortcut("Ctrl+E")
+        self.actionEdit.triggered.connect(self.selection_edit)
 
         self.actionAbout.triggered.connect(self.about)
 
@@ -105,7 +111,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
             # Load name.jpg into QGraphicsView selectionView
             cur_dir = os.path.dirname(os.path.abspath(__file__))
-            img_path = os.path.join(cur_dir, 'imgs', (cur_img_name + '.jpg'))
+            img_path = os.path.join(cur_dir, '..', 'imgs', (cur_img_name + '.jpg'))
             img_pixmap = QtGui.QPixmap(img_path, "1")
 
             # Scale the image by the zoom
@@ -121,28 +127,30 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 self.selectionView.fitInView(
                     self.selectionView.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
+            if self.edit_mode:
+                self.draw_boxes()
+
+    # Draw the possible selection areas onto the screen
+    def draw_boxes(self):
+
+        pass
+
+    # Open the edit window
+    def selection_edit(self):
+        self.edit_widget = SelectionEditWidget(self)
+        self.edit_widget.show()
+
     # Display the about popup
     def about(self):
         info = '''This application was developed for use in the tracking of issues during production of ITk components.
-        
+
 Forward any questions or comments to aazoulay@yorku.ca (change this to gitlab wiki later)'''
         msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Information, 'About', info)
 
         # Add image
         cur_dir = os.path.dirname(os.path.abspath(__file__))
-        img_path = os.path.join(cur_dir, 'imgs', 'about_img.jpg')
+        img_path = os.path.join(cur_dir, '..', 'imgs', 'about_img.jpg')
+        icon_path = os.path.join(cur_dir, '..', 'imgs', 'form.png')
         msg.setIconPixmap(QtGui.QPixmap(img_path).scaled(350, 350, QtCore.Qt.KeepAspectRatio))
+        msg.setWindowIcon(QtGui.QIcon(icon_path))
         msg.exec_()
-
-
-# ================================================================================
-# All functions and main down here
-def display_gui():
-    app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
-    form = IssueTrackingGUI()  # We set the form to be our MainWindow
-    form.show()  # Show the form
-    sys.exit(app.exec_())  # and execute the app
-
-
-if __name__ == '__main__':  # if we're running file directly and not importing it
-    display_gui()  # run the main function
