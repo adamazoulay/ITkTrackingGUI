@@ -1,8 +1,9 @@
-from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll need
+import os  # We need sys so that we can pass argv to QApplication
 # import matplotlib.path as mplPath
 # import numpy as np
 import sys
-import os  # We need sys so that we can pass argv to QApplication
+
+from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll need
 
 
 # ================================================================================
@@ -21,6 +22,12 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Class variables
         self.cur_location = ''
         self.zoom_factor = 0
+
+        # Define action of the menu items
+        self.actionExit.setShortcut("Ctrl+Q")
+        self.actionExit.triggered.connect(self.close)
+
+        self.actionAbout.triggered.connect(self.about)
 
         # Load image if tree selection is changed
         self.selectionTree.currentItemChanged.connect(self.load_img)
@@ -113,6 +120,19 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             if self.zoom_factor == 0:
                 self.selectionView.fitInView(
                     self.selectionView.sceneRect(), QtCore.Qt.KeepAspectRatio)
+
+    # Display the about popup
+    def about(self):
+        info = '''This application was developed for use in the tracking of issues during production of ITk components.
+        
+Forward any questions or comments to aazoulay@yorku.ca (change this to gitlab wiki later)'''
+        msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Information, 'About', info)
+
+        # Add image
+        cur_dir = os.path.dirname(os.path.abspath(__file__))
+        img_path = os.path.join(cur_dir, 'imgs', 'about_img.jpg')
+        msg.setIconPixmap(QtGui.QPixmap(img_path).scaled(350, 350, QtCore.Qt.KeepAspectRatio))
+        msg.exec_()
 
 
 # ================================================================================
