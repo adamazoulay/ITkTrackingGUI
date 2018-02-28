@@ -6,6 +6,7 @@ from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll
 
 # Local imports
 from .selection_edit_widget import SelectionEditWidget
+from .selection_areas import *
 
 # ================================================================================
 # TODO:
@@ -25,6 +26,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.zoom_factor = 0  # Track the current zoom level
         self.edit_mode = False  # Flag to set edit mode on image
         self.edit_widget = None  # Store the editing window here when needed
+        self.scene = None  # Store the scene so we can add selection areas
 
         # Define action of the menu items
         self.actionExit.setShortcut("Ctrl+Q")
@@ -114,13 +116,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             img_path = os.path.join(cur_dir, '..', 'imgs', (cur_img_name + '.jpg'))
             img_pixmap = QtGui.QPixmap(img_path, "1")
 
-            # Scale the image by the zoom
-            # zoom = self.zoomScale
-
             # Build a scene for the graphics view
-            scene = QtWidgets.QGraphicsScene(self)
-            scene.addPixmap(img_pixmap)
-            self.selectionView.setScene(scene)
+            self.scene = QtWidgets.QGraphicsScene(self)
+            self.scene.addPixmap(img_pixmap)
+            self.selectionView.setScene(self.scene)
 
             # Fit in view
             if self.zoom_factor == 0:
@@ -132,8 +131,22 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
     # Draw the possible selection areas onto the screen
     def draw_boxes(self):
+        # Set up some pen colours
+        q_red = QtGui.QColor(255, 0, 0)
+        # Qblue = QtGui.QColor(0, 0, 255)
+        q_abitred = QtGui.QColor(255, 0, 0, 50)
+        # QEmpty = QtGui.QColor(0, 0, 0, 0)
 
-        pass
+        # Loop through all boxes for current dict
+        current_box = R0H0['R2']
+        # Draw box on the image
+        coords = current_box.coords
+        x = coords[0][0]
+        y = coords[0][1]
+        width = coords[1][0] - x
+        height = y - coords[3][1]
+        rect = QtCore.QRectF(x, y, width, height)
+        self.scene.addRect(rect, q_red, q_abitred)
 
     # Open the edit window
     def selection_edit(self):
