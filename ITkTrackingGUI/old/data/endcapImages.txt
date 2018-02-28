@@ -1,3 +1,0 @@
-* High quality image of entire R0 module (including power board if possible). A Standard digital camera raw image should be more than enough resolution for this.
-
-* Close up of one HCC such that you can see the bondpads (as outlined in the image)

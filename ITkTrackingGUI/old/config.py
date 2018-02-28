@@ -1,2 +1,0 @@
-institutionID = 'YorkU'
-dbuserName = 'aazoulay'
