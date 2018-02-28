@@ -29,10 +29,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.scene = None  # Store the scene so we can add selection areas
 
         # Define action of the menu items
-        self.actionExit.setShortcut("Ctrl+Q")
+        self.actionExit.setShortcut("Alt+Q")
         self.actionExit.triggered.connect(self.close)
 
-        self.actionEdit.setShortcut("Ctrl+E")
+        self.actionEdit.setShortcut("Alt+E")
         self.actionEdit.triggered.connect(self.selection_edit)
 
         self.actionAbout.triggered.connect(self.about)
