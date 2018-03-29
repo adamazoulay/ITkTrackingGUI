@@ -16,7 +16,7 @@ Currently the ITG has only been tested thoroughly on Windows 10 x64, but since Q
 
 ### Usage
 
-To run the program, inside a terminal in the "bin" folder, enter `python main.py` (on Winodws) or `python3 main.py` (on OSX).
+To run the program, inside a terminal in the "bin" folder, enter `python main.py` (on Windows) or `python3 main.py` (on OSX).
 
 To use the GUI to record defects, simply select the component you wish to mark from the tree on the left. Press the edit button from the "File" menu, or press the "E" key. Make your selections by clicking the image and fill in comments, then click save. The locations will be saved to a file in the "bin" directory.
 
