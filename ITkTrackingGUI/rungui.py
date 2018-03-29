@@ -7,9 +7,14 @@ import numpy as np
 from WirebondRecorderGUI import Ui_WirebondRecorder
 from ConfirmWindowGUI import Ui_ConfirmWindow
 
+# Import the config file
+import config
+
 # ================================================================================
 # TODO:
-#  Just lots of things
+#  - Add database uploading
+#  - Seperate mark locations to different file
+#  - Finish config file and header information for save file
 # ================================================================================
 
 # Define the classes for the main gui
@@ -20,14 +25,15 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.setupUi(self)  # This is defined in design.py file automatically
 		# It sets up layout and widgets that are defined
 
-		# set as central widget
-
 		# Start global variables
 		self.level = ['root']
 		self.selectionMode = False
 		self.browseMode = True
 		self.curImg = "root"
 		self.selectedPads = []
+		self.markedPads = []
+		self.comments = {}
+		self.compPass = True
 		self.counter = -4
 		self.curDict = {}
 		self.saved = True
@@ -144,20 +150,33 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		self.saved = True
 		self.logText.append("Saved to '" + fileName + "'")
 
+		self.loadImg()
+
 	# Function for adding the currently selected areas to the .areas save file
 	def updateAreas(self, fileName):
+		#Transfer pads to marked list
+		for pad in self.selectedPads:
+			if pad not in self.markedPads:
+				self.markedPads.append(pad)
+				self.comments[pad] = self.commentBox.toPlainText()
+			else:
+				self.markedPads.remove(pad)
+				self.comments[pad] = ""
+
+		self.commentBox.setText("")
+		self.selectedPads = []
 
 		# Open the file (Should be in program directory for now)
 		areasFile = open(fileName, 'r+')
 		# Read in the dict form the file
 		curFile = eval(areasFile.read())
 
-		# Wipe the file now that we've read it
+		# Wipe the file now that we've read itself.commentBox.text
 		areasFile.seek(0, 0)
 		areasFile.truncate()
 
 		# Set the entry in the save file as the currently selected pads
-		curFile[tuple(self.level)] = self.selectedPads
+		curFile[tuple(self.level)] = (self.markedPads, self.comments)		
 
 		areasFile.write(str(curFile))
 		areasFile.close()
@@ -229,15 +248,22 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				self.logText.append("Changed to " + self.curImg)
 
 			if inside and self.selectionMode:
-				# Mark the pas list as unsaved
+				# Mark the pad list as unsaved
 				self.saved = False
 				# Display box around selected pad
 				self.manageBoxes(name, size)
+
+				#Update comment box
+				if name in self.markedPads:
+					self.commentBox.setText(self.comments[name])
+				else:
+					self.commentBox.setText("")
 
 	def drawBoxes(self):
 		size = self.size
 		# Set pen colour
 		Qred = QtGui.QColor(255, 0, 0)
+		Qblue = QtGui.QColor(0, 0, 255)
 		Qabitred = QtGui.QColor(255, 0, 0, 50)
 		QEmpty = QtGui.QColor(0, 0, 0, 0)
 
@@ -259,11 +285,13 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 				rect = QtCore.QRectF(xVal-size, yVal-size, 2*size, 2*size)
 
 				# if selected, fill in rect
-				if area in self.selectedPads:
-					self.scene.addRect(rect, Qred, Qred)
+				if (area in self.markedPads) and (area in self.selectedPads):
+					self.scene.addRect(rect, Qred, Qblue)
+				elif area in self.markedPads:
+					self.scene.addRect(rect, Qblue, Qblue)
+				elif area in self.selectedPads:
+					self.scene.addRect(rect, Qblue, Qabitred)
 				else:
-					# Just set alpha to 0 (probably a better way to do this.
-					# there was!)
 					self.scene.addRect(rect, Qred, Qabitred) #Last arg gives the fill colour
 
 			if self.browseMode:
@@ -285,16 +313,17 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 		# First add the pad to the array
 		if name in self.selectedPads:
 			self.selectedPads.remove(name)
-			self.logText.append("Removed pad " + name)
+			self.logText.append("Deselected pad " + name)
 		else:
 			self.selectedPads.append(name)
-			self.logText.append("Added pad " + name)
+			self.logText.append("Selected pad " + name)
 
 		# Make sure we save the top left pos before loading
 		self.sceneTopLeft = self.imgSelect.mapFromScene(0, 0)
 		self.loadImg()
 
 	def changeMode(self):
+		self.commentBox.setText("")
 		# If we're in browse mode and have pads to select:
 		if self.browseMode and (self.level[-1] in self.activeSelectionAreas):
 			self.browseMode = False
@@ -395,8 +424,10 @@ class WirebondRecorder(QtWidgets.QMainWindow, Ui_WirebondRecorder):
 
 			for levels in curFile:
 				if levels[-1] == self.level[-1]:
-					self.selectedPads = curFile[tuple(levels)]
+					self.markedPads = curFile[tuple(levels)][0]
+					self.comments = curFile[tuple(levels)][1]
 					self.logText.append("Loaded selection from file '" + self.serial + ".areas'")
+
 
 			areasFile.close()
 
