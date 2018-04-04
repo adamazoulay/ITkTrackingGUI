@@ -11,7 +11,8 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.parent = parent
 
         # Define self variables
-        self.cur_dict = {}
+        self.max_cols = 3
+        self.cur_selected_item = {}
 
         # Turn off image scrolling on load (bug?)
         self.parent.selectionView.setDragMode(QtWidgets.QGraphicsView.NoDrag)
@@ -20,14 +21,54 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.parent.edit_mode = True
 
         self.btnAdd.clicked.connect(self.add_selected_components)
+        self.btnRemove.clicked.connect(self.remove_selected_components)
 
 
     # Add all selected components to the cur_selceted dict and reload the list
     def add_selected_components(self):
         # Get all highlighted items from cur_selected
-        cur_index = self.elementTree.currentIndex()
-        cur_data = self.elementTree.data(cur_index)
-        print(cur_data)
+        cur_indexes = self.elementTree.selectedIndexes()
+
+        # The cur_indexes list contains every row and every column, i.e. [row0col0, row0col1, row1col1, etc]
+        # This means we need to loop through the list and gram the first column since it's the index for the dict
+        count = self.max_cols
+        label_list = []
+        for item in cur_indexes:
+            if count % (self.max_cols) == 0:
+                label_list.append(item.data())
+            count += 1
+
+
+        # Now add all selected items to the cur_selected dict (create empty if needed)
+        if self.parent.cur_location not in self.parent.cur_selected:
+                self.parent.cur_selected[self.parent.cur_location] = {}
+
+        for item in label_list:
+            elem = self.parent.cur_dict[item]
+            self.parent.cur_selected[self.parent.cur_location][item] = elem
+
+        # Finally, reload the lists
+        self.load_list()
+
+    # Remove all selected components from cur_selceted dict and reload the list
+    def remove_selected_components(self):
+        # Get all highlighted items from selectedTree
+        cur_indexes = self.selectedTree.selectedIndexes()
+
+        count = self.max_cols
+        label_list = []
+        for item in cur_indexes:
+            if count % (self.max_cols) == 0:
+                label_list.append(item.data())
+            count += 1
+
+
+        # Now remove all selected items to the cur_selected dict
+        for item in label_list:
+            self.parent.cur_selected[self.parent.cur_location].pop(item)
+
+        # Finally, reload the lists
+        self.load_list()
 
 
     # Populate the list with selectable areas
@@ -39,10 +80,18 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         cur_location = self.parent.cur_location
         cur_selected = self.parent.cur_selected
 
-        cur_dict = self.cur_dict
-
+        # Different load cases
         if cur_location[-5:-1] == 'ASIC':
-            cur_dict = ASIC
+            self.parent.cur_dict = ASIC
+
+            
+        # If any selection exists at current location, load it up
+            if cur_location in cur_selected:
+                self.cur_selected_item = cur_selected[cur_location]
+
+        # Set for convenience
+        cur_dict = self.parent.cur_dict
+        
 
         # Populate elementTree
         for item in cur_dict:
@@ -52,8 +101,11 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             self.elementTree.addTopLevelItem(row)
 
         # Populate selectedTree
-        for item in cur_selected:
-            elem = cur_selected[item]
+        for item in self.cur_selected_item:
+            elem = self.cur_selected_item[item]
             cols = [item, elem.name, elem.comments]
             row = QtWidgets.QTreeWidgetItem(cols)
-            self.elementTree.addTopLevelItem(row)
+            self.selectedTree.addTopLevelItem(row)
+
+        # Reset starting dicts
+        self.cur_selected_item = {}

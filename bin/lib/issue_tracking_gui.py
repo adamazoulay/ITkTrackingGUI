@@ -5,7 +5,7 @@ import os  # We need sys so that we can pass argv to QApplication
 from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll need
 
 # Local imports
-from .selection_edit_widget import SelectionEditWidget
+from .selection_edit_widget import *
 
 # ================================================================================
 # TODO:
@@ -22,15 +22,20 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Class variables
         self.cur_location = ''  # Track current image location
+        self.cur_selected = {} # This is the dict of dicts of ALL selected elements (across all components), loaded in from the save file
+        self.cur_dict = {} # This is a dict of the available elements for the current location (filled on edit window load)
         self.zoom_factor = 0  # Track the current zoom level
         self.edit_mode = False  # Flag to set edit mode on image
         self.edit_widget = None  # Store the editing window here when needed
         self.scene = None  # Store the scene so we can add selection areas
-        self.cur_selected = {} # This is the dict of selected elements, loaded in from the save file
+        
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
         self.actionExit.triggered.connect(self.close)
+
+        self.actionExit.setShortcut("Alt+O")
+        self.actionExit.triggered.connect(self.open)
 
         self.actionEdit.setShortcut("Alt+E")
         self.actionEdit.triggered.connect(self.selection_edit)
@@ -90,8 +95,15 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.load_img()
         QtWidgets.QMainWindow.resizeEvent(self, event)
 
+    # Open a pickle file containing the cur_selected dict from a previous run
+    def open(self):
+        name = QtWidgets.QFileDialog.getOpenFileName()
+        print(name)
+
     # Load the image currently selected in the tree
     def load_img(self):
+        # Reset the cur_dict (loaded in selection widget)
+        self.cur_dict = {}
         # Make sure correct image name is selected
         cur_img_obj = self.selectionTree.currentItem()
 
