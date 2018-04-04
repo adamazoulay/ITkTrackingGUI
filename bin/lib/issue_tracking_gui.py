@@ -26,6 +26,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.edit_mode = False  # Flag to set edit mode on image
         self.edit_widget = None  # Store the editing window here when needed
         self.scene = None  # Store the scene so we can add selection areas
+        self.cur_selected = {} # This is the dict of selected elements, loaded in from the save file
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")

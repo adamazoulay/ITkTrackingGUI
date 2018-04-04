@@ -45,7 +45,7 @@ for item in activeSelectionAreasHCC:
 
 count = 1
 ASIC = {}
-with open(r"D:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile:
+with open(r"C:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         name = row[0]
@@ -56,7 +56,7 @@ with open(r"D:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile
 
         label = "BP" + str(count)
 
-        ASIC[label] = 'BoardItem(\'' + name + '\',\'' + desc + '\',\'' + signal + '\',\'' + direction + '\',\'' + padType + "\', 0, 0, 0, 0)"
+        ASIC[label] = 'BoardItem(\'' + name + '\',\'' + desc + '\',\'' + signal + '\',\'' + direction + '\',\'' + padType + "\', 0, 0, 0, 0, \'\')"
 
         print("\'" + label + "\'" + ": " + ASIC[label] + ",")
 
