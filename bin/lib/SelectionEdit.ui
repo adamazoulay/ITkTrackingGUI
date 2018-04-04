@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>504</width>
+    <width>507</width>
     <height>527</height>
    </rect>
   </property>
@@ -20,26 +20,14 @@
   <widget class="QWidget" name="">
    <property name="geometry">
     <rect>
-     <x>9</x>
+     <x>10</x>
      <y>10</y>
      <width>491</width>
      <height>511</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <property name="leftMargin">
-     <number>5</number>
-    </property>
-    <property name="topMargin">
-     <number>5</number>
-    </property>
-    <property name="rightMargin">
-     <number>5</number>
-    </property>
-    <property name="bottomMargin">
-     <number>5</number>
-    </property>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0">
      <widget class="QLabel" name="label">
       <property name="minimumSize">
        <size>
@@ -63,7 +51,7 @@
       </property>
      </widget>
     </item>
-    <item row="0" column="2">
+    <item row="0" column="1">
      <widget class="QTextEdit" name="textEdit">
       <property name="minimumSize">
        <size>
@@ -84,8 +72,8 @@
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="3">
-     <widget class="QTreeWidget" name="selectedTree">
+    <item row="1" column="0" colspan="2">
+     <widget class="QTreeWidget" name="elementTree">
       <property name="minimumSize">
        <size>
         <width>0</width>
@@ -109,17 +97,25 @@
       </property>
       <column>
        <property name="text">
+        <string>Label</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Name</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Purpose</string>
+        <string>Description</string>
        </property>
       </column>
       <item>
        <property name="text">
         <string>R122</string>
+       </property>
+       <property name="text">
+        <string/>
        </property>
        <property name="text">
         <string>Regulate pwr</string>
@@ -132,45 +128,93 @@
        <property name="text">
         <string>R1</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </item>
       <item>
        <property name="text">
         <string>R2</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </item>
       <item>
        <property name="text">
         <string>C1</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </item>
       <item>
        <property name="text">
         <string>C2</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </item>
       <item>
        <property name="text">
         <string>C3</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </item>
       <item>
        <property name="text">
         <string>BP1</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
        </property>
       </item>
       <item>
        <property name="text">
         <string>BP2</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </item>
       <item>
        <property name="text">
         <string>BP3</string>
        </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
       </item>
      </widget>
     </item>
-    <item row="2" column="0" colspan="3">
+    <item row="2" column="0" colspan="2">
      <widget class="QTreeWidget" name="selectedTree_2">
       <property name="minimumSize">
        <size>
@@ -189,12 +233,12 @@
       </property>
       <column>
        <property name="text">
-        <string>Name</string>
+        <string>Label</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Purpose</string>
+        <string>Name</string>
        </property>
       </column>
       <column>
@@ -207,7 +251,7 @@
         <string>R122</string>
        </property>
        <property name="text">
-        <string>Regulate pwr</string>
+        <string/>
        </property>
        <property name="text">
         <string>The resistor needs to be replaced</string>
@@ -218,19 +262,26 @@
       </item>
      </widget>
     </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="pushButton">
-      <property name="text">
-       <string>Save</string>
-      </property>
-     </widget>
-    </item>
     <item row="3" column="0" colspan="2">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="text">
-       <string>Close</string>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="topMargin">
+       <number>0</number>
       </property>
-     </widget>
+      <item>
+       <widget class="QPushButton" name="pushButton_2">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton">
+        <property name="text">
+         <string>PushButton</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </item>
    </layout>
   </widget>

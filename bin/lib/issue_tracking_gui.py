@@ -6,7 +6,6 @@ from PyQt5 import QtGui, QtWidgets, QtCore, uic  # Import the PyQt5 module we'll
 
 # Local imports
 from .selection_edit_widget import SelectionEditWidget
-from .selection_areas import *
 
 # ================================================================================
 # TODO:
@@ -127,7 +126,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                     self.selectionView.sceneRect(), QtCore.Qt.KeepAspectRatio)
 
             if self.edit_mode:
+                # Draw areas and populate lists
                 self.draw_boxes()
+                self.edit_widget.load_list()
+
 
     # Draw the possible selection areas onto the screen
     def draw_boxes(self):
@@ -138,8 +140,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # QEmpty = QtGui.QColor(0, 0, 0, 0)
 
         # Loop through all boxes for current dict
-        current_box = R0H0['R2']
+        # current_box = R0H0['R2']
+
         # Draw box on the image
+        '''
         coords = current_box.coords
         x = coords[0][0]
         y = coords[0][1]
@@ -147,11 +151,13 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         height = y - coords[3][1]
         rect = QtCore.QRectF(x, y, width, height)
         self.scene.addRect(rect, q_red, q_abitred)
+        '''
 
     # Open the edit window
     def selection_edit(self):
         self.edit_widget = SelectionEditWidget(self)
         self.edit_widget.show()
+        self.load_img()
 
     # Display the about popup
     def about(self):

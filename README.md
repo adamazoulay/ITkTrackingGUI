@@ -8,7 +8,7 @@ Currently the ITG has only been tested thoroughly on Windows 10 x64, but since Q
 
 ### Installation
 
-1. Download and install [Python 3.6.1](https://www.python.org/downloads/release/python-361/) (downloads at the bottom of the page). Make sure you select the option to add Python to the system PATH during installation.
+1. Download and install [Python 3.6.1](https://www.python.org/downloads/release/python-365/) (downloads at the bottom of the page). Make sure you select the option to add Python to the system PATH during installation.
 
 2. Download and extract the ITG (download button at the top right of project page) to a directory on your computer.
 
