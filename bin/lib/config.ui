@@ -29,7 +29,7 @@
    <iconset>
     <normaloff>../imgs/form.png</normaloff>../imgs/form.png</iconset>
   </property>
-  <widget class="QWidget" name="">
+  <widget class="QWidget" name="layoutWidget">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -244,7 +244,7 @@
       <item>
        <widget class="QPushButton" name="btnSaveConfig">
         <property name="text">
-         <string>Save</string>
+         <string>Apply</string>
         </property>
        </widget>
       </item>

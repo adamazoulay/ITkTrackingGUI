@@ -70,6 +70,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Save to the chosen location
         data = [self.config, self.cur_selected]
+        print(data)
         with open(self.save_path, 'wb') as output:
             pickle.dump(data, output)
 
