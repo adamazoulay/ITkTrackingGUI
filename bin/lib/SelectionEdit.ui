@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>639</width>
-    <height>661</height>
+    <width>903</width>
+    <height>760</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -39,55 +39,6 @@
     <property name="bottomMargin">
      <number>5</number>
     </property>
-    <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
-       <widget class="QLabel" name="label">
-        <property name="minimumSize">
-         <size>
-          <width>230</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>187</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-        <property name="text">
-         <string>Serial Number (or RFID?):</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QTextEdit" name="textEdit">
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>6666667</width>
-          <height>30</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>12</pointsize>
-         </font>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </item>
     <item row="1" column="0">
      <widget class="QTreeWidget" name="elementTree">
       <property name="minimumSize">
@@ -167,7 +118,7 @@
       </item>
      </layout>
     </item>
-    <item row="3" column="0">
+    <item row="4" column="0">
      <widget class="QTreeWidget" name="selectedTree">
       <property name="minimumSize">
        <size>
@@ -201,7 +152,7 @@
       </column>
      </widget>
     </item>
-    <item row="4" column="0">
+    <item row="5" column="0">
      <layout class="QHBoxLayout" name="horizontalLayout_3">
       <property name="topMargin">
        <number>0</number>
@@ -220,7 +171,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btnExit">
+       <widget class="QPushButton" name="btnClose">
         <property name="maximumSize">
          <size>
           <width>75</width>
@@ -228,11 +179,35 @@
          </size>
         </property>
         <property name="text">
-         <string>Exit</string>
+         <string>Close</string>
         </property>
        </widget>
       </item>
      </layout>
+    </item>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Available areas:</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_2">
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>Selected Areas:</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>
