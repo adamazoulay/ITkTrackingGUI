@@ -1,0 +1,6 @@
+- power board
+- make names red??
+
+priority 1:
+- general marking
+- component lists - find design files

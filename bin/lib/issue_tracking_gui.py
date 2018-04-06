@@ -11,7 +11,10 @@ from .config_edit_widget import *
 
 # ================================================================================
 # TODO:
-#  - Save files
+#  -- general marking
+#  -- component lists - find design files
+#  - power board
+#  - make names red??
 # ================================================================================
 
 
