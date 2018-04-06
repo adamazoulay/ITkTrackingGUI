@@ -33,6 +33,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.scene = None  # Store the scene so we can add selection areas
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
+        self.counter = 0  # Debugging
 
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
@@ -106,8 +107,19 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             delta = new_pos - old_pos
             self.selectionView.translate(delta.x(), delta.y())
             return True
-        if ev.type() == QtCore.QEvent.KeyPress:
-            print('test')
+
+        if ev.type() == QtCore.QEvent.MouseButtonRelease:
+            pos = ev.pos()
+            scene_pt = self.selectionView.mapToScene(pos)
+            x = scene_pt.x()
+            y = scene_pt.y()
+            # Build 4 points
+            dx = 7.4
+            dy = 16.8
+            print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            self.counter += 1
+            return True
+
         return False
 
     # KeyPress and KeyRelease control the dragging behaviour of the image
@@ -183,30 +195,31 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
             if self.edit_mode:
                 # Draw areas and populate lists
-                self.draw_boxes()
                 self.edit_widget.load_list()
+                self.draw_boxes()
 
     # Draw the possible selection areas onto the screen
     def draw_boxes(self):
         # Set up some pen colours
         q_red = QtGui.QColor(255, 0, 0)
-        # Qblue = QtGui.QColor(0, 0, 255)
         q_abitred = QtGui.QColor(255, 0, 0, 50)
+        # Qblue = QtGui.QColor(0, 0, 255)
         # QEmpty = QtGui.QColor(0, 0, 0, 0)
 
         # Loop through all boxes for current dict
-        # current_box = R0H0['R2']
+        for area in self.cur_dict:
 
-        # Draw box on the image
-        '''
-        coords = current_box.coords
-        x = coords[0][0]
-        y = coords[0][1]
-        width = coords[1][0] - x
-        height = y - coords[3][1]
-        rect = QtCore.QRectF(x, y, width, height)
-        self.scene.addRect(rect, q_red, q_abitred)
-        '''
+            # First grab coords
+            coords = self.cur_dict[area].coords
+            pts = []
+
+            # Now convert all coords into a list for the polygon builder
+            for coord in coords:
+                pts.append(QtCore.QPoint(coord[0],coord[1]))
+
+            # Draw the polygon on the scene
+            poly = QtGui.QPolygonF(pts)
+            self.scene.addPolygon(poly, q_red, q_abitred)
 
     # Open the edit window
     def selection_edit(self):
