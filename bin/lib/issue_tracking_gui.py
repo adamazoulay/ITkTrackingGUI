@@ -28,6 +28,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Class variables
         self.cur_location = ''  # Track current image location
         self.cur_selected = {}  # This is the dict of dicts of ALL selected elements (across all components)
+        #  Format of cur_seleced is {cur_location: {area_name: BoardItem}}
         self.cur_dict = {}  # This is a dict of the available elements for the current location
         self.zoom_factor = 0  # Track the current zoom level
         self.edit_mode = False  # Flag to set edit mode on image
@@ -40,6 +41,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
+
+        # Load the selection tree
+        self.load_selection_tree()
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
@@ -67,6 +71,45 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Event filter on selectionView
         self.selectionView.viewport().installEventFilter(self)
 
+        self.colour_selection_tree()
+
+    # Load a list of all available modules/hybrids/components
+    def load_selection_tree(self):
+        # First clear the list
+        self.selectionTree.clear()
+
+        #Now add all components according to the list (located in lib/selection_areas.py)
+        for module_name in selection_tree_components:
+            # Add the top level to the tree
+            module = QtWidgets.QTreeWidgetItem([module_name])
+
+            for hybrid_name in selection_tree_components[module_name]:
+                # Add hybrid to modue
+                hybrid = QtWidgets.QTreeWidgetItem([hybrid_name])
+                module.addChild(hybrid)
+
+                components = selection_tree_components[module_name][hybrid_name]
+                for item in components:
+                    component = QtWidgets.QTreeWidgetItem([item])
+
+                    '''
+                    # Check is any pads are selected, if so then paint everything red
+                    cur_location = module_name + hybrid_name + item
+                    if cur_location in self.cur_selected:
+                        component.setForeground(0, QtGui.QBrush(QtGui.QColor("red")))    
+                    '''                   
+
+                    hybrid.addChild(component)
+            
+            # Add finished module and move on to the next one
+            self.selectionTree.addTopLevelItem(module)
+
+    def colour_selection_tree(self):
+        # Loop through all items on the tree
+        for module_name in self.selectionTree.items():
+            print(module_name)
+
+                   
     def save(self):
         if not self.saved:
             self.save_as()
@@ -74,9 +117,11 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Save to the chosen location
         data = [self.config, self.cur_selected]
-        print(data)
         with open(self.save_path, 'wb') as output:
             pickle.dump(data, output)
+
+        # Make names red if needed
+        self.colour_selection_tree()
 
     def save_as(self):
         # Open a dialog and ask user to choose file save location

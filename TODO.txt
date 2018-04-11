@@ -4,3 +4,6 @@
 priority 1:
 - general marking
 - component lists - find design files
+
+Contact:
+ashley at liverpool (barrel), kambiz at freiburg (endcap)

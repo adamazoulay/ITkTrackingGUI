@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>936</width>
+    <width>976</width>
     <height>720</height>
    </rect>
   </property>
@@ -23,7 +23,7 @@
      <widget class="QTreeWidget" name="selectionTree">
       <property name="maximumSize">
        <size>
-        <width>125</width>
+        <width>200</width>
         <height>16777215</height>
        </size>
       </property>
@@ -228,8 +228,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>936</width>
-     <height>21</height>
+     <width>976</width>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

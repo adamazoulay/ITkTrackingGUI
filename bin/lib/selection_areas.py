@@ -8,6 +8,13 @@ class BoardItem:
         self.coords = coords
         self.comments = comments
 
+# This is the list of all components, loaded into the selectionTree
+barrel_components = ['ASIC25', 'ASIC24', 'ASIC23', 'ASIC22', 'ASIC21', 'ASIC20', 'ASIC19', 'ASIC18', 'ASIC17', 'ASIC16', 'HCC']
+
+selection_tree_components = {
+  'Barrel': {'LH': barrel_components, 'RH': barrel_components},
+  'R0': {'H0': barrel_components, 'H1': barrel_components}
+}
 
 # Same for all ASICS
 ASIC = {
