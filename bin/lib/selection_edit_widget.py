@@ -23,8 +23,14 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.btnAdd.clicked.connect(self.add_selected_components)
         self.btnRemove.clicked.connect(self.remove_selected_components)
 
+        self.btnCustomAdd.clicked.connect(self.add_custom_component)
+
         self.btnSave.clicked.connect(self.parent.save)
         self.btnClose.clicked.connect(self.close)
+
+    # Add a custom list of coordinates to mark an area
+    def add_custom_component(self):
+        pass
 
     # Add all selected components to the cur_selected dict and reload the list
     def add_selected_components(self):
@@ -32,7 +38,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         cur_indexes = self.elementTree.selectedIndexes()
 
         # The cur_indexes list contains every row and every column, i.e. [row0col0, row0col1, row1col1, etc]
-        # This means we need to loop through the list and gram the first column since it's the index for the dict
+        # This means we need to loop through the list and grab the first column since it's the index for the dict
         count = self.max_cols
         label_list = []
         for item in cur_indexes:
@@ -48,8 +54,9 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             elem = self.parent.cur_dict[item]
             self.parent.cur_selected[self.parent.cur_location][item] = elem
 
-        # Finally, reload the lists
+        # Finally, reload the lists, and redraw boxes
         self.load_list()
+        self.parent.load_img()
 
     # Remove all selected components from cur_selected dict and reload the list
     def remove_selected_components(self):
@@ -69,6 +76,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
 
         # Finally, reload the lists
         self.load_list()
+        self.parent.load_img()
 
     # Populate the list with selectable areas
     def load_list(self):
@@ -80,7 +88,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         cur_selected = self.parent.cur_selected
 
         # Different load cases
-        if cur_location[-5:-1] == 'ASIC':
+        if cur_location[-6:-2] == 'ASIC':
             self.parent.cur_dict = ASIC
 
             # If any selection exists at current location, load it up

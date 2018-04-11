@@ -119,8 +119,37 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             # Build 4 points
             dx = 7.4
             dy = 16.8
-            print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            # print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
             self.counter += 1
+
+            # Check if our click was inside of any current (!!UNSELECTED!!) selection areas
+            if len(self.cur_dict) > 0 and self.edit_mode:
+                for area in self.cur_dict:
+                    # First grab coords
+                    coords = self.cur_dict[area].coords
+                    pts = []
+
+                    # Now convert all coords into a list for the polygon builder
+                    for coord in coords:
+                        pts.append(QtCore.QPoint(coord[0], coord[1]))
+
+                    # Build the QPolygon and check if the coords are inside of it
+                    poly = QtGui.QPolygonF(pts)
+
+                    inside = poly.containsPoint(QtCore.QPointF(x, y), 0)
+                    if inside:
+                        # cur_indexes = self.edit_widget.elementTree.selectedIndexes()
+
+                        # Now we select it if it doesn't exit on the list. If it does, we deselect it
+                        if (self.cur_location in self.cur_selected) and (area in self.cur_selected[self.cur_location]):
+                            self.cur_selected[self.cur_location].pop(area)
+                        elif self.cur_location in self.cur_selected:
+                            self.cur_selected[self.cur_location][area] = self.cur_dict[area]
+                        else:
+                            self.cur_selected[self.cur_location] = {}
+                            self.cur_selected[self.cur_location][area] = self.cur_dict[area]
+                        self.load_img()
+
             return True
 
         return False
@@ -176,7 +205,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             self.cur_location = cur_img_name
 
             # Adjust for ASIC and HCC pictures
-            if cur_img_name[-5:-1] == 'ASIC':
+            if cur_img_name[-6:-2] == 'ASIC':
                 cur_img_name = 'ASICu'
             elif cur_img_name[-3:] == 'HCC':
                 cur_img_name = 'HCC'
@@ -206,23 +235,41 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Set up some pen colours
         q_red = QtGui.QColor(255, 0, 0)
         q_abitred = QtGui.QColor(255, 0, 0, 50)
-        # Qblue = QtGui.QColor(0, 0, 255)
+        q_blue = QtGui.QColor(0, 0, 255)
+        q_abitblue = QtGui.QColor(0, 0, 255, 50)
         # QEmpty = QtGui.QColor(0, 0, 0, 0)
 
         # Loop through all boxes for current dict
-        for area in self.cur_dict:
+        if len(self.cur_dict) > 0:
+            for area in self.cur_dict:
 
-            # First grab coords
-            coords = self.cur_dict[area].coords
-            pts = []
+                # First grab coords
+                coords = self.cur_dict[area].coords
+                pts = []
 
-            # Now convert all coords into a list for the polygon builder
-            for coord in coords:
-                pts.append(QtCore.QPoint(coord[0],coord[1]))
+                # Now convert all coords into a list for the polygon builder
+                for coord in coords:
+                    pts.append(QtCore.QPoint(coord[0], coord[1]))
 
-            # Draw the polygon on the scene
-            poly = QtGui.QPolygonF(pts)
-            self.scene.addPolygon(poly, q_red, q_abitred)
+                # Draw the polygon on the scene
+                poly = QtGui.QPolygonF(pts)
+                self.scene.addPolygon(poly, q_red, q_abitred)
+
+        # Loop through all areas in the selected list
+        if self.cur_location in self.cur_selected:
+            selected_dict = self.cur_selected[self.cur_location]
+            for area in selected_dict:
+                # First grab coords
+                coords = selected_dict[area].coords
+                pts = []
+
+                # Now convert all coords into a list for the polygon builder
+                for coord in coords:
+                    pts.append(QtCore.QPoint(coord[0], coord[1]))
+
+                # Draw the polygon on the scene
+                poly = QtGui.QPolygonF(pts)
+                self.scene.addPolygon(poly, q_blue, q_abitblue)
 
     # Open the edit window
     def selection_edit(self):

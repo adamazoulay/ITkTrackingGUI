@@ -91,12 +91,52 @@
         </property>
         <item>
          <property name="text">
-          <string>ASIC1</string>
+          <string>ASIC25</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>ASIC2</string>
+          <string>ASIC24</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC23</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC22</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC21</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC20</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC19</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC18</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC17</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC16</string>
          </property>
         </item>
         <item>
@@ -109,6 +149,61 @@
         <property name="text">
          <string>RH</string>
         </property>
+        <item>
+         <property name="text">
+          <string>ASIC16</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC17</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC18</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC19</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC20</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC21</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC22</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC23</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC24</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC25</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
        </item>
       </item>
      </widget>
