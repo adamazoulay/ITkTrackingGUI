@@ -106,9 +106,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
     def colour_selection_tree(self):
         # Loop through all items on the tree
-        for module_name in self.selectionTree.items():
-            print(module_name)
-
+        for index in range(self.selectionTree.topLevelItemCount()):
+            print(self.selectionTree.topLevelItem(index))
                    
     def save(self):
         if not self.saved:
