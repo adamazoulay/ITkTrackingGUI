@@ -78,36 +78,61 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # First clear the list
         self.selectionTree.clear()
 
-        #Now add all components according to the list (located in lib/selection_areas.py)
+        # Now add all components according to the list (located in lib/selection_areas.py)
         for module_name in selection_tree_components:
             # Add the top level to the tree
             module = QtWidgets.QTreeWidgetItem([module_name])
 
             for hybrid_name in selection_tree_components[module_name]:
-                # Add hybrid to modue
+                # Add hybrid to module
                 hybrid = QtWidgets.QTreeWidgetItem([hybrid_name])
                 module.addChild(hybrid)
 
                 components = selection_tree_components[module_name][hybrid_name]
                 for item in components:
                     component = QtWidgets.QTreeWidgetItem([item])
-
-                    '''
-                    # Check is any pads are selected, if so then paint everything red
-                    cur_location = module_name + hybrid_name + item
-                    if cur_location in self.cur_selected:
-                        component.setForeground(0, QtGui.QBrush(QtGui.QColor("red")))    
-                    '''                   
-
                     hybrid.addChild(component)
             
             # Add finished module and move on to the next one
             self.selectionTree.addTopLevelItem(module)
 
     def colour_selection_tree(self):
+        # At end, colour this whole list red
+        red_list = []
         # Loop through all items on the tree
-        for index in range(self.selectionTree.topLevelItemCount()):
-            print(self.selectionTree.topLevelItem(index))
+        # Start with the modules
+        for m_index in range(self.selectionTree.topLevelItemCount()):
+            cur_module = self.selectionTree.topLevelItem(m_index)
+
+            # Default black
+            cur_module.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
+
+            # Now hybrids
+            for h_index in range(cur_module.childCount()):
+                cur_hybrid = cur_module.child(h_index)
+
+                cur_hybrid.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
+
+                # Finally all components
+                for c_index in range(cur_hybrid.childCount()):
+                    cur_component = cur_hybrid.child(c_index)
+
+                    cur_component.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
+
+                    # Build the cur_location string to check if the component is selected on
+                    cur_location = cur_module.text(0) + cur_hybrid.text(0) + cur_component.text(0)
+
+                    # Set to red if selected
+                    if (cur_location in self.cur_selected) and (len(self.cur_selected[cur_location]) != 0):
+                        red_list.append(cur_component)
+                        if cur_hybrid not in red_list:
+                            red_list.append(cur_hybrid)
+                        if cur_module not in red_list:
+                            red_list.append(cur_module)
+
+        # Now we loop through red list and colour all items
+        for item in red_list:
+            item.setForeground(0, QtGui.QBrush(QtGui.QColor('Red')))
                    
     def save(self):
         if not self.saved:
@@ -230,6 +255,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 self.cur_selected = data[1]
 
             self.saved = True
+
+        # Colour components that have been selected
+        self.colour_selection_tree()
 
     # Load the image currently selected in the tree
     def load_img(self):
