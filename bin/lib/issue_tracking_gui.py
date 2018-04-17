@@ -42,7 +42,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
 
-        # Load the selection tree
+        # Load the selection tree and edit window
         self.load_selection_tree()
 
         # Define action of the menu items
@@ -71,7 +71,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Event filter on selectionView
         self.selectionView.viewport().installEventFilter(self)
 
+        # Colour tree and load edit window
         self.colour_selection_tree()
+        self.selection_edit()
 
     # Load a list of all available modules/hybrids/components
     def load_selection_tree(self):

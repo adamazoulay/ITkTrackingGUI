@@ -28,6 +28,22 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.btnSave.clicked.connect(self.parent.save)
         self.btnClose.clicked.connect(self.close)
 
+        # If double clicked and editable:
+        self.selectedTree.itemDoubleClicked.connect(self.comment_double_click)
+
+    # Add a function for making the comments field editable
+    def comment_double_click(self, tree_item, col):
+        # Check if in comment column
+        if col == 2:
+            tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
+            self.selectedTree.editItem(tree_item, col)
+
+            # Now save the comment in the selected pads list
+            name = tree_item.text(0)
+            self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+        # Now disable again
+        #tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+
     # Add a custom list of coordinates to mark an area
     def add_custom_component(self):
         pass
