@@ -183,7 +183,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         self.selection_edit()
 
-
     def eventFilter(self, obj, ev):
         if ev.type() == QtCore.QEvent.Wheel:
             zoom_in_factor = 1.25
