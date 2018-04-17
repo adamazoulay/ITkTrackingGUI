@@ -28,6 +28,10 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.btnSave.clicked.connect(self.parent.save)
         self.btnClose.clicked.connect(self.close)
 
+        # Save comments triggers
+        self.selectedTree.itemSelectionChanged.connect(self.save_comments)
+        self.selectedTree.installEventFilter(self)
+
         # If double clicked and editable:
         self.selectedTree.itemDoubleClicked.connect(self.comment_double_click)
 
@@ -41,8 +45,32 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             # Now save the comment in the selected pads list
             name = tree_item.text(0)
             self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
-        # Now disable again
-        #tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
+
+        name = tree_item.text(0)
+        self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+
+    # Save all comments
+    def save_comments(self):
+        for i in range(self.selectedTree.topLevelItemCount()):
+            item = self.selectedTree.topLevelItem(i)
+            name = item.text(0)
+            # Board item edit to add comments
+            selected_items = self.parent.cur_selected[self.parent.cur_location]
+
+            if name in selected_items:
+                self.parent.cur_selected[self.parent.cur_location][name].comments = item.text(2)
+
+    def eventFilter(self, widget, event):
+        # FocusOut event
+        if event.type() == QtCore.QEvent.FocusOut:
+            # Save comments on focus out
+            self.save_comments()
+            # return False so that the widget will also handle the event
+            # otherwise it won't focus out
+            return False
+        else:
+            # we don't care about other events
+            return False
 
     # Add a custom list of coordinates to mark an area
     def add_custom_component(self):
@@ -88,6 +116,8 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
 
         # Now remove all selected items to the cur_selected dict
         for item in label_list:
+            # Wipe comments and remove item
+            self.parent.cur_selected[self.parent.cur_location][item].comments = ''
             self.parent.cur_selected[self.parent.cur_location].pop(item)
 
         # Finally, reload the lists
