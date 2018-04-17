@@ -1,8 +1,6 @@
 # System imports
 import os  # We need sys so that we can pass argv to QApplication
 import pickle  # For saving the results
-# import matplotlib.path as mplPath
-# import numpy as np
 
 # Local imports (gives Qt imports as well)
 from .selection_edit_widget import *
@@ -38,6 +36,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
         self.counter = 0  # Debugging
+        self.x = 500
+        self.y = 350
+        self.width = 967
 
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
@@ -48,6 +49,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
         self.actionExit.triggered.connect(self.close)
+
+        self.actionNew.setShortcut("Alt+N")
+        self.actionNew.triggered.connect(self.new)
 
         self.actionOpen.setShortcut("Alt+O")
         self.actionOpen.triggered.connect(self.open)
@@ -74,6 +78,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Colour tree and load edit window
         self.colour_selection_tree()
         self.selection_edit()
+        self.move(self.x, self.y)
 
     # Load a list of all available modules/hybrids/components
     def load_selection_tree(self):
@@ -156,6 +161,28 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         if self.save_path != '':
             self.saved = True
             self.save()
+
+    # This will start a new item to be marked on
+    # TODO why is this saving the comments?
+    def new(self):
+        # Wipe all and start again
+        # Class variables
+        self.cur_location = ''  # Track current image location
+        self.cur_selected = {}  # This is the dict of dicts of ALL selected elements (across all components)
+        self.cur_dict = {}  # This is a dict of the available elements for the current location
+        self.zoom_factor = 0  # Track the current zoom level
+        self.edit_mode = False  # Flag to set edit mode on image
+        self.edit_widget = None  # Store the editing window here when needed
+        self.config_widget = None  # Store the config window here when needed
+        self.scene = None  # Store the scene so we can add selection areas
+        self.saved = False  # Check if we need to save a new file
+        self.save_path = ''
+
+        self.load_selection_tree()
+        self.colour_selection_tree()
+
+        self.selection_edit()
+
 
     def eventFilter(self, obj, ev):
         if ev.type() == QtCore.QEvent.Wheel:
@@ -349,6 +376,12 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
     def selection_edit(self):
         self.edit_widget = SelectionEditWidget(self)
         self.edit_widget.show()
+
+        width = self.width
+        x = self.x
+        y = self.y
+        self.edit_widget.move(x + width + 20, y)
+
         self.load_img()
 
     # Open the config window

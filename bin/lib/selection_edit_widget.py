@@ -54,11 +54,13 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         for i in range(self.selectedTree.topLevelItemCount()):
             item = self.selectedTree.topLevelItem(i)
             name = item.text(0)
-            # Board item edit to add comments
-            selected_items = self.parent.cur_selected[self.parent.cur_location]
 
-            if name in selected_items:
-                self.parent.cur_selected[self.parent.cur_location][name].comments = item.text(2)
+            # Board item edit to add comments
+            if self.parent.cur_location in self.parent.cur_selected:
+                selected_items = self.parent.cur_selected[self.parent.cur_location]
+
+                if name in selected_items:
+                    self.parent.cur_selected[self.parent.cur_location][name].comments = item.text(2)
 
     def eventFilter(self, widget, event):
         # FocusOut event
