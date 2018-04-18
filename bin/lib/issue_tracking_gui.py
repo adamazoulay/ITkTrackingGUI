@@ -36,9 +36,11 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
         self.counter = 0  # Debugging
+        '''
         self.x = 500
         self.y = 350
         self.width = 967
+        '''
 
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
@@ -78,7 +80,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Colour tree and load edit window
         self.colour_selection_tree()
         self.selection_edit()
-        self.move(self.x, self.y)
 
     # Load a list of all available modules/hybrids/components
     def load_selection_tree(self):
@@ -376,10 +377,13 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.edit_widget = SelectionEditWidget(self)
         self.edit_widget.show()
 
-        width = self.width
-        x = self.x
-        y = self.y
+        '''
+        width = self.geometry().width()
+        x = self.geometry().x()
+        y = self.geometry().y()
+        print(y)
         self.edit_widget.move(x + width + 20, y)
+        '''
 
         self.load_img()
 
