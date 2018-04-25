@@ -126,6 +126,16 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.load_list()
         self.parent.load_img()
 
+    # Position the edit_window to the right of the main window
+    def build_edit_coords(self):
+        g = self.parent.geometry()
+        
+        xpos = g.x() + g.width()
+        ypos = g.y()
+
+        self.move(xpos, ypos)
+        self.resize(self.width(), g.height())
+
     # Populate the list with selectable areas
     def load_list(self):
         # First wipe the current list from element and selected trees

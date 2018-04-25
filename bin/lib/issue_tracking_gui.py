@@ -50,7 +50,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
-        self.actionExit.triggered.connect(self.close)
+        self.actionExit.triggered.connect(self.close_all)
 
         self.actionNew.setShortcut("Alt+N")
         self.actionNew.triggered.connect(self.new)
@@ -80,6 +80,16 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Colour tree and load edit window
         self.colour_selection_tree()
         self.selection_edit()
+
+    # Close all windows
+    def close_all(self):
+        self.edit_widget.close()
+        self.close()
+
+    # Catch the 'X' button clicked
+    def closeEvent(self, event):
+        self.close_all()
+        event.accept()
 
     # Load a list of all available modules/hybrids/components
     def load_selection_tree(self):
@@ -372,18 +382,21 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 poly = QtGui.QPolygonF(pts)
                 self.scene.addPolygon(poly, q_blue, q_abitblue)
 
+    # Gets the resolution and finds a placement for the main and edit windows
+    def build_window_coords(self):
+        # Get the area the program can actually use
+        ag = QtWidgets.QDesktopWidget().availableGeometry()
+
+        xpos = ag.width()/14
+        ypos = ag.height()/10
+
+        self.move(xpos, ypos)
+
     # Open the edit window
     def selection_edit(self):
         self.edit_widget = SelectionEditWidget(self)
+        self.edit_widget.build_edit_coords()
         self.edit_widget.show()
-
-        '''
-        width = self.geometry().width()
-        x = self.geometry().x()
-        y = self.geometry().y()
-        print(y)
-        self.edit_widget.move(x + width + 20, y)
-        '''
 
         self.load_img()
 

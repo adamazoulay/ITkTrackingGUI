@@ -15,6 +15,8 @@ from lib.issue_tracking_gui import IssueTrackingGUI
 def display_gui():
     app = QtWidgets.QApplication(sys.argv)  # A new instance of QApplication
     form = IssueTrackingGUI()  # We set the form to be our MainWindow
+    form.build_window_coords()  # Set the main windows coords
+    form.edit_widget.build_edit_coords()  # Set the edit window coords
     form.show()  # Show the form
     sys.exit(app.exec_())  # and execute the app
 
