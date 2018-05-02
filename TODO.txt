@@ -1,7 +1,6 @@
 - power board
 
 priority 1:
-- general marking
 - component lists - find design files
 - Dropdown menu w/ standard issues
 

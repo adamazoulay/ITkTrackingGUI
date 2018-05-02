@@ -219,7 +219,30 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             self.selectionView.translate(delta.x(), delta.y())
             return True
 
-        if ev.type() == QtCore.QEvent.MouseButtonRelease:
+        # add point to custom array, 1 is left click
+        if (ev.type() == QtCore.QEvent.MouseButtonRelease) and (ev.button() == 1) and self.edit_widget.custom_mode:
+            pos = ev.pos()
+            scene_pt = self.selectionView.mapToScene(pos)
+            x = scene_pt.x()
+            y = scene_pt.y()
+
+            # Start building the custom positions and adding to BoardItem array
+            item = self.cur_selected[self.cur_location][self.edit_widget.cur_name]
+            item.coords.append((x, y))
+            self.cur_selected[self.cur_location][self.edit_widget.cur_name] = item
+
+            # Refresh the boxes
+            self.load_img()
+            return True
+
+        # Disable custom mode, 2 is right click
+        if (ev.type() == QtCore.QEvent.MouseButtonRelease) and (ev.button() == 2) and self.edit_widget.custom_mode:
+            self.edit_widget.custom_mode = False
+            self.edit_widget.load_list()
+            return True
+
+        # 1 is left click
+        if (ev.type() == QtCore.QEvent.MouseButtonRelease) and (ev.button() == 1):
             pos = ev.pos()
             scene_pt = self.selectionView.mapToScene(pos)
             x = scene_pt.x()
@@ -331,6 +354,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             self.scene.addPixmap(img_pixmap)
             self.selectionView.setScene(self.scene)
 
+            # Add an empty dict if not in there
+            if self.cur_location not in self.cur_selected:
+                self.cur_selected[self.cur_location] = {}
+
             # Fit in view
             if self.zoom_factor == 0:
                 self.selectionView.fitInView(
@@ -390,7 +417,11 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         xpos = ag.width()/14
         ypos = ag.height()/10
 
+        xsize = xpos*9
+        ysize = ypos*8
+
         self.move(xpos, ypos)
+        self.resize(xsize, ysize)
 
     # Open the edit window
     def selection_edit(self):

@@ -13,6 +13,10 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Define self variables
         self.max_cols = 3
         self.cur_selected_item = {}  # This is the dict for the currently viewed component
+        self.number_of_custom = 0
+        self.custom_item = ''  # Store the current custom item
+        self.cur_name = ''
+        self.custom_mode = False
 
         # Turn off image scrolling on load (bug?)
         self.parent.selectionView.setDragMode(QtWidgets.QGraphicsView.NoDrag)
@@ -76,7 +80,12 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
 
     # Add a custom list of coordinates to mark an area
     def add_custom_component(self):
-        pass
+        # Start by naming the custom component
+        self.number_of_custom += 1
+        self.cur_name = 'Custom' + str(self.number_of_custom)
+        self.custom_item = BoardItem('', '', '', '', '', [], '')
+        self.parent.cur_selected[self.parent.cur_location][self.cur_name] = self.custom_item
+        self.custom_mode = True
 
     # Add all selected components to the cur_selected dict and reload the list
     def add_selected_components(self):
@@ -133,8 +142,11 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         xpos = g.x() + g.width()
         ypos = g.y()
 
+        xsize = g.width()/9 * 3
+        ysize = g.height()
+
         self.move(xpos, ypos)
-        self.resize(self.width(), g.height())
+        self.resize(xsize, ysize)
 
     # Populate the list with selectable areas
     def load_list(self):
@@ -149,9 +161,9 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         if cur_location[-6:-2] == 'ASIC':
             self.parent.cur_dict = ASIC
 
-            # If any selection exists at current location, load it up
-            if cur_location in cur_selected:
-                self.cur_selected_item = cur_selected[cur_location]
+        # If any selection exists at current location, load it up
+        if cur_location in cur_selected:
+            self.cur_selected_item = cur_selected[cur_location]
 
         # Set for convenience
         cur_dict = self.parent.cur_dict
