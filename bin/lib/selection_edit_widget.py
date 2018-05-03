@@ -107,6 +107,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
 
         for item in label_list:
             elem = self.parent.cur_dict[item]
+            elem.comments = ''
             self.parent.cur_selected[self.parent.cur_location][item] = elem
 
         # Finally, reload the lists, and redraw boxes

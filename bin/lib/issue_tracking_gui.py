@@ -7,15 +7,6 @@ from .selection_edit_widget import *
 from .config_edit_widget import *
 
 
-# ================================================================================
-# TODO:
-#  -- general marking
-#  -- component lists - find design files
-#  - power board
-#  - make names red??
-# ================================================================================
-
-
 # Define the classes for the main gui
 class IssueTrackingGUI(QtWidgets.QMainWindow):
 
@@ -88,30 +79,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.close_all()
         event.accept()
 
-    '''
-    # Load a list of all available modules/hybrids/components
-    def load_selection_tree(self):
-        # First clear the list
-        self.selectionTree.clear()
-
-        # Now add all components according to the list (located in lib/selection_areas.py)
-        for module_name in selection_tree_components:
-            # Add the top level to the tree
-            module = QtWidgets.QTreeWidgetItem([module_name])
-
-            for hybrid_name in selection_tree_components[module_name]:
-                # Add hybrid to module
-                hybrid = QtWidgets.QTreeWidgetItem([hybrid_name])
-                module.addChild(hybrid)
-
-                components = selection_tree_components[module_name][hybrid_name]
-                for item in components:
-                    component = QtWidgets.QTreeWidgetItem([item])
-                    hybrid.addChild(component)
-            
-            # Add finished module and move on to the next one
-            self.selectionTree.addTopLevelItem(module)
-    '''
 
     def colour_selection_tree(self):
 
@@ -170,8 +137,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         with open(self.save_path, 'wb') as output:
             pickle.dump(data, output)
 
-        # Make names red if needed
-        self.colour_selection_tree()
 
     def save_as(self):
         # Open a dialog and ask user to choose file save location
@@ -197,9 +162,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
 
-        self.load_selection_tree()
         self.colour_selection_tree()
-
         self.selection_edit()
 
     def eventFilter(self, obj, ev):
@@ -351,6 +314,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 cur_img_name = 'ASICu'
             elif 'HCC' in cur_img_name:
                 cur_img_name = 'HCC'
+            elif ('Powerboard' in cur_img_name) and ('Barrel' in cur_img_name):
+                cur_img_name = 'pwrBarrel'
 
             # Load name.jpg into QGraphicsView selectionView
             cur_dir = os.path.dirname(os.path.abspath(__file__))
@@ -375,6 +340,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 # Draw areas and populate lists
                 self.edit_widget.load_list()
                 self.draw_boxes()
+
+            self.colour_selection_tree()
 
     # Draw the possible selection areas onto the screen
     def draw_boxes(self):

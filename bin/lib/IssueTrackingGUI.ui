@@ -44,49 +44,9 @@
       </attribute>
       <column>
        <property name="text">
-        <string>Component</string>
+        <string>Part</string>
        </property>
       </column>
-      <item>
-       <property name="text">
-        <string>R0</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>H0</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>ASIC1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>HCC</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>H1</string>
-        </property>
-        <item>
-         <property name="text">
-          <string>ASIC1</string>
-         </property>
-        </item>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>R1</string>
-       </property>
-      </item>
       <item>
        <property name="text">
         <string>Barrel</string>
@@ -97,42 +57,7 @@
         </property>
         <item>
          <property name="text">
-          <string>ASIC25</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC24</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC23</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC22</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC21</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC20</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC19</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC18</string>
+          <string>ASIC16</string>
          </property>
         </item>
         <item>
@@ -142,12 +67,42 @@
         </item>
         <item>
          <property name="text">
-          <string>ASIC16</string>
+          <string>ASIC18</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>HCC</string>
+          <string>ASIC19</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC20</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC21</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC22</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC23</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC24</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC25</string>
          </property>
         </item>
        </item>
@@ -211,6 +166,116 @@
          </property>
         </item>
        </item>
+       <item>
+        <property name="text">
+         <string>Powerboard</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sensor</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>R0</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>H0</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>ASIC1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC6</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC7</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC8</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>H1</string>
+        </property>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
+       </item>
+       <item>
+        <property name="text">
+         <string>Powerboard</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>Sensor</string>
+        </property>
+       </item>
+      </item>
+      <item>
+       <property name="text">
+        <string>R1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R4</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>R5</string>
+       </property>
       </item>
      </widget>
     </item>
@@ -235,7 +300,7 @@
      <x>0</x>
      <y>0</y>
      <width>976</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
