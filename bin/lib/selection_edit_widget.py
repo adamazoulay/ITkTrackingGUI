@@ -158,7 +158,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         cur_selected = self.parent.cur_selected
 
         # Different load cases
-        if cur_location[-6:-2] == 'ASIC':
+        if 'ASIC' in cur_location:
             self.parent.cur_dict = ASIC
 
         # If any selection exists at current location, load it up

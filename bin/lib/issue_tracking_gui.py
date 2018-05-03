@@ -45,9 +45,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Change this to external file eventually
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
 
-        # Load the selection tree and edit window
-        self.load_selection_tree()
-
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
         self.actionExit.triggered.connect(self.close_all)
@@ -78,7 +75,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.selectionView.viewport().installEventFilter(self)
 
         # Colour tree and load edit window
-        self.colour_selection_tree()
+        #self.colour_selection_tree()
         self.selection_edit()
 
     # Close all windows
@@ -91,6 +88,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.close_all()
         event.accept()
 
+    '''
     # Load a list of all available modules/hybrids/components
     def load_selection_tree(self):
         # First clear the list
@@ -113,44 +111,54 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             
             # Add finished module and move on to the next one
             self.selectionTree.addTopLevelItem(module)
+    '''
 
     def colour_selection_tree(self):
-        # At end, colour this whole list red
+
+        total_len = self.selectionTree.topLevelItemCount()
+
+        elems = []
+        for i in range(total_len):
+            self.flatten_tree(elems, self.selectionTree.topLevelItem(i))
+
+        # Now we have a list of all the elements in the tree
         red_list = []
-        # Loop through all items on the tree
-        # Start with the modules
-        for m_index in range(self.selectionTree.topLevelItemCount()):
-            cur_module = self.selectionTree.topLevelItem(m_index)
 
-            # Default black
-            cur_module.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
+        for item in elems:
+            # First set to default black
+            item.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
 
-            # Now hybrids
-            for h_index in range(cur_module.childCount()):
-                cur_hybrid = cur_module.child(h_index)
+            # Build the location string
+            loc = item.text(0)
+            temp_item = item
+            while temp_item.parent() != None:
+                temp_item = temp_item.parent()
+                loc = temp_item.text(0) + loc
+            
 
-                cur_hybrid.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
+            if loc in self.cur_selected:
+                if len(self.cur_selected[loc]) != 0:
+                    red_list.append(item)
 
-                # Finally all components
-                for c_index in range(cur_hybrid.childCount()):
-                    cur_component = cur_hybrid.child(c_index)
-
-                    cur_component.setForeground(0, QtGui.QBrush(QtGui.QColor('Black')))
-
-                    # Build the cur_location string to check if the component is selected on
-                    cur_location = cur_module.text(0) + cur_hybrid.text(0) + cur_component.text(0)
-
-                    # Set to red if selected
-                    if (cur_location in self.cur_selected) and (len(self.cur_selected[cur_location]) != 0):
-                        red_list.append(cur_component)
-                        if cur_hybrid not in red_list:
-                            red_list.append(cur_hybrid)
-                        if cur_module not in red_list:
-                            red_list.append(cur_module)
-
-        # Now we loop through red list and colour all items
+        # Now we have all selected items in the red_list, just loop and make them red (and parents)
         for item in red_list:
-            item.setForeground(0, QtGui.QBrush(QtGui.QColor('Red')))
+
+            while item != None:
+                item.setForeground(0, QtGui.QBrush(QtGui.QColor('Red')))
+                item = item.parent()
+                
+
+    def flatten_tree(self, elems, node):
+        children = node.childCount()
+
+        # First add the current node
+        elems.append(node)
+
+        # Then loop through remaining children
+        for i in range(children):
+            self.flatten_tree(elems, node.child(i))
+
+        return elems
                    
     def save(self):
         if not self.saved:
@@ -339,9 +347,9 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             self.cur_location = cur_img_name
 
             # Adjust for ASIC and HCC pictures
-            if cur_img_name[-6:-2] == 'ASIC':
+            if 'ASIC' in cur_img_name:
                 cur_img_name = 'ASICu'
-            elif cur_img_name[-3:] == 'HCC':
+            elif 'HCC' in cur_img_name:
                 cur_img_name = 'HCC'
 
             # Load name.jpg into QGraphicsView selectionView

@@ -8,18 +8,6 @@ class BoardItem:
         self.coords = coords
         self.comments = comments
 
-# This is the list of all components, loaded into the selectionTree
-barrel_components = ['ASIC25', 'ASIC24', 'ASIC23', 'ASIC22', 'ASIC21', 'ASIC20', 'ASIC19', 'ASIC18', 'ASIC17', 'ASIC16', 'HCC']
-
-
-selection_tree_components = {
-  'ASIC': {},
-  'Hybrid': {'LH': barrel_components, 'RH': barrel_components, 'R0H0': ['ASIC17', 'HCC'], 'R0H1': []},
-  'Sensor': {'Barrel': [], 'R0': []},
-  'Powerboard': {'Barrel': [], 'R0': []},
-  'Module': {'Barrel': [], 'R0': [], 'R1': []}
-}
-
 # Same for all ASICS
 ASIC = {
     'BP1': BoardItem('XOFFRB', 'Data signal (bidirectional)', '160', 'I/O', 'SLVS',
