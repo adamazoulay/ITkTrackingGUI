@@ -7,7 +7,7 @@ from lib.issue_tracking_gui import IssueTrackingGUI
 
 
 # ================================================================================
-# This program runs...
+# This program runs the ITG to record areas marked during visual inspection
 #
 # Adam Azoulay, 2017-2018
 # ================================================================================

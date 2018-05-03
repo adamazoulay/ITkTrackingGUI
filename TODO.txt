@@ -4,5 +4,13 @@ priority 1:
 - component lists - find design files
 - Dropdown menu w/ standard issues
 
+- Change menu: ASIC
+'
+Hybrid -> Types -> Hybrids surface or ASIC
+Sensor -> Types
+Powerboard -> Types
+Module ->Types -> Hybrid, powerboard or sensor
+'
+
 Contact:
 ashley at liverpool (barrel), kambiz at freiburg (endcap), Timon Heim (Berkley) powerboard schematics
