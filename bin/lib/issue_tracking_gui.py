@@ -57,6 +57,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         self.actionSave_As.triggered.connect(self.save_as)
 
+        self.actionHelp.triggered.connect(self.open_help)
+
         self.actionAbout.triggered.connect(self.about)
 
         # Load image if tree selection is changed
@@ -68,6 +70,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Colour tree and load edit window
         #self.colour_selection_tree()
         self.selection_edit()
+
+    def open_help(self):
+        url = QtCore.QUrl('https://itktrackingguidocs.readthedocs.io/en/latest/')
+        QtGui.QDesktopServices.openUrl(url)
 
     # Close all windows
     def close_all(self):
