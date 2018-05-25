@@ -27,13 +27,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
         self.counter = 0  # Debugging
-        '''
-        self.x = 500
-        self.y = 350
-        self.width = 967
-        '''
 
-        # Change this to external file eventually
+        # Change this to external file eventually?
         self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
 
         # Define action of the menu items
@@ -67,8 +62,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Event filter on selectionView
         self.selectionView.viewport().installEventFilter(self)
 
-        # Colour tree and load edit window
-        #self.colour_selection_tree()
+        # Load edit window
         self.selection_edit()
 
     def open_help(self):
@@ -78,6 +72,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
     # Close all windows
     def close_all(self):
         self.edit_widget.close()
+        if self.config_widget is not None:
+            self.config_widget.close()
         self.close()
 
     # Catch the 'X' button clicked
@@ -170,6 +166,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         self.colour_selection_tree()
         self.selection_edit()
+
 
     def eventFilter(self, obj, ev):
         if ev.type() == QtCore.QEvent.Wheel:
@@ -314,6 +311,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
             # Store total location
             self.cur_location = cur_img_name
+            print(cur_img_name)
 
             # Adjust for ASIC and HCC pictures
             if 'ASIC' in cur_img_name:
@@ -421,7 +419,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
     def about(self):
         info = '''This application was developed for use in the tracking of issues during production of ITk components.
 
-Forward any questions or comments to aazoulay@yorku.ca (change this to gitlab wiki later)'''
+Forward any questions or comments to aazoulay@yorku.ca'''
         msg = QtWidgets.QMessageBox(QtWidgets.QMessageBox.Information, 'About', info)
 
         # Add image

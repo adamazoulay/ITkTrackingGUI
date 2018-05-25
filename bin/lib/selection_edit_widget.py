@@ -13,7 +13,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Define self variables
         self.max_cols = 3
         self.cur_selected_item = {}  # This is the dict for the currently viewed component
-        self.number_of_custom = 0
+        self.number_of_custom = 0  # Counter for naming the custom areas
         self.custom_item = ''  # Store the current custom item
         self.cur_name = ''
         self.custom_mode = False
