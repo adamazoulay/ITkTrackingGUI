@@ -1,0 +1,7 @@
+
+priority 1:
+- component lists - find design files
+- Dropdown menu w/ standard issues
+
+Contact:
+ashley at liverpool (barrel), kambiz at freiburg (endcap), Timon Heim (Berkley) powerboard schematics
