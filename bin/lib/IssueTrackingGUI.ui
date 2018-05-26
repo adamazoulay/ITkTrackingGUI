@@ -105,6 +105,11 @@
           <string>ASIC25</string>
          </property>
         </item>
+        <item>
+         <property name="text">
+          <string>HCC</string>
+         </property>
+        </item>
        </item>
        <item>
         <property name="text">
@@ -237,6 +242,51 @@
         </property>
         <item>
          <property name="text">
+          <string>ASIC1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC5</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC6</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC7</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC8</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>ASIC9</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
           <string>HCC</string>
          </property>
         </item>
@@ -300,7 +350,7 @@
      <x>0</x>
      <y>0</y>
      <width>976</width>
-     <height>21</height>
+     <height>26</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
