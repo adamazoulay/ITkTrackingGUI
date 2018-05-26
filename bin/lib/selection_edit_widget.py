@@ -162,6 +162,9 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         if 'ASIC' in cur_location:
             self.parent.cur_dict = ASIC
 
+        if 'HCC' in cur_location:
+            self.parent.cur_dict = HCC
+
         # If any selection exists at current location, load it up
         if cur_location in cur_selected:
             self.cur_selected_item = cur_selected[cur_location]

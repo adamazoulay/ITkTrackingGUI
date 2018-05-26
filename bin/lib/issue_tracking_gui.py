@@ -224,8 +224,8 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
             # This whole sectio is for building the location lists
             # Build 4 points
-            dx = 7.4
-            dy = 16.8
+            dx = 12.2
+            dy = 23.1
             sensor_pads = 0
             if sensor_pads:
                 for n in range(64):
