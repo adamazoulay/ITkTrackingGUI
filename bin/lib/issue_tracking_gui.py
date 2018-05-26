@@ -221,11 +221,20 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             scene_pt = self.selectionView.mapToScene(pos)
             x = scene_pt.x()
             y = scene_pt.y()
+
+            # This whole sectio is for building the location lists
             # Build 4 points
             dx = 7.4
             dy = 16.8
-            # print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            sensor_pads = 0
+            if sensor_pads:
+                for n in range(64):
+                    step = 22.2                    
+                    print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+                    x += step
+            print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
             self.counter += 1
+
 
             # Check if our click was inside of any current (!!UNSELECTED!!) selection areas
             if len(self.cur_dict) > 0 and self.edit_mode:
@@ -311,7 +320,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
             # Store total location
             self.cur_location = cur_img_name
-            print(cur_img_name)
 
             # Adjust for ASIC and HCC pictures
             if 'ASIC' in cur_img_name:
