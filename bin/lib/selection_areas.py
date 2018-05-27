@@ -10,7 +10,8 @@ class BoardItem:
 
 # Same for all ASICS
 ASIC = {
-    'BP1': BoardItem('XOFFRB','Data signal (bidirectional)','160','I/O','SLVS', [(1688.7, 1362.4), (1703.5, 1362.4), (1703.5, 1396.0), (1688.7, 1396.0)], ''),
+'custom_count' : 0,
+'BP1': BoardItem('XOFFRB','Data signal (bidirectional)','160','I/O','SLVS', [(1688.7, 1362.4), (1703.5, 1362.4), (1703.5, 1396.0), (1688.7, 1396.0)], ''),
 'BP2': BoardItem('XOFFR','Data signal (bidirectional)','160','I/O','SLVS', [(1654.1, 1361.8), (1668.9, 1361.8), (1668.9, 1395.4), (1654.1, 1395.4)], ''),
 'BP3': BoardItem('GNDD','Digital  Ground','0V','POWER','Digital Ground', [(1630.9, 1360.5), (1645.7, 1360.5), (1645.7, 1394.1), (1630.9, 1394.1)], ''),
 'BP4': BoardItem('DATRB','Data signal (bidirectional)','160','I/O','SLVS', [(1610.7, 1361.1), (1625.5, 1361.1), (1625.5, 1394.7), (1610.7, 1394.7)], ''),
@@ -345,11 +346,12 @@ ASIC = {
 'SBP261': BoardItem('FEIN<253>','Input to FE channels','292','I','Analogue', [(1646.9, 191.1), (1661.7, 191.1), (1661.7, 224.7), (1646.9, 224.7)], ''),
 'SBP262': BoardItem('FEIN<254>','Input to FE channels','293','I','Analogue', [(1669.1, 191.1), (1683.9, 191.1), (1683.9, 224.7), (1669.1, 224.7)], ''),
 'SBP263': BoardItem('FEIN<255>','Input to FE channels','294','I','Analogue', [(1691.3, 191.1), (1706.1, 191.1), (1706.1, 224.7), (1691.3, 224.7)], ''),
-'SBP264': BoardItem('FEIN<256>','Input to FE channels','295','I','Analogue', [(1713.5, 191.1), (1728.3, 191.1), (1728.3, 224.7), (1713.5, 224.7)], '')
+'SBP264': BoardItem('FEIN<256>','Input to FE channels','295','I','Analogue', [(1713.5, 191.1), (1728.3, 191.1), (1728.3, 224.7), (1713.5, 224.7)], ''),
 }
 
 HCC = {
-	'BP1': BoardItem('ResetXOR_right_pad','N/A','N/A','N/A','N/A', [(127.5, 37.3), (151.9, 37.3), (151.9, 83.5), (127.5, 83.5)], ''),
+'custom_count' : 0,
+'BP1': BoardItem('ResetXOR_right_pad','N/A','N/A','N/A','N/A', [(127.5, 37.3), (151.9, 37.3), (151.9, 83.5), (127.5, 83.5)], ''),
 'BP2': BoardItem('GND','N/A','N/A','N/A','N/A', [(158.3, 38.5), (182.7, 38.5), (182.7, 84.7), (158.3, 84.7)], ''),
 'BP3': BoardItem('BC_right_padN','N/A','N/A','N/A','N/A', [(187.9, 38.5), (212.3, 38.5), (212.3, 84.7), (187.9, 84.7)], ''),
 'BP4': BoardItem('BC_right_padP','N/A','N/A','N/A','N/A', [(237.7, 38.5), (262.1, 38.5), (262.1, 84.7), (237.7, 84.7)], ''),

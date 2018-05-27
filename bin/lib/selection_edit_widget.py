@@ -47,6 +47,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             self.selectedTree.editItem(tree_item, col)
 
             # Now save the comment in the selected pads list
+            # TODO: is this needed here?
             name = tree_item.text(0)
             self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
 
@@ -58,6 +59,8 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         for i in range(self.selectedTree.topLevelItemCount()):
             item = self.selectedTree.topLevelItem(i)
             name = item.text(0)
+            # Disable the edit flags
+            item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
 
             # Board item edit to add comments
             if self.parent.cur_location in self.parent.cur_selected:
@@ -66,6 +69,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
                 if name in selected_items:
                     self.parent.cur_selected[self.parent.cur_location][name].comments = item.text(2)
 
+    # TODO: Do we still need this?
     def eventFilter(self, widget, event):
         # FocusOut event
         if event.type() == QtCore.QEvent.FocusOut:
@@ -73,6 +77,12 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             self.save_comments()
             # return False so that the widget will also handle the event
             # otherwise it won't focus out
+            return False
+        elif event.type() == QtCore.QEvent.KeyPress:
+            # Check if it's the enter of return key
+            if event.key() == QtCore.Qt.Key_Enter or event.key() == QtCore.Qt.Key_Return:
+                #self.save_comments()
+                pass
             return False
         else:
             # we don't care about other events

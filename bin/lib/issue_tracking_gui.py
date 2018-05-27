@@ -17,7 +17,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Class variables
         self.cur_location = ''  # Track current image location
         self.cur_selected = {}  # This is the dict of dicts of ALL selected elements (across all components)
-        #  Format of cur_seleced is {cur_location: {area_name: BoardItem}}
+        #  Format of cur_selected is {cur_location: {area_name: BoardItem, custom_count: Int}}
         self.cur_dict = {}  # This is a dict of the available elements for the current location
         self.zoom_factor = 0  # Track the current zoom level
         self.edit_mode = False  # Flag to set edit mode on image
@@ -33,7 +33,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
-        self.actionExit.triggered.connect(self.close_all)
+        self.actionExit.triggered.connect(self.close)
 
         self.actionNew.setShortcut("Alt+N")
         self.actionNew.triggered.connect(self.new)
@@ -62,22 +62,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Load edit window
         self.selection_edit()
 
-    def open_help(self):
+    @staticmethod
+    def open_help():
         url = QtCore.QUrl('https://itktrackingguidocs.readthedocs.io/en/latest/')
         QtGui.QDesktopServices.openUrl(url)
-
-    # Close all windows
-    def close_all(self):
-        self.edit_widget.close()
-        if self.config_widget is not None:
-            self.config_widget.close()
-        self.close()
-
-    # Catch the 'X' button clicked
-    def closeEvent(self, event):
-        self.close_all()
-        event.accept()
-
 
     def colour_selection_tree(self):
 
@@ -97,7 +85,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             # Build the location string
             loc = item.text(0)
             temp_item = item
-            while temp_item.parent() != None:
+            while temp_item.parent() is not None:
                 temp_item = temp_item.parent()
                 loc = temp_item.text(0) + loc
             
@@ -229,7 +217,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                     step = 22.2                    
                     print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
                     x += step
-            print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            #print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
             self.counter += 1
 
 
