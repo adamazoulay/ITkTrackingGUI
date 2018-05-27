@@ -137,6 +137,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.parent.load_img()
 
     # Position the edit_window to the right of the main window
+    # DEPRICATED
     def build_edit_coords(self):
         g = self.parent.geometry()
         

@@ -413,9 +413,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
     # Open the edit window
     def selection_edit(self):
         self.edit_widget = SelectionEditWidget(self)
-        self.edit_widget.build_edit_coords()
-        self.edit_widget.show()
+        #self.edit_widget.build_edit_coords()
+        #self.edit_widget.show()
 
+        self.mainHLayout.addWidget(self.edit_widget)
         self.load_img()
 
     # Open the config window

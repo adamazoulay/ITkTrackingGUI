@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>427</width>
-    <height>683</height>
+    <width>403</width>
+    <height>674</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,13 +20,16 @@
   <widget class="QWidget" name="verticalLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>20</x>
      <y>10</y>
-     <width>411</width>
+     <width>381</width>
      <height>661</height>
     </rect>
    </property>
    <layout class="QGridLayout" name="gridLayout">
+    <property name="sizeConstraint">
+     <enum>QLayout::SetMinAndMaxSize</enum>
+    </property>
     <property name="leftMargin">
      <number>5</number>
     </property>

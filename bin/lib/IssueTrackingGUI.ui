@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
+ <author>Adam Azoulay</author>
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>976</width>
+    <width>879</width>
     <height>720</height>
    </rect>
   </property>
@@ -24,332 +25,348 @@
     <normaloff>../imgs/form.png</normaloff>../imgs/form.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <widget class="QTreeWidget" name="selectionTree">
-      <property name="maximumSize">
-       <size>
-        <width>200</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="tabKeyNavigation">
-       <bool>true</bool>
-      </property>
-      <attribute name="headerVisible">
-       <bool>false</bool>
-      </attribute>
-      <column>
-       <property name="text">
-        <string>Part</string>
+   <widget class="QWidget" name="horizontalLayoutWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>851</width>
+      <height>641</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="mainHLayout">
+     <item>
+      <widget class="QSplitter" name="splitter">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
        </property>
-      </column>
-      <item>
-       <property name="text">
-        <string>Barrel</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>LH</string>
+       <widget class="QTreeWidget" name="selectionTree">
+        <property name="maximumSize">
+         <size>
+          <width>200</width>
+          <height>16777215</height>
+         </size>
         </property>
-        <item>
-         <property name="text">
-          <string>ASIC16</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC17</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC18</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC19</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC20</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC21</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC22</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC23</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC24</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC25</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>HCC</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>RH</string>
+        <property name="focusPolicy">
+         <enum>Qt::NoFocus</enum>
         </property>
-        <item>
-         <property name="text">
-          <string>ASIC16</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC17</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC18</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC19</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC20</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC21</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC22</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC23</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC24</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC25</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>HCC</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Powerboard</string>
+        <property name="tabKeyNavigation">
+         <bool>true</bool>
         </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Sensor</string>
+        <attribute name="headerVisible">
+         <bool>false</bool>
+        </attribute>
+        <column>
+         <property name="text">
+          <string>Part</string>
+         </property>
+        </column>
+        <item>
+         <property name="text">
+          <string>Barrel</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>LH</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>ASIC16</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC17</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC18</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC19</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC21</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC22</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC23</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC24</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC25</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HCC</string>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>RH</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>ASIC16</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC17</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC18</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC19</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC20</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC21</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC22</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC23</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC24</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC25</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HCC</string>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Powerboard</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sensor</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>R0</string>
+         </property>
+         <item>
+          <property name="text">
+           <string>H0</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>ASIC1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC5</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC6</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC7</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC8</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HCC</string>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>H1</string>
+          </property>
+          <item>
+           <property name="text">
+            <string>ASIC1</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC2</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC3</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC4</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC5</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC6</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC7</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC8</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>ASIC9</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>HCC</string>
+           </property>
+          </item>
+         </item>
+         <item>
+          <property name="text">
+           <string>Powerboard</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Sensor</string>
+          </property>
+         </item>
+        </item>
+        <item>
+         <property name="text">
+          <string>R1</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>R2</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>R3</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>R4</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>R5</string>
+         </property>
+        </item>
+       </widget>
+       <widget class="QGraphicsView" name="selectionView">
+        <property name="focusPolicy">
+         <enum>Qt::StrongFocus</enum>
         </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>R0</string>
-       </property>
-       <item>
-        <property name="text">
-         <string>H0</string>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
-        <item>
-         <property name="text">
-          <string>ASIC1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC3</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC4</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC5</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC6</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC7</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC8</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>HCC</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>H1</string>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
         </property>
-        <item>
-         <property name="text">
-          <string>ASIC1</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC2</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC3</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC4</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC5</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC6</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC7</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC8</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>ASIC9</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>HCC</string>
-         </property>
-        </item>
-       </item>
-       <item>
-        <property name="text">
-         <string>Powerboard</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>Sensor</string>
-        </property>
-       </item>
-      </item>
-      <item>
-       <property name="text">
-        <string>R1</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>R2</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>R3</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>R4</string>
-       </property>
-      </item>
-      <item>
-       <property name="text">
-        <string>R5</string>
-       </property>
-      </item>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QGraphicsView" name="selectionView">
-      <property name="focusPolicy">
-       <enum>Qt::StrongFocus</enum>
-      </property>
-      <property name="verticalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-      <property name="horizontalScrollBarPolicy">
-       <enum>Qt::ScrollBarAlwaysOff</enum>
-      </property>
-     </widget>
-    </item>
-   </layout>
+       </widget>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <zorder>horizontalLayoutWidget</zorder>
+   <zorder>horizontalLayoutWidget</zorder>
+   <zorder>splitter</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>976</width>
+     <width>879</width>
      <height>26</height>
     </rect>
    </property>
