@@ -30,7 +30,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.btnCustomAdd.clicked.connect(self.add_custom_component)
 
         self.btnSave.clicked.connect(self.parent.save)
-        self.btnClose.clicked.connect(self.close)
+        self.btnSaveAs.clicked.connect(self.parent.save_as)
 
         # Save comments triggers
         self.selectedTree.itemSelectionChanged.connect(self.save_comments)
@@ -135,20 +135,6 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Finally, reload the lists
         self.load_list()
         self.parent.load_img()
-
-    # Position the edit_window to the right of the main window
-    # DEPRICATED
-    def build_edit_coords(self):
-        g = self.parent.geometry()
-        
-        xpos = g.x() + g.width()
-        ypos = g.y()
-
-        xsize = g.width()/9 * 3
-        ysize = g.height()
-
-        self.move(xpos, ypos)
-        self.resize(xsize, ysize)
 
     # Populate the list with selectable areas
     def load_list(self):

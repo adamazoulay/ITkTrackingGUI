@@ -41,9 +41,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.actionOpen.setShortcut("Alt+O")
         self.actionOpen.triggered.connect(self.open)
 
-        self.actionEdit.setShortcut("Alt+E")
-        self.actionEdit.triggered.connect(self.selection_edit)
-
         self.actionConfiguration.setShortcut("Alt+C")
         self.actionConfiguration.triggered.connect(self.config_edit)
 
@@ -404,19 +401,22 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         xpos = ag.width()/14
         ypos = ag.height()/10
 
-        xsize = xpos*9
+        xsize = xpos*12
         ysize = ypos*8
 
         self.move(xpos, ypos)
         self.resize(xsize, ysize)
 
+        # Now set the widget sizes
+        self.selectionTree.resize(xsize, ysize)
+        self.selectionView.resize(xsize, ysize)
+        self.edit_widget.resize(xsize*0.25, ysize)
+
     # Open the edit window
     def selection_edit(self):
         self.edit_widget = SelectionEditWidget(self)
-        #self.edit_widget.build_edit_coords()
-        #self.edit_widget.show()
 
-        self.mainHLayout.addWidget(self.edit_widget)
+        self.splitter.addWidget(self.edit_widget)
         self.load_img()
 
     # Open the config window
