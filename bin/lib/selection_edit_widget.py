@@ -163,6 +163,9 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         if 'HCC' in cur_location:
             self.parent.cur_dict = HCC
 
+        if cur_location == 'BarrelLH':
+            self.parent.cur_dict = BarrelLH
+
         # If any selection exists at current location, load it up
         if cur_location in cur_selected:
             self.cur_selected_item = cur_selected[cur_location]

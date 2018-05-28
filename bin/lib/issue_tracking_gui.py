@@ -64,7 +64,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
     @staticmethod
     def open_help():
-        url = QtCore.QUrl('https://itktrackingguidocs.readthedocs.io/en/latest/')
+        url = QtCore.QUrl('https://twiki.cern.ch/twiki/bin/view/Atlas/ITkTrackingGUI')
         QtGui.QDesktopServices.openUrl(url)
 
     def colour_selection_tree(self):
@@ -221,8 +221,10 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                                                                                                         x - dx, y + dy),
                         end='', flush=True)
                     x += step
-            # print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            #print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            print('({:.1f},{:.1f}),'.format(x, y), end='', flush=True)
             self.counter += 1
+
 
             # Check if our click was inside of any current (!!UNSELECTED!!) selection areas
             if len(self.cur_dict) > 0 and self.edit_mode:
@@ -291,6 +293,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
 
         # Colour components that have been selected
         self.colour_selection_tree()
+        self.load_img()
 
     # Load the image currently selected in the tree
     def load_img(self):
@@ -314,8 +317,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
                 cur_img_name = 'ASICu'
             elif 'HCC' in cur_img_name:
                 cur_img_name = 'HCC'
-            elif ('Powerboard' in cur_img_name) and ('Barrel' in cur_img_name):
-                cur_img_name = 'pwrBarrel'
 
             # Load name.jpg into QGraphicsView selectionView
             cur_dir = os.path.dirname(os.path.abspath(__file__))

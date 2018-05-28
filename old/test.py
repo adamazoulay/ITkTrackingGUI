@@ -42,12 +42,12 @@ activeSelectionAreasHCC = {"1": (141.0, 65.0), "2": (171.0, 65.0), "3": (198.0, 
 for item in activeSelectionAreasHCC:
     print("BP"  + item)
 '''
-
-locs = [[(681.7,548.8), (706.1,548.8), (706.1,595.0), (681.7,595.0)], [(680.5,185.3), (704.9,185.3), (704.9,231.5), (680.5,231.5)], [(711.3,548.8), (735.7,548.8), (735.7,595.0), (711.3,595.0)], [(711.3,188.9), (735.7,188.9), (735.7,235.1), (711.3,235.1)], [(743.3,547.7), (767.7,547.7), (767.7,593.9), (743.3,593.9)], [(740.9,186.5), (765.3,186.5), (765.3,232.7), (740.9,232.7)]]
+# Top left then bottom right, repeat
+locs = [(2741.6,438.0),(2810.6,471.5),(2450.9,436.1),(2518.0,473.4),(2137.8,436.1),(2204.9,473.4),(1869.4,434.3),(1936.5,469.7),(1576.8,438.0),(1645.7,473.4),(1286.0,438.0),(1356.8,477.1),(1000.8,438.0),(1066.1,479.0),(717.6,441.7),(782.8,473.4),(419.4,443.6),(486.4,480.9),(126.7,441.7),(195.7,480.9)]
 print(len(locs))
-count = 1
+count = 0
 ASIC = {}
-with open(r"C:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile:
+with open(r"D:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile:
     reader = csv.reader(csvfile)
     for row in reader:
         name = row[0]
@@ -56,10 +56,13 @@ with open(r"C:\Users\Adam\Documents\ITkTrackingGUI\old\ASICList.csv") as csvfile
         direction = row[8]
         padType = row[9]
 
-        label = "BP" + str(count+93)\
+        label = "CP" + str(count+1)
 
         if count <= len(locs):
-            coords = locs[count-1]
+            coords_tl = locs[2*count]
+            coords_br = locs[2*count+1]
+
+            coords = [coords_tl, (coords_br[0], coords_tl[1]), coords_br, (coords_tl[0], coords_br[1])]
         else:
             coords = [(0,0),(0,0),(0,0),(0,0)]
 
