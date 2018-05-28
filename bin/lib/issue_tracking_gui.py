@@ -29,7 +29,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.counter = 0  # Debugging
 
         # Change this to external file eventually?
-        self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': ''}
+        self.config = {'un': '', 'inst': '', 'dbkey1': '', 'dbkey2': '', 'idNumber': '', 'custom_num': 1}
 
         # Define action of the menu items
         self.actionExit.setShortcut("Alt+Q")
@@ -88,7 +88,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             while temp_item.parent() is not None:
                 temp_item = temp_item.parent()
                 loc = temp_item.text(0) + loc
-            
 
             if loc in self.cur_selected:
                 if len(self.cur_selected[loc]) != 0:
@@ -100,7 +99,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             while item != None:
                 item.setForeground(0, QtGui.QBrush(QtGui.QColor('Red')))
                 item = item.parent()
-                
 
     def flatten_tree(self, elems, node):
         children = node.childCount()
@@ -113,7 +111,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             self.flatten_tree(elems, node.child(i))
 
         return elems
-                   
+
     def save(self):
         if not self.saved:
             self.save_as()
@@ -123,7 +121,6 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         data = [self.config, self.cur_selected]
         with open(self.save_path, 'wb') as output:
             pickle.dump(data, output)
-
 
     def save_as(self):
         # Open a dialog and ask user to choose file save location
@@ -142,16 +139,18 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         self.cur_selected = {}  # This is the dict of dicts of ALL selected elements (across all components)
         self.cur_dict = {}  # This is a dict of the available elements for the current location
         self.zoom_factor = 0  # Track the current zoom level
-        self.edit_mode = False  # Flag to set edit mode on image
-        self.edit_widget = None  # Store the editing window here when needed
         self.config_widget = None  # Store the config window here when needed
         self.scene = None  # Store the scene so we can add selection areas
         self.saved = False  # Check if we need to save a new file
         self.save_path = ''
 
-        self.colour_selection_tree()
-        self.selection_edit()
+        # Reset custom numbering
+        self.config['custom_num'] = 1
 
+        self.edit_widget.load_list()
+
+        self.colour_selection_tree()
+        self.load_img()
 
     def eventFilter(self, obj, ev):
         if ev.type() == QtCore.QEvent.Wheel:
@@ -214,12 +213,16 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
             sensor_pads = 0
             if sensor_pads:
                 for n in range(64):
-                    step = 22.2                    
-                    print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+                    step = 22.2
+                    print(
+                        '[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x - dx, y - dy,
+                                                                                                        x + dx, y - dy,
+                                                                                                        x + dx, y + dy,
+                                                                                                        x - dx, y + dy),
+                        end='', flush=True)
                     x += step
-            #print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
+            # print('[({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f}), ({:.1f},{:.1f})], '.format(x-dx, y-dy, x+dx, y-dy, x+dx, y+dy, x-dx, y+dy), end='', flush=True)
             self.counter += 1
-
 
             # Check if our click was inside of any current (!!UNSELECTED!!) selection areas
             if len(self.cur_dict) > 0 and self.edit_mode:
@@ -386,11 +389,11 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Get the area the program can actually use
         ag = QtWidgets.QDesktopWidget().availableGeometry()
 
-        xpos = ag.width()/14
-        ypos = ag.height()/10
+        xpos = ag.width() / 14
+        ypos = ag.height() / 10
 
-        xsize = xpos*12
-        ysize = ypos*8
+        xsize = xpos * 12
+        ysize = ypos * 8
 
         self.move(xpos, ypos)
         self.resize(xsize, ysize)
@@ -398,7 +401,7 @@ class IssueTrackingGUI(QtWidgets.QMainWindow):
         # Now set the widget sizes
         self.selectionTree.resize(xsize, ysize)
         self.selectionView.resize(xsize, ysize)
-        self.edit_widget.resize(xsize*0.25, ysize)
+        self.edit_widget.resize(xsize * 0.25, ysize)
 
     # Open the edit window
     def selection_edit(self):

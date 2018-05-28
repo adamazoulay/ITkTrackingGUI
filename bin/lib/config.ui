@@ -267,6 +267,15 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>unText</tabstop>
+  <tabstop>instituteText</tabstop>
+  <tabstop>db1Text</tabstop>
+  <tabstop>db2Text</tabstop>
+  <tabstop>idText</tabstop>
+  <tabstop>btnSaveConfig</tabstop>
+  <tabstop>btnCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

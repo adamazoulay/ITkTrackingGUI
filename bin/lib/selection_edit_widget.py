@@ -13,7 +13,6 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Define self variables
         self.max_cols = 3
         self.cur_selected_item = {}  # This is the dict for the currently viewed component
-        self.number_of_custom = 0  # Counter for naming the custom areas
         self.custom_item = ''  # Store the current custom item
         self.cur_name = ''
         self.custom_mode = False
@@ -42,17 +41,17 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
     # Add a function for making the comments field editable
     def comment_double_click(self, tree_item, col):
         # Check if in comment column
+        label = tree_item.text(0)
         if col == 2:
             tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
             self.selectedTree.editItem(tree_item, col)
 
-            # Now save the comment in the selected pads list
-            # TODO: is this needed here?
-            name = tree_item.text(0)
-            self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+        if col == 1 and 'Custom' in label:
+            tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
+            self.selectedTree.editItem(tree_item, col)
 
-        name = tree_item.text(0)
-        self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+        self.parent.cur_selected[self.parent.cur_location][label].name = tree_item.text(1)
+        self.parent.cur_selected[self.parent.cur_location][label].comments = tree_item.text(2)
 
     # Save all comments
     def save_comments(self):
@@ -91,8 +90,10 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
     # Add a custom list of coordinates to mark an area
     def add_custom_component(self):
         # Start by naming the custom component
-        self.number_of_custom += 1
-        self.cur_name = 'Custom' + str(self.number_of_custom)
+        number_of_custom = self.parent.config['custom_num']
+        self.parent.config['custom_num'] = number_of_custom + 1
+
+        self.cur_name = 'Custom' + str(number_of_custom)
         self.custom_item = BoardItem('', '', '', '', '', [], '')
         self.parent.cur_selected[self.parent.cur_location][self.cur_name] = self.custom_item
         self.custom_mode = True

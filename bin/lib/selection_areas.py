@@ -10,7 +10,6 @@ class BoardItem:
 
 # Same for all ASICS
 ASIC = {
-'custom_count' : 0,
 'BP1': BoardItem('XOFFRB','Data signal (bidirectional)','160','I/O','SLVS', [(1688.7, 1362.4), (1703.5, 1362.4), (1703.5, 1396.0), (1688.7, 1396.0)], ''),
 'BP2': BoardItem('XOFFR','Data signal (bidirectional)','160','I/O','SLVS', [(1654.1, 1361.8), (1668.9, 1361.8), (1668.9, 1395.4), (1654.1, 1395.4)], ''),
 'BP3': BoardItem('GNDD','Digital  Ground','0V','POWER','Digital Ground', [(1630.9, 1360.5), (1645.7, 1360.5), (1645.7, 1394.1), (1630.9, 1394.1)], ''),
@@ -350,7 +349,6 @@ ASIC = {
 }
 
 HCC = {
-'custom_count' : 0,
 'BP1': BoardItem('ResetXOR_right_pad','N/A','N/A','N/A','N/A', [(127.5, 37.3), (151.9, 37.3), (151.9, 83.5), (127.5, 83.5)], ''),
 'BP2': BoardItem('GND','N/A','N/A','N/A','N/A', [(158.3, 38.5), (182.7, 38.5), (182.7, 84.7), (158.3, 84.7)], ''),
 'BP3': BoardItem('BC_right_padN','N/A','N/A','N/A','N/A', [(187.9, 38.5), (212.3, 38.5), (212.3, 84.7), (187.9, 84.7)], ''),

@@ -432,6 +432,9 @@
    </property>
   </action>
  </widget>
+ <tabstops>
+  <tabstop>selectionView</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
