@@ -13,7 +13,6 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Define self variables
         self.max_cols = 3
         self.cur_selected_item = {}  # This is the dict for the currently viewed component
-        self.number_of_custom = 0  # Counter for naming the custom areas
         self.custom_item = ''  # Store the current custom item
         self.cur_name = ''
         self.custom_mode = False
@@ -30,7 +29,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.btnCustomAdd.clicked.connect(self.add_custom_component)
 
         self.btnSave.clicked.connect(self.parent.save)
-        self.btnClose.clicked.connect(self.close)
+        self.btnSaveAs.clicked.connect(self.parent.save_as)
 
         # Save comments triggers
         self.selectedTree.itemSelectionChanged.connect(self.save_comments)
@@ -42,22 +41,25 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
     # Add a function for making the comments field editable
     def comment_double_click(self, tree_item, col):
         # Check if in comment column
+        label = tree_item.text(0)
         if col == 2:
             tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
             self.selectedTree.editItem(tree_item, col)
 
-            # Now save the comment in the selected pads list
-            name = tree_item.text(0)
-            self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+        if col == 1 and 'Custom' in label:
+            tree_item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEditable | QtCore.Qt.ItemIsEnabled)
+            self.selectedTree.editItem(tree_item, col)
 
-        name = tree_item.text(0)
-        self.parent.cur_selected[self.parent.cur_location][name].comments = tree_item.text(2)
+        self.parent.cur_selected[self.parent.cur_location][label].name = tree_item.text(1)
+        self.parent.cur_selected[self.parent.cur_location][label].comments = tree_item.text(2)
 
     # Save all comments
     def save_comments(self):
         for i in range(self.selectedTree.topLevelItemCount()):
             item = self.selectedTree.topLevelItem(i)
             name = item.text(0)
+            # Disable the edit flags
+            item.setFlags(QtCore.Qt.ItemIsSelectable | QtCore.Qt.ItemIsEnabled)
 
             # Board item edit to add comments
             if self.parent.cur_location in self.parent.cur_selected:
@@ -66,6 +68,7 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
                 if name in selected_items:
                     self.parent.cur_selected[self.parent.cur_location][name].comments = item.text(2)
 
+    # TODO: Do we still need this?
     def eventFilter(self, widget, event):
         # FocusOut event
         if event.type() == QtCore.QEvent.FocusOut:
@@ -74,6 +77,12 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
             # return False so that the widget will also handle the event
             # otherwise it won't focus out
             return False
+        elif event.type() == QtCore.QEvent.KeyPress:
+            # Check if it's the enter of return key
+            if event.key() == QtCore.Qt.Key_Enter or event.key() == QtCore.Qt.Key_Return:
+                #self.save_comments()
+                pass
+            return False
         else:
             # we don't care about other events
             return False
@@ -81,8 +90,10 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
     # Add a custom list of coordinates to mark an area
     def add_custom_component(self):
         # Start by naming the custom component
-        self.number_of_custom += 1
-        self.cur_name = 'Custom' + str(self.number_of_custom)
+        number_of_custom = self.parent.config['custom_num']
+        self.parent.config['custom_num'] = number_of_custom + 1
+
+        self.cur_name = 'Custom' + str(number_of_custom)
         self.custom_item = BoardItem('', '', '', '', '', [], '')
         self.parent.cur_selected[self.parent.cur_location][self.cur_name] = self.custom_item
         self.custom_mode = True
@@ -136,19 +147,6 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         self.load_list()
         self.parent.load_img()
 
-    # Position the edit_window to the right of the main window
-    def build_edit_coords(self):
-        g = self.parent.geometry()
-        
-        xpos = g.x() + g.width()
-        ypos = g.y()
-
-        xsize = g.width()/9 * 3
-        ysize = g.height()
-
-        self.move(xpos, ypos)
-        self.resize(xsize, ysize)
-
     # Populate the list with selectable areas
     def load_list(self):
         # First wipe the current list from element and selected trees
@@ -161,6 +159,12 @@ class SelectionEditWidget(QtWidgets.QMainWindow):
         # Different load cases
         if 'ASIC' in cur_location:
             self.parent.cur_dict = ASIC
+
+        if 'HCC' in cur_location:
+            self.parent.cur_dict = HCC
+
+        if cur_location == 'BarrelLH':
+            self.parent.cur_dict = BarrelLH
 
         # If any selection exists at current location, load it up
         if cur_location in cur_selected:

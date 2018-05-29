@@ -191,13 +191,25 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="btnSaveConfig">
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
-         <string>Apply</string>
+         <string>Ok</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btnCancel">
+        <property name="maximumSize">
+         <size>
+          <width>75</width>
+          <height>16777215</height>
+         </size>
+        </property>
         <property name="text">
          <string>Cancel</string>
         </property>
@@ -255,6 +267,15 @@
    </layout>
   </widget>
  </widget>
+ <tabstops>
+  <tabstop>unText</tabstop>
+  <tabstop>instituteText</tabstop>
+  <tabstop>db1Text</tabstop>
+  <tabstop>db2Text</tabstop>
+  <tabstop>idText</tabstop>
+  <tabstop>btnSaveConfig</tabstop>
+  <tabstop>btnCancel</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>
